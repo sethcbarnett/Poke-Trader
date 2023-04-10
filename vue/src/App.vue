@@ -7,3 +7,19 @@
     <router-view />
   </div>
 </template>
+
+<style>
+/* TODO: Style the application */
+#top {
+  background-color: #ee1515;
+  color: #222224;
+}
+#middle {
+  background-color: #222224;
+  color: white;
+}
+#bottom {
+  background-color: #f0f0f0;
+  color: #222224;
+}
+</style>
