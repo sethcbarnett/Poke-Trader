@@ -30,12 +30,12 @@
         <input type="text" id="city" v-model="user.city" required />
       </div>
       <div class="form-input-group">
-        <label for="state">State</label>
-        <input type="text" id="state" v-model="user.state" required />
+        <label for="stateAbbreviation">State</label>
+        <input type="text" id="stateAbbreviation" v-model="user.stateAbbreviation" required />
       </div>
       <div class="form-input-group">
         <label for="zipCode">Zip Code</label>
-        <input type="text" id="zipCode" v-model="user.zipCode" required />
+        <input type="number" id="zipCode" v-model="user.zipCode" required />
       </div>
       <button type="submit">Create Account</button>
       <p><router-link :to="{ name: 'login' }">Already have an account? Log in</router-link></p>
@@ -58,13 +58,14 @@ export default {
         email: '',
         streetAddress: '',
         city: '',
-        state: '',
-        zipCode: ''
+        stateAbbreviation: '',
+        zipCode: 0
       },
       registrationErrors: false,
       registrationErrorMsg: 'There were problems registering this user.',
     };
   },
+  //TODO: getting 400 bad requests when attempting to register;
   methods: {
     register() {
       if (this.user.password != this.user.confirmPassword) {
