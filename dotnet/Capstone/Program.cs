@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Capstone.Models;
+using Capstone.Services;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
-
+using System;
+using System.Collections.Generic;
 
 namespace Capstone
 {
@@ -8,6 +11,14 @@ namespace Capstone
     {
         public static void Main(string[] args)
         {
+            //CardApiService service = new CardApiService();
+            //service.GetAllCards();
+            //List<Card> actualCards = cards.data;
+            //Console.WriteLine(actualCards);
+            //foreach (Card card in cards)
+            //{
+            //    Console.WriteLine(card.id + " " + card.name);
+            //}
             CreateHostBuilder(args).Build().Run();
         }
 
