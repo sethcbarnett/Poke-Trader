@@ -43,7 +43,7 @@ namespace Capstone.DAO
             return returnUser;
         }
 
-        public User AddUser(string username, string password, string role, string email, string streetAddress, string city, string stateAbbreviation, int zipCode)
+        public User AddUser(string username, string password, string role, string email, string streetAddress, string city, string stateAbbreviation, string zipCode)
         {
             IPasswordHasher passwordHasher = new PasswordHasher();
             PasswordHash hash = passwordHasher.ComputeHash(password);
