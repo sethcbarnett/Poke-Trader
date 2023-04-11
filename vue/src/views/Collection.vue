@@ -1,6 +1,6 @@
 <template>
   <div>
-    <card-display/>
+    <card-display class = "card1"/>
     <card-display/>
   </div>
 </template>
@@ -16,5 +16,10 @@ export default {
 </script>
 
 <style>
-
+div{
+  display: flex;
+}
+.card1 {
+  padding-right: 10px;
+}
 </style>
