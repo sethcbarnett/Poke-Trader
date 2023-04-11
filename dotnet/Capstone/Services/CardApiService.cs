@@ -22,10 +22,7 @@ namespace Capstone.Services
         {
             RestRequest request = new RestRequest();
             IRestResponse<Dictionary<string, Object>> response = client.Get<Dictionary<string,Object>>(request);
-            return DeserializeJsonResponse(response);
-            // TODO: catch exceptions
-
-            
+            return DeserializeJsonResponse(response);            
         }
 
         public List<Card> DeserializeJsonResponse(IRestResponse<Dictionary<string, Object>> response)
