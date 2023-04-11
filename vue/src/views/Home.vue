@@ -1,13 +1,7 @@
 <template>
   <div class="home">
-    <div id="top">
+    <div>
       <h1>Home</h1>
-    </div>
-    <div id="middle">
-      <h2>Middle</h2>
-    </div>
-    <div id="bottom">
-      <h3>Bottom</h3>
     </div>
   </div>
 </template>
