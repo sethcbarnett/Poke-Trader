@@ -65,7 +65,6 @@ export default {
       registrationErrorMsg: 'There were problems registering this user.',
     };
   },
-  //TODO: getting 400 bad requests when attempting to register;
   methods: {
     register() {
       if (this.user.password != this.user.confirmPassword) {
