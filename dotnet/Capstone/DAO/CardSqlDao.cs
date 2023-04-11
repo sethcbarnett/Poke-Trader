@@ -23,7 +23,7 @@ namespace Capstone.DAO
                 {
                     conn.Open();
 
-                    SqlCommand cmd = new SqlCommand("SELECT * FROM card WHERE id = @id");
+                    SqlCommand cmd = new SqlCommand("SELECT * FROM card WHERE api_card_id = @id", conn);
 
                     cmd.Parameters.AddWithValue("@id", Id);
 
