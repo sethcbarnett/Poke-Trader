@@ -64,13 +64,15 @@ const router = new Router({
       }
     },
     {
-      path: "/collection",
+      path: "/:username/collection",
       name: "collection",
       component: Collection,
       meta: {
         requiresAuth: true
-      }
+      },
+
     },
+  
   ]
 })
 

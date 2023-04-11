@@ -3,7 +3,7 @@
     <link href="https://fonts.cdnfonts.com/css/pokemon-solid" rel="stylesheet">
     <div id="nav">
       <router-link class="nav-link" v-bind:to="{ name: 'home' }">Home</router-link>
-      <router-link class="nav-link" v-bind:to="{name: 'collection'}" v-if="$store.state.token != ''">&nbsp;|&nbsp;My Collection</router-link>
+      <router-link class="nav-link" v-bind:to="{name: 'collection'}" @click="SetCollectionToCurrentUser" v-if="$store.state.token != ''">&nbsp;|&nbsp;My Collection</router-link>
       <router-link class="nav-link" v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">&nbsp;|&nbsp;Logout</router-link>
       <router-link class="nav-link" v-bind:to="{ name: 'login' }" v-if="$store.state.token == ''">&nbsp;|&nbsp;Login</router-link>
     </div>
@@ -13,15 +13,16 @@
   </div>
 </template>
 
-// <script>
-// import { defineComponent } from '@vue/composition-api'
+<script>
+export default {
+  methods: {
+    SetCollectionToCurrentUser(){
+      this.$store.state.IsSearchedUser = false;
+    }
+  }
+}
+</script>
 
-// export default defineComponent({
-//   setup() {
-    
-//   },
-// })
-// </script>
 
 <style>
 @import url('https://fonts.cdnfonts.com/css/pokemon-solid');
