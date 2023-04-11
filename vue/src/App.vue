@@ -3,7 +3,7 @@
     <link href="https://fonts.cdnfonts.com/css/pokemon-solid" rel="stylesheet">
     <div id="nav">
       <router-link v-bind:to="{ name: 'home' }">Home</router-link>&nbsp;|&nbsp;
-      <router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">Logout</router-link>
+      <router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">Logout</router-link>&nbsp;|&nbsp;
       <router-link v-bind:to="{name: 'collection'}">Collection</router-link>
     </div>
     <router-view />
@@ -27,6 +27,7 @@
     justify-content: center;
     font-family: 'Pokemon Solid', sans-serif;
     overflow: auto;
+    letter-spacing: 1px;
   }
   #nav {
     display: flex;

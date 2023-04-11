@@ -124,6 +124,7 @@ form {
   font-size: 1.25em;
   padding-bottom: 10px;
   line-height: .55em;
+  text-align: top;
 }
 h1 {
   font-size: 2.5em;
@@ -137,5 +138,17 @@ label {
 }
 .login-link {
   color: #3466af;
+}
+button {
+  background-color: #3466af;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-family: 'Pokemon Solid', sans-serif;
+  text-align: center;
+  text-justify: auto;
+  letter-spacing: 1px;
+  padding-bottom: 5px;
+  cursor: pointer;
 }
 </style>

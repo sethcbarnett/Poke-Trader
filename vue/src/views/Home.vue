@@ -10,3 +10,14 @@ export default {
   name: "home"
 };
 </script>
+<style>
+.home {
+  margin-top: 20px;
+}
+h1 {
+  text-align: center;
+}
+p {
+  text-align: center;
+}
+</style>
