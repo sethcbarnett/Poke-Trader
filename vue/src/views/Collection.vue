@@ -1,14 +1,14 @@
 <template>
   <div>
     <div id="card-display-area">
-      <card-display v-for="card in collection" v-bind:key="card.id"/>
-      
+      <card-display v-bind:card = "card" v-for="card in collection" v-bind:key="card.id"/>
     </div>
   </div>
 </template>
 
 <script>
 import CardDisplay from "../components/CardDisplay.vue";
+import CollectionService from "../services/CollectionService.js";
 
 export default {
     name: "collection",
@@ -17,15 +17,15 @@ export default {
     },
     created (){
         if(!this.$store.state.isSearchedUser){
-        var currentUser = this.$store.state.user.username;
-        this.collection = this.$route.getCollectionByUser(currentUser)
+          var currentUser = this.$store.state.user.username;
+          CollectionService.getCollectionByUser(currentUser).then((response) => {
+            this.collection = response.data;
+          })
         }
     },
     data () {
         return {
-            
-        collection: {}
-
+          collection: {}
         }
     }
 }

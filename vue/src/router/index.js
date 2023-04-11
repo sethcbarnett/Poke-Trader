@@ -64,7 +64,7 @@ const router = new Router({
       }
     },
     {
-      path: "/:username/collection",
+      path: "/collection/:username",
       name: "collection",
       component: Collection,
       meta: {
