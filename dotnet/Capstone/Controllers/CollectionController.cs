@@ -19,7 +19,7 @@ namespace Capstone.Controllers
         [HttpGet("{username}")]
         public IActionResult GetCollectionByUsername(string username)
         {
-            List<Card> cards = collectionDao.GetCollectionByUsername(username);
+            List<CollectionItem> cards = collectionDao.GetCollectionByUsername(username);
             return Ok(cards);
         }
 
