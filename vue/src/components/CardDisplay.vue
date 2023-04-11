@@ -1,13 +1,15 @@
 <template>
-    <div id = "card-display"> 
+    <div id = "card-display" href = {collectionItem.card.tcgUrl}> 
       <div id ="top-text" >
-        <h4>{{card.name}}</h4>
+        <h4>{{collectionItem.card.name}}</h4>
       </div>
       <div id="card-image">
-        <img v-bind:src="card.imgUrl"/>
+        <img v-bind:src="collectionItem.card.img"/>
       </div>
       <div id ="bottom-text">
-        <h4>{{card.id}}</h4>
+        <h4>{{collectionItem.card.price}}</h4>
+        <h4>Quantity Owned: {{collectionItem.quantity}}</h4>
+        <h4>Quantity For Trade: {{collectionItem.quantityForTrade}}</h4>
       </div>
     </div>
 </template>
@@ -17,10 +19,16 @@
 export default {
     name: 'card-display',
     props: {
-      card: {
-        id: "",
-        name: "",
-        imgUrl: ""
+      collectionItem: {
+        card: {
+          id: "",
+          name: "",
+          img: "",
+          price: "",
+          tcgUrl: ""
+        },
+        quantity: 0,
+        quantityForTrade: 0
       }
     },
     created() {

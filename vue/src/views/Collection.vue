@@ -1,7 +1,7 @@
 <template>
   <div>
     <div id="card-display-area">
-      <card-display v-bind:card = "card" v-for="card in collection" v-bind:key="card.id"/>
+      <card-display v-bind:collectionItem = "collectionItem" v-for="collectionItem in collection" v-bind:key="collectionItem.card.id"/>
     </div>
   </div>
 </template>

@@ -46,9 +46,11 @@ namespace Capstone.DAO
         {
             Card card = new Card()
             {
-                Id = Convert.ToString(reader["api_card_id"]),
+                Id = Convert.ToString(reader["id"]),
                 Name = Convert.ToString(reader["name"]),
-                ImgUrl = Convert.ToString(reader["image_url"]),
+                Img = Convert.ToString(reader["img"]),
+                Price = Convert.ToString(reader["price"]),
+                TcgUrl = Convert.ToString(reader["tcg_url"])
             };
             return card;
         }
