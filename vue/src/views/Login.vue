@@ -16,7 +16,7 @@
         <label for="password">Password</label>
         <input type="password" id="password" v-model="user.password" required />
       </div>
-      <button type="submit">Sign in</button>
+      <button class="theButton" type="submit">Sign in</button>
       <p>
       <router-link class="register-link" :to="{ name: 'register' }">Need an account? Sign up.</router-link></p>
     </form>
@@ -83,7 +83,7 @@ form {
   justify-content: center;
   margin-top: 20px;
   border-radius: 100px;
-  width: 350px;
+  width: 360px;
   height: 350px;
   color: #3466af;
   background-color: #ffcb05;
@@ -94,8 +94,23 @@ form {
   padding-bottom: 10px;
   line-height: .55em;
   justify-content: space-evenly;
+  text-align: center;
+  line-height: 25px;
 }
 .register-link {
   color: #3466af;
+}
+button.theButton {
+  background-color: #3466af;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-family: 'Pokemon Solid', sans-serif;
+  text-align: center;
+  text-justify: auto;
+  letter-spacing: 1px;
+  padding-bottom: 5px;
+  display: inline-block;
+  cursor: pointer;
 }
 </style>
