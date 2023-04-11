@@ -5,7 +5,7 @@ import axios from 'axios';
 export default {
 
   getCardById(id) {
-    return apiService.get("/card/:id", id);
+    return apiService.get(`/card/${id}`);
   }
 
  

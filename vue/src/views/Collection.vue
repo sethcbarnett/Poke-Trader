@@ -1,6 +1,7 @@
 <template>
   <div>
-<card-display/>
+    <card-display/>
+    <card-display/>
   </div>
 </template>
 
