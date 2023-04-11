@@ -34,11 +34,11 @@ namespace Capstone.Services
             {
                 Card newCard = new Card();
 
-                newCard.id = (string)card["id"];
-                newCard.name = (string)card["name"];
+                newCard.Id = (string)card["id"];
+                newCard.Name = (string)card["name"];
 
                 Dictionary<string, Object> images = (Dictionary<string, Object>)card["images"];
-                newCard.imgUrl = (string)images["small"];
+                newCard.ImgUrl = (string)images["small"];
                 cards.Add(newCard);
             }
             return cards;
