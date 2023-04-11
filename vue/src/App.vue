@@ -3,9 +3,11 @@
     <link href="https://fonts.cdnfonts.com/css/pokemon-solid" rel="stylesheet">
     <div id="nav">
       <router-link class="nav-link" v-bind:to="{ name: 'home' }">Home</router-link>
-      <router-link class="nav-link" v-bind:to="{name: 'collection'}">&nbsp;|&nbsp;My Collection</router-link>
+      <router-link class="nav-link" v-bind:to="{name: 'collection'}" v-if="$store.state.token != ''">&nbsp;|&nbsp;My Collection</router-link>
       <router-link class="nav-link" v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">&nbsp;|&nbsp;Logout</router-link>
-      
+      <router-link class="nav-link" v-bind:to="{ name: 'login' }" v-if="$store.state.token == ''">&nbsp;|&nbsp;Login</router-link>
+    </div>
+    <div id = "nav-spacer">
     </div>
     <router-view />
   </div>
@@ -25,6 +27,7 @@
 @import url('https://fonts.cdnfonts.com/css/pokemon-solid');
   #app {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     font-family: 'Pokemon Solid', sans-serif;
     overflow: auto;
@@ -45,6 +48,9 @@
   .nav-link {
     color: #ffcb05;
     text-decoration: none;
+  }
+  #nav-spacer {
+    margin: 30px;
   }
   
 
