@@ -5,7 +5,7 @@ namespace Capstone.DAO
 {
     public interface ICardDao
     {
-        Card GetCardById(int id);
+        Card GetCardById(string Id);
 
         void AddCardToDatabase(Card card);
 

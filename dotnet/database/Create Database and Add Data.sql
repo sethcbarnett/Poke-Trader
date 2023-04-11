@@ -39,6 +39,7 @@ CREATE TABLE collection (
 CREATE TABLE card (
 	api_card_id varchar(20) NOT NULL UNIQUE,
 	name varchar(50) NOT NULL,
+	image_url varchar(50) NOT NULL,
 	CONSTRAINT PK_card PRIMARY KEY (api_card_id)
 )
 
@@ -58,9 +59,9 @@ INSERT INTO users (username, password_hash, salt, user_role, email, street_addre
 INSERT INTO collection (user_id) VALUES ((SELECT user_id FROM users WHERE username = 'user'));
 INSERT INTO collection (user_id) VALUES ((SELECT user_id FROM users WHERE username = 'admin'));
 
-INSERT INTO card (name, api_card_id) VALUES ('Alakazam-EX', 'xy10-117');
-INSERT INTO card (name, api_card_id) VALUES ('Detective Pikachu','det1');
-INSERT INTO card (name, api_card_id) VALUES ('Caterpie','xy2-1');
+INSERT INTO card (name, api_card_id, image_url) VALUES ('Alakazam-EX', 'xy10-117', 'https://images.pokemontcg.io/xy10/117.png');
+INSERT INTO card (name, api_card_id, image_url) VALUES ('Detective Pikachu','det1-10','https://images.pokemontcg.io/det1/10.png');
+INSERT INTO card (name, api_card_id, image_url) VALUES ('Caterpie','xy2-1','https://images.pokemontcg.io/xy2/1.png');
 
 INSERT INTO collection_card (collection_id, api_card_id, quantity) VALUES 
 (

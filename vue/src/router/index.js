@@ -5,6 +5,7 @@ import Login from '../views/Login.vue'
 import Logout from '../views/Logout.vue'
 import Register from '../views/Register.vue'
 import store from '../store/index'
+import CardComponent from '../components/CardDisplay.vue'
 
 Vue.use(Router)
 
@@ -49,6 +50,14 @@ const router = new Router({
       path: "/register",
       name: "register",
       component: Register,
+      meta: {
+        requiresAuth: false
+      }
+    },
+    {
+      path: "/card/:id",
+      name: "card",
+      component: CardComponent,
       meta: {
         requiresAuth: false
       }

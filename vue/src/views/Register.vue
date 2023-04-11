@@ -38,7 +38,7 @@
         <input type="number" id="zipCode" v-model="user.zipCode" required />
       </div>
       <button type="submit">Create Account</button>
-      <p><router-link :to="{ name: 'login' }">Already have an account? Log in</router-link></p>
+      <p><router-link class="login-link" :to="{ name: 'login' }">Already have an account? Log in</router-link></p>
     </form>
   </div>
 </template>
@@ -99,10 +99,43 @@ export default {
 </script>
 
 <style scoped>
+.text-center {
+  background-image: url("../assets/pokeball.png");
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100px;
+  margin-top: 20px;
+  width: 500px;
+  height: 500px;
+  color: #3466af;
+  background-color: #ffcb05;
+  border-width: 20px;
+  border-style: solid;
+  border-color: #3466af;
+  font-size: 1.25em;
+  padding-bottom: 10px;
+  line-height: .55em;
+}
+h1 {
+  font-size: 2.5em;
+  padding-bottom: 20px;
+}
 .form-input-group {
   margin-bottom: 1rem;
 }
 label {
   margin-right: 0.5rem;
+}
+.login-link {
+  color: #3466af;
 }
 </style>
