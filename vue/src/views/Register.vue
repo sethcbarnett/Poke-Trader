@@ -113,7 +113,6 @@ form {
   align-items: center;
   justify-content: center;
   border-radius: 100px;
-  margin-top: 20px;
   width: 500px;
   height: 500px;
   color: #3466af;

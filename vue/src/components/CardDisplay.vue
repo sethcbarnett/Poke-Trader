@@ -1,18 +1,15 @@
 <template>
-  <div id = "display-area">
-    <p>Hello</p>
     <div id = "card-display"> 
-      <div class ="toptext" >
-        <h1>{{card.name}}</h1>
+      <div id ="top-text" >
+        <h4>{{card.name}}</h4>
       </div>
-      <div class="card-image">
+      <div id="card-image">
         <img v-bind:src="card.img"/>
       </div>
-      <div class ="bottom">
-        <h3>{{card.id}}</h3>
+      <div id ="bottom-text">
+        <h4>{{card.id}}</h4>
       </div>
     </div>
-  </div>
 </template>
 
 <script>
@@ -43,16 +40,29 @@ export default {
 <style>
 
 #card-display{
-  background-color: yellow;
+  background-color: rgb(207, 200, 177);
   border: 2px solid black;
   border-radius: 20px;
   padding: 20px;
   display: flex;
   flex-direction: column;
   margin: 20px;
+  padding-bottom: 5px;
+  padding-top: 5px;
 }
 #display-area {
   background-color: blue;
   margin-top: 1px;
+}
+#top-text h4{
+  margin: 5px;
+  text-align: center;
+}
+#card-image {
+  display: block;
+}
+#bottom-text h4 {
+  margin: 5px;
+  text-align: center;
 }
 </style>

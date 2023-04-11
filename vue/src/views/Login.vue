@@ -81,7 +81,6 @@ form {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-top: 20px;
   border-radius: 100px;
   width: 360px;
   height: 350px;

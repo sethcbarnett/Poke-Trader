@@ -1,7 +1,9 @@
 <template>
   <div>
-    <card-display class = "card1"/>
-    <card-display/>
+    <div id="card-display-area">
+      <card-display/>
+      <card-display/>
+    </div>
   </div>
 </template>
 
@@ -15,11 +17,9 @@ export default {
 }
 </script>
 
-<style>
-div{
+<style scoped>
+div {
   display: flex;
-}
-.card1 {
-  padding-right: 10px;
+  font-family: sans-serif;
 }
 </style>
