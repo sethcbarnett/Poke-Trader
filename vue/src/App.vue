@@ -2,9 +2,10 @@
   <div id="app">
     <link href="https://fonts.cdnfonts.com/css/pokemon-solid" rel="stylesheet">
     <div id="nav">
-      <router-link v-bind:to="{ name: 'home' }">Home</router-link>&nbsp;|&nbsp;
-      <router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">Logout</router-link>&nbsp;|&nbsp;
-      <router-link v-bind:to="{name: 'collection'}">Collection</router-link>
+      <router-link class="nav-link" v-bind:to="{ name: 'home' }">Home</router-link>
+      <router-link class="nav-link" v-bind:to="{name: 'collection'}">&nbsp;|&nbsp;My Collection</router-link>
+      <router-link class="nav-link" v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">&nbsp;|&nbsp;Logout</router-link>
+      
     </div>
     <router-view />
   </div>
@@ -43,6 +44,7 @@
   }
   .nav-link {
     color: #ffcb05;
+    text-decoration: none;
   }
   
 

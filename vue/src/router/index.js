@@ -28,7 +28,7 @@ const router = new Router({
       name: 'home',
       component: Home,
       meta: {
-        requiresAuth: true
+        requiresAuth: false
       }
     },
     {
@@ -68,7 +68,7 @@ const router = new Router({
       name: "collection",
       component: Collection,
       meta: {
-        requiresAuth: false
+        requiresAuth: true
       }
     },
   ]
