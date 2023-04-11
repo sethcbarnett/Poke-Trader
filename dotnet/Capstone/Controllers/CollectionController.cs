@@ -16,10 +16,10 @@ namespace Capstone.Controllers
         {
             collectionDao = _collectionDao;
         }
-        [HttpGet("{userId}")]
-        public IActionResult GetCardById(int userId)
+        [HttpGet("{username}")]
+        public IActionResult GetCollectionByUsername(string username)
         {
-            List<Card> cards = collectionDao.GetCollectionByUser(userId);
+            List<Card> cards = collectionDao.GetCollectionByUsername(username);
             return Ok(cards);
         }
 

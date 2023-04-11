@@ -15,7 +15,7 @@ namespace Capstone.DAO
             cardDao = _cardDao;
         }
 
-        public List<Card> GetCollectionByUser(int userId)
+        public List<Card> GetCollectionByUsername(string username)
         {
             List<Card> cards = new List<Card>();
 
@@ -28,9 +28,9 @@ namespace Capstone.DAO
                     SqlCommand cmd = new SqlCommand("SELECT card.api_card_id, card.name, card.image_url FROM card" +
                         " JOIN collection_card ON card.api_card_id = collection_card.api_card_id" +
                         " JOIN collection ON collection_card.collection_id = collection.collection_id" +
-                        " JOIN users ON collection.user_id = users.user_id WHERE users.user_id = @userId;", conn);
+                        " JOIN users ON collection.user_id = users.user_id WHERE users.username = @username;", conn);
 
-                    cmd.Parameters.AddWithValue("@userId", userId);
+                    cmd.Parameters.AddWithValue("@username", username);
 
                     SqlDataReader reader = cmd.ExecuteReader();
 

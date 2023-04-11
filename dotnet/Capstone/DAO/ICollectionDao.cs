@@ -5,7 +5,7 @@ namespace Capstone.DAO
 {
     public interface ICollectionDao
     {
-        List<Card> GetCollectionByUser(int userId);
+        List<Card> GetCollectionByUsername(string username);
 
     }
 }
