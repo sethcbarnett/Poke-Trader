@@ -13,7 +13,7 @@ namespace Capstone.DAO
 
         public Card GetCardById(int id)
         {
-            return new Card("123", "Good");
+            return new Card("123", "Good", "");
         }
 
         public void AddCardToDatabase(Card card)

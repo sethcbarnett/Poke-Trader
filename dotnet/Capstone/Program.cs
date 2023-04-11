@@ -11,14 +11,9 @@ namespace Capstone
     {
         public static void Main(string[] args)
         {
-            //CardApiService service = new CardApiService();
-            //service.GetAllCards();
-            //List<Card> actualCards = cards.data;
-            //Console.WriteLine(actualCards);
-            //foreach (Card card in cards)
-            //{
-            //    Console.WriteLine(card.id + " " + card.name);
-            //}
+            CardApiService service = new CardApiService();
+            service.GetAllCards();
+
             CreateHostBuilder(args).Build().Run();
         }
 

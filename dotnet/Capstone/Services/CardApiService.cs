@@ -18,16 +18,33 @@ namespace Capstone.Services
             client = new RestClient(apiUrl);
         }
 
-        public void GetAllCards()
+        public List<Card> GetAllCards()
         {
             RestRequest request = new RestRequest();
-            IRestResponse<Root> response = client.Get<Root>(request);
-
+            IRestResponse<Dictionary<string, Object>> response = client.Get<Dictionary<string,Object>>(request);
+            return DeserializeJsonResponse(response);
             // TODO: catch exceptions
 
-            Console.WriteLine("hello");
-
             
+        }
+
+        public List<Card> DeserializeJsonResponse(IRestResponse<Dictionary<string, Object>> response)
+        {
+            RestSharp.JsonArray listOfJsonCards = (RestSharp.JsonArray)response.Data["data"];
+            List<Card> cards = new List<Card>();  
+
+            foreach (Dictionary<string, Object> card in listOfJsonCards)
+            {
+                Card newCard = new Card();
+
+                newCard.id = (string)card["id"];
+                newCard.name = (string)card["name"];
+
+                Dictionary<string, Object> images = (Dictionary<string, Object>)card["images"];
+                newCard.imgUrl = (string)images["small"];
+                cards.Add(newCard);
+            }
+            return cards;
         }
     }
 }
