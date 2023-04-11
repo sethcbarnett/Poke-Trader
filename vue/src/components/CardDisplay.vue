@@ -4,7 +4,7 @@
         <h4>{{card.name}}</h4>
       </div>
       <div id="card-image">
-        <img v-bind:src="card.img"/>
+        <img v-bind:src="card.imgUrl"/>
       </div>
       <div id ="bottom-text">
         <h4>{{card.id}}</h4>
@@ -13,25 +13,22 @@
 </template>
 
 <script>
-import CardService from "../services/CardService.js";
+//import CardService from "../services/CardService.js";
 export default {
     name: 'card-display',
-    data() {
-        return {
-            card:{ 
-                id:"xy10-117",
-                name: "",
-                img: ""
-
-            }
-        }
+    props: {
+      card: {
+        id: "",
+        name: "",
+        imgUrl: ""
+      }
     },
     created() {
-      CardService.getCardById(this.card.id).then((response)=>{
-        this.card.name = response.data.name;
-        this.card.img = response.data.imgUrl;
-        this.card.id = response.data.id;
-      });
+      // CardService.getCardById(this.card.id).then((response)=>{
+      //   this.card.name = response.data.name;
+      //   this.card.img = response.data.imgUrl;
+      //   this.card.id = response.data.id;
+      // });
     }
 
 }

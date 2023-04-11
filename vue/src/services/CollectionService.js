@@ -1,12 +1,8 @@
-
-
 import axios from 'axios';
 
 export default {
-
   getCollectionByUser(username) {
-    return axios.get(`${username}/collection`);
+    console.log(username);
+    return axios.get(`/collection/${username}`);
   }
-
- 
 }
