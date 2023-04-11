@@ -4,7 +4,7 @@ using Capstone.Models;
 
 namespace Capstone.Controllers
 {
-    [Route("[card]")]
+    [Route("[controller]")]
     [ApiController]
     public class CardController : Controller
     {
@@ -15,7 +15,7 @@ namespace Capstone.Controllers
             cardDao = _cardDao;
         }
 
-        [HttpGet]
+        [HttpGet("{id}")]
         public IActionResult GetCardById(string id)
         {
             Card card = cardDao.GetCardById(id);
