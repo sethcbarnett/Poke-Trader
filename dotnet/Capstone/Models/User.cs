@@ -7,6 +7,11 @@
         public string PasswordHash { get; set; }
         public string Salt { get; set; }
         public string Role { get; set; }
+        public string Email { get; set; }
+        public string StreetAddress { get; set; }
+        public string City { get; set; }
+        public string StateAbbreviation { get; set; }
+        public int ZipCode { get; set; }
     }
 
     /// <summary>
@@ -46,5 +51,10 @@
         public string Password { get; set; }
         public string ConfirmPassword { get; set; }
         public string Role { get; set; }
+        public string Email { get; set; }
+        public string StreetAddress { get; set; }
+        public string City { get; set; }
+        public string StateAbbreviation { get; set; }
+        public string ZipCode { get; set; }
     }
 }

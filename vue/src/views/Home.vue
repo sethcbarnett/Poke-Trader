@@ -17,10 +17,14 @@ export default {
   name: "home"
 };
 </script>
-
-<style scoped>
-.home{
-  display: flex;
-  flex-direction: column;
+<style>
+.home {
+  margin-top: 20px;
+}
+h1 {
+  text-align: center;
+}
+p {
+  text-align: center;
 }
 </style>

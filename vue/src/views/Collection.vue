@@ -1,0 +1,39 @@
+<template>
+  <div>
+    <div id="card-display-area">
+      <card-display v-bind:card = "card" v-for="card in collection" v-bind:key="card.id"/>
+    </div>
+  </div>
+</template>
+
+<script>
+import CardDisplay from "../components/CardDisplay.vue";
+import CollectionService from "../services/CollectionService.js";
+
+export default {
+    name: "collection",
+    components: {
+        CardDisplay
+    },
+    created (){
+        if(!this.$store.state.isSearchedUser){
+          var currentUser = this.$store.state.user.username;
+          CollectionService.getCollectionByUser(currentUser).then((response) => {
+            this.collection = response.data;
+          })
+        }
+    },
+    data () {
+        return {
+          collection: {}
+        }
+    }
+}
+</script>
+
+<style scoped>
+div {
+  display: flex;
+  font-family: sans-serif;
+}
+</style>
