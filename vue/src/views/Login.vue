@@ -18,7 +18,7 @@
       </div>
       <button type="submit">Sign in</button>
       <p>
-      <router-link :to="{ name: 'register' }">Need an account? Sign up.</router-link></p>
+      <router-link class="register-link" :to="{ name: 'register' }">Need an account? Sign up.</router-link></p>
     </form>
   </div>
 </template>
@@ -62,10 +62,40 @@ export default {
 </script>
 
 <style scoped>
+#login {
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  background-image: url("../assets/pokeball.png");
+}
 .form-input-group {
   margin-bottom: 1rem;
 }
 label {
   margin-right: 0.5rem;
+}
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+  border-radius: 100px;
+  width: 350px;
+  height: 350px;
+  color: #3466af;
+  background-color: #ffcb05;
+  border-width: 20px;
+  border-style: solid;
+  border-color: #3466af;
+  font-size: 1.25em;
+  padding-bottom: 10px;
+  line-height: .55em;
+  justify-content: space-evenly;
+}
+.register-link {
+  color: #3466af;
 }
 </style>
