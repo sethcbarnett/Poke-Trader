@@ -15,7 +15,7 @@ namespace Capstone.Controllers
             cardDao = _cardDao;
         }
 
-        [HttpGet]
+        [HttpGet("{id}")]
         public IActionResult GetCardById(string id)
         {
             Card card = cardDao.GetCardById(id);
