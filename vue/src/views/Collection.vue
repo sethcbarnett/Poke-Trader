@@ -1,11 +1,13 @@
 <template>
-  <div>
+  <div id="collection-area">
     <div id="card-display-area">
       <card-display v-bind:collectionItem = "collectionItem" v-for="collectionItem in collection" v-bind:key="collectionItem.card.id"/>
     </div>
     <footer>
       <p>Standard users can have up to 100 unique cards in their collection.</p>
-    </footer>
+      <button id="go-premium">Go Premium!</button>
+    </footer>      
+
   </div>
 </template>
 
@@ -38,5 +40,37 @@ export default {
 div {
   display: flex;
   font-family: sans-serif;
+  flex-direction: column;
+}
+#collection-area {
+  height: 100vh;
+  width: 100vw;
+}
+#card-display-area {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+footer {
+  display: flex;
+  align-self: center;
+  flex-direction: column;
+}
+button {
+  background-color: #3466af;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-family: 'Pokemon Solid', sans-serif;
+  text-align: center;
+  text-justify: auto;
+  letter-spacing: 1px;
+  padding-bottom: 5px;
+  display: inline-block;
+  cursor: pointer;
+  max-width: 400px;
+  align-self: center;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 </style>
