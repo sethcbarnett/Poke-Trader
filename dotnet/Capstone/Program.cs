@@ -11,9 +11,6 @@ namespace Capstone
     {
         public static void Main(string[] args)
         {
-            CardApiService service = new CardApiService();
-            service.GetAllCards();
-
             CreateHostBuilder(args).Build().Run();
         }
 
