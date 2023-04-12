@@ -4,7 +4,7 @@
       <h1>Home</h1>
     </div>
     <div>
-      <router-link @click="this.$store.state.isSearchedUser = true" v-for="collection in publicCollections" v-bind:key="collection" :to="{ name: 'collection', params: {username: `${collection.username}`} }">{{ collection.username }}</router-link>
+      <router-link v-for="collection in publicCollections" v-bind:key="collection" :to="{ name: 'collection', params: {username: `${collection.username}`} }">{{ collection.username }}</router-link>
     </div>
   </div>
 </template>
