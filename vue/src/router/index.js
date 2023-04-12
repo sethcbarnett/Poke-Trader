@@ -7,6 +7,7 @@ import Register from '../views/Register.vue'
 import store from '../store/index'
 import CardComponent from '../components/CardDisplay.vue'
 import Collection from '../views/Collection.vue'
+import Premium from '../views/Premium.vue'
 
 Vue.use(Router)
 
@@ -72,6 +73,14 @@ const router = new Router({
       },
 
     },
+    {
+      path: "/premium",
+      name: "premium",
+      component: Premium,
+      meta: {
+        requiresAuth: true
+      },
+    }
   
   ]
 })

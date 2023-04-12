@@ -5,7 +5,7 @@
     </div>
     <footer>
       <p>Standard users can have up to 100 unique cards in their collection.</p>
-      <button id="go-premium">Go Premium!</button>
+      <button @click="redirectToPremium" id="go-premium">Go Premium!</button>
     </footer>      
 
   </div>
@@ -32,7 +32,12 @@ export default {
         return {
           collection: {}
         }
-    }
+    },
+    methods : {
+  redirectToPremium(){
+   this.$router.push({ name: 'premium'});
+  }
+}
 }
 </script>
 
