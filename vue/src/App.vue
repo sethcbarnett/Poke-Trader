@@ -51,7 +51,7 @@ export default {
     text-decoration: none;
   }
   #nav-spacer {
-    margin: 30px;
+    margin: 40px;
   }
   
 

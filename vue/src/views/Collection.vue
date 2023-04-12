@@ -3,6 +3,9 @@
     <div id="card-display-area">
       <card-display v-bind:collectionItem = "collectionItem" v-for="collectionItem in collection" v-bind:key="collectionItem.card.id"/>
     </div>
+    <div id = "add-cards-testing">
+      <add-cards/>
+    </div>
     <footer>
       <p>Standard users can have up to 100 unique cards in their collection.</p>
       <button @click="redirectToPremium" id="go-premium">Go Premium!</button>
@@ -14,11 +17,13 @@
 <script>
 import CardDisplay from "../components/CardDisplay.vue";
 import CollectionService from "../services/CollectionService.js";
+import AddCards from '../components/AddCards.vue';
 
 export default {
     name: "collection",
     components: {
-        CardDisplay
+        CardDisplay,
+        AddCards
     },
     created (){
       this.getSearchedUserCollection();
