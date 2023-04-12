@@ -16,11 +16,14 @@ if(currentToken != null) {
   axios.defaults.headers.common['Authorization'] = `Bearer ${currentToken}`;
 }
 
+import CollectionService from '../services/CollectionService';
+
 export default new Vuex.Store({
   state: {
     token: currentToken || '',
     user: currentUser || {},
-    isSearchedUser: false 
+    currentCollection: '',
+    currentCollectionObject: {}
   },
   mutations: {
     SET_AUTH_TOKEN(state, token) {
@@ -39,11 +42,13 @@ export default new Vuex.Store({
       state.user = {};
       axios.defaults.headers.common = {};
     },
-    MAKE_SEARCHED_USER_FALSE(state) {
-      state.isSearchedUser = false;
+    SET_CURRENT_COLLECTION(state, username) {
+      state.currentCollection = username;
     },
-    MAKE_SEARCHED_USER_TRUE(state) {
-      state.isSearchedUser = true;
+    SET_CURRENT_COLLECTION_OBJECT(state) {
+       CollectionService.getCollectionByUser(state.currentCollection).then((response) => {
+        state.currentCollectionObject = response.data;
+      });
     }
   }
 })
