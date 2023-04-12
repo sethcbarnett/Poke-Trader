@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using Capstone.Models;
 using Capstone.Security;
 using Capstone.Security.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Capstone.DAO
 {
@@ -101,11 +102,35 @@ namespace Capstone.DAO
                     }
                 }
             }
-            catch(Exception ex)
+            catch(SqlException)
             {
                 throw;
             }
             return publicUsers;
+        }
+        public int ChangeUsersToPremium( int user_id)
+        {
+            int numberOfRowsUpdated = 0;
+            try
+            {
+
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand("UPDATE users SET is_premium = 1 WHERE user_id = @user_id;", conn);
+                    cmd.Parameters.AddWithValue("@user_id", user_id);
+
+                    numberOfRowsUpdated = cmd.ExecuteNonQuery();
+                    
+                  
+                }
+            }
+            catch (SqlException)
+            {
+                throw;
+            }
+            return numberOfRowsUpdated;
         }
 
         private User GetUserFromReader(SqlDataReader reader)

@@ -11,6 +11,7 @@ namespace Capstone.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserDao userDao;
+        
 
         public UserController(IUserDao userDao)
         {
@@ -22,6 +23,13 @@ namespace Capstone.Controllers
         {
             List<PublicCollectionUser> users = userDao.GetPublicUsers();
             return Ok(users);
+        }
+        
+        [HttpPut("{userId}")]
+        public int ChangeToPremium( int userId) 
+        {
+             
+           return  userDao.ChangeUsersToPremium(userId);
         }
     }
 }
