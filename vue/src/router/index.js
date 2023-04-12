@@ -8,6 +8,7 @@ import store from '../store/index'
 import CardComponent from '../components/CardDisplay.vue'
 import Collection from '../views/Collection.vue'
 import Premium from '../views/Premium.vue'
+import AddCards from '../components/AddCards.vue'
 
 Vue.use(Router)
 
@@ -77,6 +78,14 @@ const router = new Router({
       path: "/premium",
       name: "premium",
       component: Premium,
+      meta: {
+        requiresAuth: true
+      },
+    },
+    {
+      path: "/search/params/:parameters",
+      name: "card-search",
+      component: AddCards,
       meta: {
         requiresAuth: true
       },

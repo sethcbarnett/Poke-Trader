@@ -30,21 +30,6 @@ export default {
         quantity: 0,
         quantityForTrade: 0
       }
-    },
-    created() {
-      // CardService.getCardById(this.card.id).then((response)=>{
-      //   this.card.name = response.data.name;
-      //   this.card.img = response.data.imgUrl;
-      //   this.card.id = response.data.id;
-      // });
-    },
-    methods: {
-
-    },
-    data() {
-      return {
-        cardTcgLink: "collectionItem.card.tcgUrl"
-      }
     }
 
 }
