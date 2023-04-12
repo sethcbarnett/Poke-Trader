@@ -1,11 +1,14 @@
 ﻿using Capstone.Models;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 
 namespace Capstone.DAO
 {
     public interface ICollectionDao
     {
-        List<Card> GetCollectionByUsername(string username);
+        List<CollectionItem> GetCollectionByUsername(string username);
+
+        CollectionItem getCollectionItemFromReader(SqlDataReader reader, Card card);
 
     }
 }

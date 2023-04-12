@@ -15,9 +15,9 @@ namespace Capstone.DAO
             cardDao = _cardDao;
         }
 
-        public List<Card> GetCollectionByUsername(string username)
+        public List<CollectionItem> GetCollectionByUsername(string username)
         {
-            List<Card> cards = new List<Card>();
+            List<CollectionItem> collection = new List<CollectionItem>();
 
             try
             {
@@ -25,8 +25,8 @@ namespace Capstone.DAO
                 {
                     conn.Open();
 
-                    SqlCommand cmd = new SqlCommand("SELECT card.api_card_id, card.name, card.image_url FROM card" +
-                        " JOIN collection_card ON card.api_card_id = collection_card.api_card_id" +
+                    SqlCommand cmd = new SqlCommand("SELECT card.id, card.name, card.img, card.price, card.tcg_url, collection_card.quantity, collection_card.amount_to_trade FROM card" +
+                        " JOIN collection_card ON card.id = collection_card.id" +
                         " JOIN collection ON collection_card.collection_id = collection.collection_id" +
                         " JOIN users ON collection.user_id = users.user_id WHERE users.username = @username;", conn);
 
@@ -36,9 +36,10 @@ namespace Capstone.DAO
 
                     while (reader.Read())
                     {
-                        Card card= new Card();
+                        Card card = new Card();
                         card = cardDao.getCardFromReader(reader);
-                        cards.Add(card);
+                        CollectionItem item = getCollectionItemFromReader(reader, card);
+                        collection.Add(item);
                     }
                 }
             }
@@ -46,10 +47,18 @@ namespace Capstone.DAO
             {
                 throw new System.Exception();
             }
-            return cards;
+            return collection;
+        }
+        public CollectionItem getCollectionItemFromReader(SqlDataReader reader, Card card)
+        {
+            CollectionItem item = new CollectionItem();
+            item.Card = card;
+            item.Quantity = Convert.ToInt32(reader["quantity"]);
+            item.QuantityForTrade = Convert.ToInt32(reader["amount_to_trade"]);
+            return item;
         }
 
-
     }
+
     
 }

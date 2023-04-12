@@ -3,6 +3,7 @@ using RestSharp;
 using RestSharp.Serialization.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Text.Json;
 
@@ -38,7 +39,27 @@ namespace Capstone.Services
                 newCard.Name = (string)card["name"];
 
                 Dictionary<string, Object> images = (Dictionary<string, Object>)card["images"];
-                newCard.ImgUrl = (string)images["small"];
+                newCard.Img = (string)images["small"];
+
+                try
+                {
+                    Dictionary<string, Object> tcgplayeritems = (Dictionary<string, Object>)card["tcgplayer"];
+                    newCard.TcgUrl = (string)tcgplayeritems["url"];
+                }
+                catch (Exception)
+                {
+                    newCard.TcgUrl = "";
+                }
+                try
+                {
+                    Dictionary<string, Object> tcgplayeritems = (Dictionary<string, Object>)card["tcgplayer"];
+                    Dictionary<string, Object> priceInfo = (Dictionary<string, Object>)((Dictionary<string, Object>)tcgplayeritems["prices"]).ElementAt(0).Value;
+                    newCard.Price = Convert.ToString(priceInfo["mid"]);
+                }
+                catch (Exception) {
+                    newCard.TcgUrl = "";
+                    newCard.Price = "Price Not Found";
+                }
                 cards.Add(newCard);
             }
             return cards;

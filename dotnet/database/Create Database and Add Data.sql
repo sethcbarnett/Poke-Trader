@@ -37,19 +37,22 @@ CREATE TABLE collection (
 )
 
 CREATE TABLE card (
-	api_card_id varchar(20) NOT NULL UNIQUE,
+	id varchar(20) NOT NULL UNIQUE,
 	name varchar(50) NOT NULL,
-	image_url varchar(50) NOT NULL,
-	CONSTRAINT PK_card PRIMARY KEY (api_card_id)
+	img varchar(50) NOT NULL,
+	price varchar(10) NOT NULL,
+	tcg_url varchar(50) NOT NULL,
+	CONSTRAINT PK_card PRIMARY KEY (id)
 )
 
 CREATE TABLE collection_card (
 	collection_id int NOT NULL,
-	api_card_id varchar(20) NOT NULL,
+	id varchar(20) NOT NULL,
 	quantity int NOT NULL,
-	CONSTRAINT PK_collection_card PRIMARY KEY (collection_id, api_card_id),
+	amount_to_trade int NOT NULL,
+	CONSTRAINT PK_collection_card PRIMARY KEY (collection_id, id),
 	CONSTRAINT FK_collection_card_collection FOREIGN KEY (collection_id) references collection (collection_id),
-	CONSTRAINT FK_collection_card_card FOREIGN KEY (api_card_id) references card (api_card_id),
+	CONSTRAINT FK_collection_card_card FOREIGN KEY (id) references card (id),
 )
 
 --populate default data
@@ -59,11 +62,11 @@ INSERT INTO users (username, password_hash, salt, user_role, email, street_addre
 INSERT INTO collection (user_id) VALUES ((SELECT user_id FROM users WHERE username = 'user'));
 INSERT INTO collection (user_id) VALUES ((SELECT user_id FROM users WHERE username = 'admin'));
 
-INSERT INTO card (name, api_card_id, image_url) VALUES ('Alakazam-EX', 'xy10-117', 'https://images.pokemontcg.io/xy10/117.png');
-INSERT INTO card (name, api_card_id, image_url) VALUES ('Detective Pikachu','det1-10','https://images.pokemontcg.io/det1/10.png');
-INSERT INTO card (name, api_card_id, image_url) VALUES ('Caterpie','xy2-1','https://images.pokemontcg.io/xy2/1.png');
+INSERT INTO card (name, id, img, price, tcg_url) VALUES ('Alakazam-EX', 'xy10-117', 'https://images.pokemontcg.io/xy10/117.png', '$8.40', 'https://prices.pokemontcg.io/tcgplayer/xy10-117');
+INSERT INTO card (name, id, img, price, tcg_url) VALUES ('Detective Pikachu','det1-10','https://images.pokemontcg.io/det1/10.png','$2.10', 'https://prices.pokemontcg.io/tcgplayer/det1-10');
+INSERT INTO card (name, id, img, price, tcg_url) VALUES ('Caterpie','xy2-1','https://images.pokemontcg.io/xy2/1.png', '$0.24', 'https://prices.pokemontcg.io/tcgplayer/xy2-1');
 
-INSERT INTO collection_card (collection_id, api_card_id, quantity) VALUES 
+INSERT INTO collection_card (collection_id, id, quantity, amount_to_trade) VALUES 
 (
 	(
 		SELECT collection_id FROM collection WHERE user_id = 
@@ -72,11 +75,11 @@ INSERT INTO collection_card (collection_id, api_card_id, quantity) VALUES
 		)
 	), 
 	(
-		SELECT api_card_id FROM card WHERE name = 'Alakazam-EX'
-	), 2
+		SELECT id FROM card WHERE name = 'Alakazam-EX'
+	), 2, 1
 );
 
-INSERT INTO collection_card (collection_id, api_card_id, quantity) VALUES 
+INSERT INTO collection_card (collection_id, id, quantity, amount_to_trade) VALUES 
 (
 	(
 		SELECT collection_id FROM collection WHERE user_id = 
@@ -85,11 +88,11 @@ INSERT INTO collection_card (collection_id, api_card_id, quantity) VALUES
 		)
 	), 
 	(
-		SELECT api_card_id FROM card WHERE name = 'Detective Pikachu'
-	), 1
+		SELECT id FROM card WHERE name = 'Detective Pikachu'
+	), 1, 0
 );
 
-INSERT INTO collection_card (collection_id, api_card_id, quantity) VALUES 
+INSERT INTO collection_card (collection_id, id, quantity, amount_to_trade) VALUES 
 (
 	(
 		SELECT collection_id FROM collection WHERE user_id = 
@@ -98,11 +101,11 @@ INSERT INTO collection_card (collection_id, api_card_id, quantity) VALUES
 		)
 	), 
 	(
-		SELECT api_card_id FROM card WHERE name = 'Detective Pikachu'
-	), 3
+		SELECT id FROM card WHERE name = 'Detective Pikachu'
+	), 3, 1
 );
 
-INSERT INTO collection_card (collection_id, api_card_id, quantity) VALUES 
+INSERT INTO collection_card (collection_id, id, quantity, amount_to_trade) VALUES 
 (
 	(
 		SELECT collection_id FROM collection WHERE user_id = 
@@ -111,8 +114,8 @@ INSERT INTO collection_card (collection_id, api_card_id, quantity) VALUES
 		)
 	), 
 	(
-		SELECT api_card_id FROM card WHERE name = 'Caterpie'
-	), 7
+		SELECT id FROM card WHERE name = 'Caterpie'
+	), 7, 3
 );
 
 GO
