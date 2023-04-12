@@ -1,16 +1,19 @@
 <template>
   <div id="collection-area">
     <div id="card-display-area">
-      <card-display v-bind:collectionItem = "collectionItem" v-for="collectionItem in $store.state.currentCollectionObject" v-bind:key="collectionItem.card.id"/>
+      <card-display
+        v-bind:collectionItem="collectionItem"
+        v-for="collectionItem in $store.state.currentCollectionObject"
+        v-bind:key="collectionItem.card.id"
+      />
     </div>
-    <div id = "add-cards-testing">
-      <add-cards/>
+    <div id="add-cards-testing">
+      <add-cards />
     </div>
-    <footer>
+    <footer v-if="$store.state.isPremium == false">
       <p>Standard users can have up to 100 unique cards in their collection.</p>
       <button @click="redirectToPremium" id="go-premium">Go Premium!</button>
-    </footer>      
-
+    </footer>
   </div>
 </template>
 
@@ -27,7 +30,14 @@ export default {
     methods : {
       redirectToPremium(){
         this.$router.push({ name: 'premium'});
+      },
+      checkForPremium() {
+        if(this.$store.state.user.isPremium == true) {
+          this.$store.state.isPremium == true;}
       }
+    },
+    created() {
+      this.checkForPremium();
     }
 }
 </script>
@@ -57,7 +67,7 @@ button {
   color: white;
   border: none;
   border-radius: 5px;
-  font-family: 'Pokemon Solid', sans-serif;
+  font-family: "Pokemon Solid", sans-serif;
   text-align: center;
   text-justify: auto;
   letter-spacing: 1px;

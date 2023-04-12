@@ -89,6 +89,14 @@ const router = new Router({
       meta: {
         requiresAuth: true
       },
+    },
+    {
+      path: "/users/:username",
+      name: "users-test",
+      component: Premium,
+      meta: {
+        requiresAuth: true
+      },
     }
   
   ]

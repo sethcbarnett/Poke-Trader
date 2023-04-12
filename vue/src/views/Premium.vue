@@ -51,7 +51,7 @@
           <input type="number" id="zipCode"  required />
         </div>
       </div>
-      <button v-on:click="redirectToCollection">CATCH 'EM ALL</button>
+      <button v-on:click.prevent="redirectToCollection">CATCH 'EM ALL</button>
     </form>
   </div>
 </template>
@@ -76,15 +76,13 @@ export default {
   },
   methods: {
     redirectToCollection(){
-      //TODO: change isPremium to truethis
-      this.user.isPremium = true;
-        authService.changeUserToPremium(this.user.username).then((response) =>{
+      authService.changeUserToPremium(this.$store.state.user.username).then((response) =>{
+            console.log(response);
             if (response.status == 200) {
-              this.$router.push({ name: 'collection'});
+              this.$store.commit('GO_PREMIUM');
+              this.$router.push({ name: 'collection', params: {username: `${this.$store.state.user.username}`}});
             }
             else{ this.PremRegErrors = true;
-            
-
             }
         })
       
