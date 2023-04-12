@@ -23,7 +23,8 @@ export default new Vuex.Store({
     token: currentToken || '',
     user: currentUser || {},
     currentCollection: '',
-    currentCollectionObject: {}
+    currentCollectionObject: {},
+    isPremium: false
   },
   mutations: {
     SET_AUTH_TOKEN(state, token) {
@@ -49,6 +50,14 @@ export default new Vuex.Store({
        CollectionService.getCollectionByUser(state.currentCollection).then((response) => {
         state.currentCollectionObject = response.data;
       });
+    },
+    SET_PREMIUM(state, user) {
+      state.isPremium = user.premiumStatus;
+    },
+    GO_PREMIUM(state)
+    {
+      state.isPremium = true;
     }
+
   }
 })

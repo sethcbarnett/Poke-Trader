@@ -9,8 +9,9 @@ export default {
   register(user) {
     return axios.post('/register', user)
   },
-  changeUserToPremium(user) {
-    return axios.put(`/users/${user}`);
+  
+  changeUserToPremium(userName) {
+    return axios.put(`/users/${userName}`);
   }
 
 }

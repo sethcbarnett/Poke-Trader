@@ -12,6 +12,7 @@
         public string City { get; set; }
         public string StateAbbreviation { get; set; }
         public int ZipCode { get; set; }
+        public bool isPremium { get; set; }
     }
 
     /// <summary>
@@ -22,6 +23,7 @@
         public int UserId { get; set; }
         public string Username { get; set; }
         public string Role { get; set; }
+        public bool PremiumStatus { get; set; }
     }
 
     /// <summary>

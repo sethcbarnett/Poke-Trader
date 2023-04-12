@@ -25,11 +25,11 @@ namespace Capstone.Controllers
             return Ok(users);
         }
         
-        [HttpPut("{userId}")]
-        public int ChangeToPremium( int userId) 
+        [HttpPut("{userName}")]
+        public IActionResult ChangeToPremium(string userName) 
         {
-             
-           return  userDao.ChangeUsersToPremium(userId);
+           userDao.ChangeUsersToPremium(userName);
+           return Ok();
         }
     }
 }
