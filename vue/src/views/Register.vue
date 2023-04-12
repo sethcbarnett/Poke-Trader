@@ -6,38 +6,38 @@
         {{ registrationErrorMsg }}
       </div>
       <div class="form-input-group">
-        <label for="username">Username</label>
+        <label for="username">Username:</label>
         <input type="text" id="username" v-model="user.username" required autofocus />
       </div>
       <div class="form-input-group">
-        <label for="password">Password</label>
+        <label for="password">Password:</label>
         <input type="password" id="password" v-model="user.password" required />
       </div>
       <div class="form-input-group">
-        <label for="confirmPassword">Confirm Password</label>
+        <label for="confirmPassword">Confirm Password:</label>
         <input type="password" id="confirmPassword" v-model="user.confirmPassword" required />
       </div>
       <div class="form-input-group">
-        <label for="email">Email</label>
+        <label for="email">Email:</label>
         <input type="text" id="email" v-model="user.email" required />
       </div>
       <div class="form-input-group">
-        <label for="streetAddress">Street Address</label>
+        <label for="streetAddress">Street Address:</label>
         <input type="text" id="streetAddress" v-model="user.streetAddress" required />
       </div>
       <div class="form-input-group">
-        <label for="city">City</label>
+        <label for="city">City:</label>
         <input type="text" id="city" v-model="user.city" required />
       </div>
       <div class="form-input-group">
-        <label for="stateAbbreviation">State</label>
+        <label for="stateAbbreviation">State:</label>
         <input type="text" id="stateAbbreviation" v-model="user.stateAbbreviation" required />
       </div>
       <div class="form-input-group">
-        <label for="zipCode">Zip Code</label>
+        <label for="zipCode">Zip Code:</label>
         <input type="number" id="zipCode" v-model="user.zipCode" required />
       </div>
-      <button type="submit">Create Account</button>
+      <button type="submit">Create Account:</button>
       <p><router-link class="login-link" :to="{ name: 'login' }">Already have an account? Log in</router-link></p>
     </form>
   </div>
