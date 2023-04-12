@@ -26,23 +26,34 @@ export default {
         AddCards
     },
     created (){
-        if(!this.$store.state.isSearchedUser){
-          var currentUser = this.$store.state.user.username;
-          CollectionService.getCollectionByUser(currentUser).then((response) => {
-            this.collection = response.data;
-          })
-        }
+      this.getSearchedUserCollection();
+    },
+    updated() {
+      this.getSearchedUserCollection();
     },
     data () {
         return {
-          collection: {}
+          collection: {},
+          myCollection: true
         }
     },
     methods : {
-  redirectToPremium(){
-   this.$router.push({ name: 'premium'});
-  }
-}
+      redirectToPremium(){
+        this.$router.push({ name: 'premium'});
+      },
+      getSearchedUserCollection() {
+        let searchedUser = this.$route.params.username;
+        if (searchedUser != this.$store.state.user.username) {
+          this.myCollection = false;
+        }
+        else {
+          this.myCollection = true;
+        }
+        CollectionService.getCollectionByUser(searchedUser).then((response) => {
+          this.collection = response.data;
+        });
+      }
+    }
 }
 </script>
 
