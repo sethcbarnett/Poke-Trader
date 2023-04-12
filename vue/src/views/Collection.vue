@@ -1,7 +1,7 @@
 <template>
   <div id="collection-area">
     <div id="card-display-area">
-      <card-display v-bind:collectionItem = "collectionItem" v-for="collectionItem in collection" v-bind:key="collectionItem.card.id"/>
+      <card-display v-bind:collectionItem = "collectionItem" v-for="collectionItem in $store.state.currentCollectionObject" v-bind:key="collectionItem.card.id"/>
     </div>
     <div id = "add-cards-testing">
       <add-cards/>
@@ -16,7 +16,6 @@
 
 <script>
 import CardDisplay from "../components/CardDisplay.vue";
-import CollectionService from "../services/CollectionService.js";
 import AddCards from '../components/AddCards.vue';
 
 export default {
@@ -25,33 +24,9 @@ export default {
         CardDisplay,
         AddCards
     },
-    created (){
-      this.getSearchedUserCollection();
-    },
-    updated() {
-      this.getSearchedUserCollection();
-    },
-    data () {
-        return {
-          collection: {},
-          myCollection: true
-        }
-    },
     methods : {
       redirectToPremium(){
         this.$router.push({ name: 'premium'});
-      },
-      getSearchedUserCollection() {
-        let searchedUser = this.$route.params.username;
-        if (searchedUser != this.$store.state.user.username) {
-          this.myCollection = false;
-        }
-        else {
-          this.myCollection = true;
-        }
-        CollectionService.getCollectionByUser(searchedUser).then((response) => {
-          this.collection = response.data;
-        });
       }
     }
 }

@@ -4,7 +4,8 @@
       <h1>Home</h1>
     </div>
     <div>
-      <router-link v-for="collection in publicCollections" v-bind:key="collection" :to="{ name: 'collection', params: {username: `${collection.username}`} }">{{ collection.username }}</router-link>
+      <router-link v-for="collection in publicCollections" v-bind:key="collection.id" :to="{ name: 'collection', params: {username: `${collection.username}`} }" >
+        <span @click="switchSearchedUser(collection.username)">{{ collection.username }}</span></router-link>
     </div>
   </div>
 </template>
@@ -24,9 +25,11 @@ export default {
       CollectionService.getPublicCollectionUsers().then((response) => {
         this.publicCollections = response.data;
       });
+      console.log(this.publicCollections);
     },
-    switchSearchedUser() {
-      this.$store.commit('MAKE_SEARCHED_USER_TRUE');
+    switchSearchedUser(username) {
+      this.$store.commit('SET_CURRENT_COLLECTION', username);
+      this.$store.commit('SET_CURRENT_COLLECTION_OBJECT');
     }
   },
   created() {
