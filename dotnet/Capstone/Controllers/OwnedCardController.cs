@@ -6,11 +6,11 @@ namespace Capstone.Controllers
 {
     [Route("card")]
     [ApiController]
-    public class CardController : Controller
+    public class OwnedCardController : Controller
     {
         private readonly ICardDao cardDao;
 
-        public CardController(ICardDao _cardDao)
+        public OwnedCardController(ICardDao _cardDao)
         {
             cardDao = _cardDao;
         }

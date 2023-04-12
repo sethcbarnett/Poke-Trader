@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Capstone.DAO;
 using Capstone.Security;
+using Capstone.Services;
 
 namespace Capstone
 {
@@ -64,6 +65,7 @@ namespace Capstone
             services.AddSingleton<IPasswordHasher>(ph => new PasswordHasher());
             services.AddTransient<IUserDao>(m => new UserSqlDao(connectionString));
             services.AddTransient<ICardDao>(m => new CardSqlDao(connectionString));
+            services.AddTransient<ICardApiService>(m => new CardApiService());
             services.AddTransient<ICollectionDao>(m => new CollectionSqlDao(connectionString,new CardSqlDao(connectionString)));
 
         }

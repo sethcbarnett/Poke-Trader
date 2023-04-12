@@ -1,5 +1,5 @@
 <template>
-    <div id = "card-display" href = {collectionItem.card.tcgUrl}> 
+    <a id = "card-display" :href ="collectionItem.card.tcgUrl"> 
       <div id ="top-text" >
         <h4>{{collectionItem.card.name}}</h4>
       </div>
@@ -11,7 +11,7 @@
         <h4>Quantity Owned: {{collectionItem.quantity}}</h4>
         <h4>Quantity For Trade: {{collectionItem.quantityForTrade}}</h4>
       </div>
-    </div>
+    </a>
 </template>
 
 <script>
@@ -37,6 +37,14 @@ export default {
       //   this.card.img = response.data.imgUrl;
       //   this.card.id = response.data.id;
       // });
+    },
+    methods: {
+
+    },
+    data() {
+      return {
+        cardTcgLink: "collectionItem.card.tcgUrl"
+      }
     }
 
 }
@@ -69,5 +77,16 @@ export default {
 #bottom-text h4 {
   margin: 5px;
   text-align: center;
+}
+a {
+  text-decoration: none;
+  color: black;
+}
+img {
+  width: 160px;
+}
+h4 {
+  font-size: 0.7em;
+  font-weight: 700;
 }
 </style>
