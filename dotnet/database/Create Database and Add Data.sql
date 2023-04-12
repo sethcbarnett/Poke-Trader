@@ -42,7 +42,7 @@ CREATE TABLE card (
 	id varchar(20) NOT NULL UNIQUE,
 	name varchar(50) NOT NULL,
 	img varchar(50) NOT NULL,
-	price varchar(10) NOT NULL,
+	price varchar(20) NOT NULL,
 	tcg_url varchar(50) NOT NULL,
 	CONSTRAINT PK_card PRIMARY KEY (id)
 )

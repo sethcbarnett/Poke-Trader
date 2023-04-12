@@ -8,12 +8,16 @@
       </div>
       <div id ="bottom-text">
         <h4>{{searchedCard.price}}</h4>
-        <button>Add</button>
+        <div id = "add-cards-div">
+            <input id = "quantity-ticker" type = "number" v-bind="this.quantity" min = 1/>
+            <button @click = "addCardToCollection">Add</button>
+        </div>
       </div>
     </div>
 </template>
 
 <script>
+import CollectionService from '../services/CollectionService.js';
 export default {
     name: "searched-card-display",
     props: {
@@ -23,6 +27,29 @@ export default {
             img: "",
             price: "",
             tcgUrl: ""
+        }
+    },
+    data() {
+        return {
+            collectionItem: {},
+            quantity: 1,
+            quantityForTrade: 0
+        }
+    },
+    methods: {
+        addCardToCollection(){
+            this.collectionItem = {
+                card: {
+                    id: this.searchedCard.id,
+                    name: this.searchedCard.name,
+                    img: this.searchedCard.img,
+                    price: this.searchedCard.price,
+                    tcgUrl: this.searchedCard.tcgUrl,
+                },
+                quantity: this.quantity,
+                quantityForTrade: this.quantityForTrade
+            };
+            CollectionService.addCardToCollection(this.$store.state.user.username, this.collectionItem);
         }
     }
 }
@@ -51,5 +78,10 @@ button {
     flex-direction: column;
     align-items: center;
 }
-
+#add-cards-div {
+    display: flex;
+}
+#quantity-ticker {
+    width: 30px;
+}
 </style>
