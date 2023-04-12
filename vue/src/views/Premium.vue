@@ -1,20 +1,17 @@
 <template>
   <div id="register" class="text-center">
     <form @submit.prevent="register">
-      <h1>Upgrade to Premium</h1>
-      <div role="alert" v-if="registrationErrors">
-        {{ registrationErrorMsg }}
+      <h1 class="headline">Upgrade to Premium</h1>
+      <div class="form-input-group">
+        <label for="cc-number">Credit Card Number:</label>
+        <input type="text" id="cc-number"  required />
       </div>
       <div class="form-input-group">
-        <label for="city">Credit Card Number:</label>
-        <input type="text" id="city" v-model="user.city" required />
-      </div>
-      <div class="form-input-group">
-        <label for="city">CSC:</label>
-        <input type="text" id="city" v-model="user.city" required />
+        <label for="csc">CSC:</label>
+        <input type="text" id="csc" required />
       </div>
       <label for="address-checkbox"
-        >Billing Address Different From Shipping Address</label
+        ><h3 id="checkbox-text">Billing Address Different From Shipping Address</h3></label
       >
       <input
         v-on:click="
@@ -165,4 +162,12 @@ button {
   padding-bottom: 5px;
   cursor: pointer;
 }
+.headline{
+    font-size: 35px;
+}
+#checkbox-text{
+    font-size: 12px;
+}
+
+
 </style>
