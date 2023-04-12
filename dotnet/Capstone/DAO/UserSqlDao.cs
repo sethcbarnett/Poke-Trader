@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.SqlClient;
 using Capstone.Models;
 using Capstone.Security;
@@ -74,6 +75,37 @@ namespace Capstone.DAO
             }
 
             return GetUser(username);
+        }
+
+        public List<PublicCollectionUser> GetPublicUsers()
+        {
+            List<PublicCollectionUser> publicUsers = new List<PublicCollectionUser>();
+            try
+            {
+
+                using(SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand("SELECT username FROM collection " +
+                        "JOIN users ON collection.user_id = users.user_id " +
+                        "WHERE is_public = 1;", conn);
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    while(reader.Read())
+                    {
+                        PublicCollectionUser user = new PublicCollectionUser();
+                        user.Username = Convert.ToString(reader["username"]);
+                        publicUsers.Add(user);
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                throw;
+            }
+            return publicUsers;
         }
 
         private User GetUserFromReader(SqlDataReader reader)
