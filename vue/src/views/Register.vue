@@ -59,7 +59,8 @@ export default {
         streetAddress: '',
         city: '',
         stateAbbreviation: '',
-        zipCode: 0
+        zipCode: 0,
+        isPremium: false
       },
       registrationErrors: false,
       registrationErrorMsg: 'There were problems registering this user.',
