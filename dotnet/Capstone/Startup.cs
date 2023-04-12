@@ -67,7 +67,7 @@ namespace Capstone
             services.AddTransient<ICardDao>(m => new CardSqlDao(connectionString));
             services.AddTransient<ICardApiService>(m => new CardApiService());
             services.AddTransient<ICollectionDao>(m => new CollectionSqlDao(connectionString,new CardSqlDao(connectionString)));
-
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

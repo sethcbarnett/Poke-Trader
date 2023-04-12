@@ -2,6 +2,9 @@
   <div id="register" class="text-center">
     <form>
       <h1 class="headline">Upgrade to Premium</h1>
+        <div role="alert" v-if="PremRegErrors">
+        {{ PremRegErrorMsg }}
+      </div>
       <div class="form-input-group">
         <label for="cc-number">Credit Card Number:</label>
         <input type="text" id="cc-number"  required maxlength="16" size="16"/>
@@ -26,26 +29,26 @@
           <input
             type="text"
             id="streetAddress"
-            v-model="user.streetAddress"
+           
             required
           />
         </div>
         <div class="form-input-group">
           <label for="city">City:</label>
-          <input type="text" id="city" v-model="user.city" required />
+          <input type="text" id="city"  required />
         </div>
         <div class="form-input-group">
           <label for="stateAbbreviation">State:</label>
           <input
             type="text"
             id="stateAbbreviation"
-            v-model="user.stateAbbreviation"
+            
             required
           />
         </div>
         <div class="form-input-group">
           <label for="zipCode">Zip Code:</label>
-          <input type="number" id="zipCode" v-model="user.zipCode" required />
+          <input type="number" id="zipCode"  required />
         </div>
       </div>
       <button v-on:click="redirectToCollection">CATCH 'EM ALL</button>
@@ -54,8 +57,8 @@
 </template>
 
 <script>
-//import authService from "../services/AuthService";
-
+import authService from "../services/AuthService";
+//import PremiumService from "../services/PremiumService.js"
 export default {
   name: "premium",
   data() {
@@ -64,25 +67,27 @@ export default {
 
       user: {
         username: "",
-        password: "",
-        confirmPassword: "",
-        role: "user",
-        email: "",
-        streetAddress: "",
-        city: "",
-        stateAbbreviation: "",
-        zipCode: 0,
+        
         isPremium: false
       },
-      registrationErrors: false,
-      registrationErrorMsg: "There were problems registering this user.",
+      PremRegErrors: false,
+      PremRegErrorMsg: "There were problems upgrading to Premium.",
     };
   },
   methods: {
     redirectToCollection(){
-      //TODO: change isPremium to true
+      //TODO: change isPremium to truethis
+      this.user.isPremium = true;
+        authService.changeUserToPremium(this.user.username).then((response) =>{
+            if (response.status == 200) {
+              this.$router.push({ name: 'collection'});
+            }
+            else{ this.PremRegErrors = true;
+            
 
-      this.$router.push({ name: 'collection'});
+            }
+        })
+      
     }
   },
 };
