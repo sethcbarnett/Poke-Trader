@@ -6,24 +6,47 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Text.Json;
+using System.Xml.Linq;
 
 namespace Capstone.Services
 {
-    public class CardApiService
+    public class CardApiService : ICardApiService
     {
         public string apiUrl = @"https://api.pokemontcg.io/v2/cards";
-        public IRestClient client; 
+        public IRestClient client;
+        public string searchParameters;
 
         public CardApiService() 
         {
             client = new RestClient(apiUrl);
+            searchParameters = "?q=";
         }
 
-        public List<Card> GetAllCards()
+        public void AddNameSearchParameter(string name)
         {
-            RestRequest request = new RestRequest();
-            IRestResponse<Dictionary<string, Object>> response = client.Get<Dictionary<string,Object>>(request);
-            return DeserializeJsonResponse(response);            
+            searchParameters += $"name:{name} ";
+        }
+
+        public void AddTypeSearchParameter(string type)
+        {
+            searchParameters += $"types:{type} ";
+        }
+
+        public void AddSearchParameters(string searchParameters)
+        {
+            this.searchParameters += searchParameters;
+        }
+
+        public void ResetSearchParameters()
+        {
+            searchParameters = "?q=";
+        }
+
+        public List<Card> GetCardsByParameters()
+        {
+            RestRequest request = new RestRequest(searchParameters);
+            IRestResponse<Dictionary<string, Object>> response = client.Get<Dictionary<string, Object>>(request);
+            return DeserializeJsonResponse(response);
         }
 
         public List<Card> DeserializeJsonResponse(IRestResponse<Dictionary<string, Object>> response)
