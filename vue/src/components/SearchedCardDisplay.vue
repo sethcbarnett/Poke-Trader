@@ -9,7 +9,7 @@
       <div id ="bottom-text">
         <h4>{{searchedCard.price}}</h4>
         <div id = "add-cards-div">
-            <input id = "quantity-ticker" type = "number" v-bind="this.quantity" min = 1/>
+            <input id = "quantity-ticker" type = "number" v-model.number="quantity" min = "1"/>
             <button @click = "addCardToCollection">Add</button>
         </div>
       </div>
