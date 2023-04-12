@@ -49,6 +49,7 @@ namespace Capstone.DAO
             }
             return collection;
         }
+
         public CollectionItem getCollectionItemFromReader(SqlDataReader reader, Card card)
         {
             CollectionItem item = new CollectionItem();

@@ -27,6 +27,12 @@ export default {
             this.collection = response.data;
           })
         }
+        else {
+          let searchedUser = this.$route.params.username;
+          CollectionService.getCollectionByUser(searchedUser).then((response) => {
+            this.collection = response.data;
+          });
+        }
     },
     data () {
         return {
@@ -34,10 +40,22 @@ export default {
         }
     },
     methods : {
-  redirectToPremium(){
-   this.$router.push({ name: 'premium'});
-  }
-}
+      redirectToPremium(){
+        this.$router.push({ name: 'premium'});
+      },
+      getMyCollection() {
+        let currentUser = this.$store.state.user.username;
+        CollectionService.getCollectionByUser(currentUser).then((response) => {
+          this.collection = response.data;
+        });
+      },
+      getSearchedUserCollection() {
+        let searchedUser = this.$route.params.username;
+        CollectionService.getCollectionByUser(searchedUser).then((response) => {
+          this.collection = response.data;
+        });
+      }
+    }
 }
 </script>
 

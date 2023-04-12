@@ -38,6 +38,12 @@ export default new Vuex.Store({
       state.token = '';
       state.user = {};
       axios.defaults.headers.common = {};
+    },
+    MAKE_SEARCHED_USER_FALSE(state) {
+      state.isSearchedUser = false;
+    },
+    MAKE_SEARCHED_USER_TRUE(state) {
+      state.isSearchedUser = true;
     }
   }
 })

@@ -57,4 +57,9 @@
         public string StateAbbreviation { get; set; }
         public string ZipCode { get; set; }
     }
+
+    public class PublicCollectionUser
+    {
+        public string Username { get; set;}
+    }
 }

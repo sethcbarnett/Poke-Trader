@@ -26,12 +26,14 @@ CREATE TABLE users (
 	city varchar (50) NOT NULL,
 	state_abbreviation varchar (3) NOT NULL,
 	zip_code int NOT NULL,
+	is_premium bit NOT NULL DEFAULT 0,
 	CONSTRAINT PK_users PRIMARY KEY (user_id)
 )
 
 CREATE TABLE collection (
 	collection_id int IDENTITY(1, 1) NOT NULL,
 	user_id int NOT NULL,
+	is_public bit NOT NULL DEFAULT 0,
 	CONSTRAINT PK_collection PRIMARY KEY (collection_id),
 	CONSTRAINT FK_users_collection FOREIGN KEY (user_id) references users (user_id),
 )
@@ -57,10 +59,10 @@ CREATE TABLE collection_card (
 
 --populate default data
 INSERT INTO users (username, password_hash, salt, user_role, email, street_address, city, state_abbreviation, zip_code) VALUES ('user','Jg45HuwT7PZkfuKTz6IB90CtWY4=','LHxP4Xh7bN0=','user', 'abc123@hello.com', '123 muffin lane', 'Cleveland', 'RI', 12345);
-INSERT INTO users (username, password_hash, salt, user_role, email, street_address, city, state_abbreviation, zip_code) VALUES ('admin','YhyGVQ+Ch69n4JMBncM4lNF/i9s=', 'Ar/aB2thQTI=','admin', 'abc123@hello.com', '123 muffin lane', 'Cleveland', 'RI', 12345);
+INSERT INTO users (username, password_hash, salt, user_role, email, street_address, city, state_abbreviation, zip_code, is_premium) VALUES ('admin','YhyGVQ+Ch69n4JMBncM4lNF/i9s=', 'Ar/aB2thQTI=','admin', 'abc123@hello.com', '123 muffin lane', 'Cleveland', 'RI', 12345, 1);
 
 INSERT INTO collection (user_id) VALUES ((SELECT user_id FROM users WHERE username = 'user'));
-INSERT INTO collection (user_id) VALUES ((SELECT user_id FROM users WHERE username = 'admin'));
+INSERT INTO collection (user_id, is_public) VALUES ((SELECT user_id FROM users WHERE username = 'admin'), 1);
 
 INSERT INTO card (name, id, img, price, tcg_url) VALUES ('Alakazam-EX', 'xy10-117', 'https://images.pokemontcg.io/xy10/117.png', '$8.40', 'https://prices.pokemontcg.io/tcgplayer/xy10-117');
 INSERT INTO card (name, id, img, price, tcg_url) VALUES ('Detective Pikachu','det1-10','https://images.pokemontcg.io/det1/10.png','$2.10', 'https://prices.pokemontcg.io/tcgplayer/det1-10');
