@@ -29,5 +29,27 @@ export default {
 </script>
 
 <style>
+#card-display {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+h4 {
+    word-wrap: break-word;
+    display: block;
+    max-width: 150px;
+}
+button {
+    background-color: #ffcb05;
+    color: #3466af;
+    border-color: #3466af;
+    border-radius: 5px;
+    cursor: pointer;
+}
+#bottom-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
 </style>
