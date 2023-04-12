@@ -3,9 +3,9 @@
     <div id="card-display-area">
       <card-display v-bind:card = "card" v-for="card in collection" v-bind:key="card.id"/>
     </div>
-    <footer>
+    
       <p>Standard users can have up to 100 unique cards in their collection.</p>
-    </footer>
+    
   </div>
 </template>
 
