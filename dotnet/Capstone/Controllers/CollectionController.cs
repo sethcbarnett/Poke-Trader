@@ -23,5 +23,19 @@ namespace Capstone.Controllers
             return Ok(cards);
         }
 
+        [HttpPost("{username}")]
+        public IActionResult AddCardToCollection(string username, CollectionItem item)
+        {
+            CollectionItem returnedItem = collectionDao.AddCollectionItemToCollection(item, username);
+            if (returnedItem != null)
+            {
+                return Ok();
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
+
     }
 }

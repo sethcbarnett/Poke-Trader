@@ -7,5 +7,9 @@ export default {
 
   getPublicCollectionUsers() {
     return axios.get('/users/public');
+  },
+
+  addCardToCollection(username, collectionItem) {
+    return axios.post(`/collection/${username}`, collectionItem);
   }
 }

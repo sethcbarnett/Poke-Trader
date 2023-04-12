@@ -10,5 +10,7 @@ namespace Capstone.DAO
 
         CollectionItem getCollectionItemFromReader(SqlDataReader reader, Card card);
 
+        CollectionItem AddCollectionItemToCollection(CollectionItem collectionItem, string username);
+
     }
 }
