@@ -10,5 +10,6 @@ namespace Capstone.DAO
         List<PublicCollectionUser> GetPublicUsers();
 
         void ChangeUsersToPremium(string userName);
+        void ToggleCollectionPrivacy(string userName);
     }
 }

@@ -31,5 +31,11 @@ namespace Capstone.Controllers
            userDao.ChangeUsersToPremium(userName);
            return Ok();
         }
+        [HttpPut("toggle/{userName}")]
+        public IActionResult ToggleVisibility(string userName)
+        {
+            userDao.ToggleCollectionPrivacy(userName);
+            return Ok();
+        }
     }
 }

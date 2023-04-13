@@ -12,6 +12,8 @@ export default {
   
   changeUserToPremium(userName) {
     return axios.put(`/users/${userName}`);
+  },
+  toggleVisibility(userName) {
+    return axios.put(`/users/toggle/${userName}`);
   }
-
 }
