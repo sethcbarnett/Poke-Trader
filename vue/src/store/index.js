@@ -24,6 +24,7 @@ export default new Vuex.Store({
     user: currentUser || {},
     currentCollection: '',
     currentCollectionObject: {},
+    searchedCardResult: {},
     isPremium: false
   },
   mutations: {
@@ -50,6 +51,14 @@ export default new Vuex.Store({
        CollectionService.getCollectionByUser(state.currentCollection).then((response) => {
         state.currentCollectionObject = response.data;
       });
+    },
+    ADD_TO_COLLECTION(state, collectionItem){
+      var collectionArray = Object.values(this.currentCollectionObject);
+      collectionArray.unshift(collectionItem);
+      console.log(this.currentCollectionObject);
+    },
+    SET_SEARCHED_CARDS(state, result){
+      state.searchedCardResult = result;
     },
     SET_PREMIUM(state, user) {
       state.isPremium = user.premiumStatus;

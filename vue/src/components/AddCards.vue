@@ -5,7 +5,7 @@
         <input id = "search-button" type ="submit" value="Search"/>
     </form>
     <div id="searched-cards-area">
-      <searched-card-display v-bind:searchedCard = "searchedCard" v-for="searchedCard in cardSearchResult" v-bind:key="searchedCard.id"/>
+      <searched-card-display v-bind:searchedCard = "searchedCard" v-for="searchedCard in $store.state.searchedCardResult" v-bind:key="searchedCard.id"/>
     </div>
   </div>
 </template>
@@ -17,21 +17,22 @@ export default {
     name: "add-cards",
     data() {
         return {
-            cardSearchResult: {},
             searchString: ""
         }
     },
     methods: {
         submitSearch() {
             SearchService.getCardsBySearch(`name:${this.searchString}`).then((response) => {
-                this.cardSearchResult = response.data;
+                this.$store.commit('SET_SEARCHED_CARDS', response.data);
             });
         }
     },
     components: {
         SearchedCardDisplay
+    },
+    created() {
+        
     }
-
 }
 </script>
 
