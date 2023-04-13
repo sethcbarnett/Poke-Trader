@@ -7,22 +7,23 @@
         v-bind:key="collectionItem.card.id"
       />
     </div>
+    <div id = "collection-and-search-options">
     <p>Change collection to public</p>
-   <div class="switch-container">
-    <label class="switch">
-      <input type="checkbox" />
-      <span class="slider round"></span>
-    </label>
-    </div>
-    <div id="add-cards-testing">
-      <add-cards />
-    </div>
-    <footer v-if="$store.state.isPremium == false">
-      <p>Standard users can have up to 100 unique cards in their collection.</p>
-
-      <button @click="redirectToPremium" id="go-premium">Go Premium!</button>
-    </footer>
+    <div class="switch-container">
+      <label class="switch">
+        <input type="checkbox" />
+        <span class="slider round"></span>
+      </label>
+      </div>
+      <div id="add-cards">
+        <add-cards />
+      </div>
+      <footer v-if="$store.state.isPremium == false">
+        <p>Standard users can have up to 100 unique cards in their collection.</p>
+        <button @click="redirectToPremium" id="go-premium">Go Premium!</button>
+      </footer>
     <div id = "spacer"/>
+  </div>
   </div>
 </template>
 
