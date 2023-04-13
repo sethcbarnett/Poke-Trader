@@ -25,7 +25,8 @@ export default new Vuex.Store({
     currentCollection: '',
     currentCollectionObject: {},
     searchedCardResult: {},
-    isPremium: false
+    isPremium: false,
+    isPublic: false
   },
   mutations: {
     SET_AUTH_TOKEN(state, token) {
@@ -66,7 +67,15 @@ export default new Vuex.Store({
     GO_PREMIUM(state)
     {
       state.isPremium = true;
+    },
+    SET_VISIBILITY(state, user) {
+      state.isPublic = user.isPublic;
+    },
+    SWITCH_PUBLIC(state) {
+      state.user.isPublic = !state.user.isPublic;
+     let thing = JSON.parse(localStorage.getItem('user'));
+     thing.isPublic = state.user.isPublic;
+     localStorage.setItem('user', JSON.stringify(thing));
     }
-
   }
 })

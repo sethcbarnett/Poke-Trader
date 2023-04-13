@@ -13,6 +13,7 @@
         public string StateAbbreviation { get; set; }
         public int ZipCode { get; set; }
         public bool isPremium { get; set; }
+        public bool IsPublic { get; set; }
     }
 
     /// <summary>
@@ -24,6 +25,7 @@
         public string Username { get; set; }
         public string Role { get; set; }
         public bool PremiumStatus { get; set; }
+        public bool IsPublic { get; set; }
     }
 
     /// <summary>

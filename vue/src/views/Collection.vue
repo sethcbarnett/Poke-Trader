@@ -10,7 +10,7 @@
     <p>Change collection to public</p>
    <div class="switch-container">
     <label class="switch">
-      <input type="checkbox" />
+      <input @change="toggleVisibility" type="checkbox" v-model="this.$store.state.user.isPublic"/>
       <span class="slider round"></span>
     </label>
     </div>
@@ -29,12 +29,20 @@
 <script>
 import CardDisplay from "../components/CardDisplay.vue";
 import AddCards from "../components/AddCards.vue";
-
+import authService from "../services/AuthService.js";
 export default {
   name: "collection",
   components: {
     CardDisplay,
     AddCards,
+  },
+  data() {
+    return {
+      user: {
+        username: "",
+        isPublic: this.$store.state.user.username
+      },
+    };
   },
   methods: {
     redirectToPremium() {
@@ -42,12 +50,27 @@ export default {
     },
     checkForPremium() {
       if (this.$store.state.user.isPremium == true) {
-        this.$store.state.isPremium == true;
+        this.$store.commit('SET_PREMIUM');
       }
+    },
+    checkForPublic() {
+      if (this.$store.state.user.isPublic == true) {
+        this.$store.commit('TOGGLE_VISIBILITY');
+      }
+    },
+    toggleVisibility() {
+       authService.toggleVisibility(this.$store.state.user.username).then((response) =>{
+            if (response.status == 200) {
+              this.$store.commit('SWITCH_PUBLIC');
+            }
+            else {console.log('NO SIR');
+            }
+        })
     },
   },
   created() {
     this.checkForPremium();
+    this.checkForPublic();
   },
 };
 </script>
