@@ -90,7 +90,6 @@ button {
   padding-left: 20px;
   padding-right: 20px;
 }
-<<<<<<< vue/src/views/Collection.vue
 .switch {
   display: inline-block;
   position: relative;
@@ -159,8 +158,4 @@ input:checked + .slider:before {
 #spacer {
   margin: 20px;
 }
-
-
-
->>>>>>> vue/src/views/Collection.vue
 </style>
