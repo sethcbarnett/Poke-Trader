@@ -1,5 +1,5 @@
 <template>
-    <a id = "card-display" :href ="collectionItem.card.tcgUrl"> 
+    <a id = "card-display" :href ="collectionItem.card.tcgUrl" target="_blank"> 
       <div id ="top-text" >
         <h4>{{collectionItem.card.name}}</h4>
       </div>
