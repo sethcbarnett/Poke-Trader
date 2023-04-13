@@ -24,6 +24,7 @@ export default new Vuex.Store({
     user: currentUser || {},
     currentCollection: '',
     currentCollectionObject: {},
+    currentCollectionValue: 0,
     searchedCardResult: {},
     isPremium: false
   },
@@ -50,6 +51,13 @@ export default new Vuex.Store({
     SET_CURRENT_COLLECTION_OBJECT(state) {
        CollectionService.getCollectionByUser(state.currentCollection).then((response) => {
         state.currentCollectionObject = response.data;
+        state.currentCollectionValue = 0;
+        state.currentCollectionObject.forEach((collectionItem) => {
+          let price = parseFloat(collectionItem.card.price);
+          price = price * collectionItem.quantity;
+          state.currentCollectionValue += price;
+          state.currentCollectionValue = parseFloat(state.currentCollectionValue.toFixed(2));
+        });
       });
     },
     ADD_TO_COLLECTION(state, collectionItem){
