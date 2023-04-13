@@ -7,7 +7,7 @@
         <img v-bind:src="searchedCard.img"/>
       </div>
       <div id ="bottom-text">
-        <h4>{{searchedCard.price}}</h4>
+        <h4><span v-if="searchedCard.price.length < 13">$</span>{{searchedCard.price}}</h4>
         <div id = "add-cards-div">
             <input id = "quantity-ticker" type = "number" v-model.number="quantity" min = "1"/>
             <button @click = "addCardToCollection">Add</button>
