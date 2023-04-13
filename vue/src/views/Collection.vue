@@ -1,7 +1,8 @@
 <template>
   <div id="collection-area">
-    <div id="collection-value">
-      Value of all cards in collection: ${{ $store.state.currentCollectionValue }}
+    <div class="options">
+      <collection-stats />
+      <premium-button v-if="$store.state.isPremium == false" />
     </div>
     <div id="card-display-area">
       <card-display
@@ -20,11 +21,6 @@
     <div id="add-cards-testing">
       <add-cards />
     </div>
-    <footer v-if="$store.state.isPremium == false">
-      <p>Standard users can have up to 100 unique cards in their collection.</p>
-
-      <button @click="redirectToPremium" id="go-premium">Go Premium!</button>
-    </footer>
     <div id = "spacer"/>
   </div>
 </template>
@@ -32,12 +28,16 @@
 <script>
 import CardDisplay from "../components/CardDisplay.vue";
 import AddCards from "../components/AddCards.vue";
+import CollectionStats from "../components/CollectionStats.vue";
+import PremiumButton from "../components/PremiumButton.vue";
 
 export default {
   name: "collection",
   components: {
     CardDisplay,
     AddCards,
+    CollectionStats,
+    PremiumButton
   },
   methods: {
     redirectToPremium() {
@@ -70,11 +70,6 @@ div {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-}
-footer {
-  display: flex;
-  align-self: center;
-  flex-direction: column;
 }
 button {
   background-color: #3466af;
@@ -160,5 +155,23 @@ input:checked + .slider:before {
 }
 #spacer {
   margin: 20px;
+}
+.options {
+  background-color: rgb(207, 200, 177);
+  border: 2px solid black;
+  border-radius: 20px;
+  padding: 20px;
+  display: flex;
+  margin: 20px;
+  padding-bottom: 5px;
+  padding-top: 5px;
+  justify-content: space-evenly;
+  flex-direction: row;
+}
+premium-button {
+  flex-basis: 100px;
+}
+collection-stats {
+  flex-basis: 33%;
 }
 </style>
