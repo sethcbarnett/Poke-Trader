@@ -52,7 +52,7 @@ export default {
     text-decoration: none;
   }
   #nav-spacer {
-    margin: 40px;
+    margin: 34px;
   }
   
 
