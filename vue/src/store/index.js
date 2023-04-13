@@ -85,6 +85,9 @@ export default new Vuex.Store({
     GO_PREMIUM(state)
     {
       state.isPremium = true;
+      let premiumChanger = JSON.parse(localStorage.getItem('user'));
+      premiumChanger.premiumStatus = state.isPremium;
+      localStorage.setItem('user', JSON.stringify(premiumChanger));
     },
     SET_VISIBILITY(state, user) {
       state.isPublic = user.isPublic;

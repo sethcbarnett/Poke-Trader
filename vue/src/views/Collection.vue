@@ -193,9 +193,6 @@ input:checked + .slider:before {
   justify-content: space-evenly;
   flex-direction: row;
 }
-premium-button {
-  flex-basis: 100px;
-}
 collection-stats {
   flex-basis: 33%;
 }
