@@ -14,6 +14,7 @@
       <p>Standard users can have up to 100 unique cards in their collection.</p>
       <button @click="redirectToPremium" id="go-premium">Go Premium!</button>
     </footer>
+    <div id = "spacer"/>
   </div>
 </template>
 
@@ -50,7 +51,8 @@ div {
 }
 #collection-area {
   height: 100vh;
-  width: 100vw;
+  width: 100vw; 
+  overflow: auto;
 }
 #card-display-area {
   display: flex;
@@ -79,4 +81,8 @@ button {
   padding-left: 20px;
   padding-right: 20px;
 }
+#spacer {
+  margin: 20px;
+}
+
 </style>
