@@ -121,7 +121,7 @@ namespace Capstone.DAO
                 {
                     conn.Open();
 
-                    SqlCommand cmd = new SqlCommand("SELECT card.id, card.name, card.img, card.price, card.tcg_url, collection_card.quantity, collection_card.amount_to_trade FROM card" +
+                    SqlCommand cmd = new SqlCommand("SELECT card.id, card.name, card.img, card.price, card.tcg_url, collection_card.quantity, collection_card.amount_to_trade, collection.collection_id FROM card" +
                         " JOIN collection_card ON card.id = collection_card.id" +
                         " JOIN collection ON collection_card.collection_id = collection.collection_id" +
                         " JOIN users ON collection.user_id = users.user_id WHERE users.username = @username;", conn);
@@ -145,6 +145,30 @@ namespace Capstone.DAO
             }
             return collection;
         }
+        public void ToggleCollectionPrivacy(int collectionId)
+        {
+            //int numberOfRowsUpdated = 0;
+            try
+            {
+
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand("UPDATE collection SET is_public = 1 - is_public  WHERE collection_id = @collection_id;", conn);
+                    cmd.Parameters.AddWithValue("@collection_id", collectionId);
+
+                    cmd.ExecuteNonQuery();
+
+
+                }
+            }
+            catch (SqlException)
+            {
+                throw;
+            }
+            //return numberOfRowsUpdated;
+        }
 
         public CollectionItem getCollectionItemFromReader(SqlDataReader reader, Card card)
         {
@@ -152,6 +176,8 @@ namespace Capstone.DAO
             item.Card = card;
             item.Quantity = Convert.ToInt32(reader["quantity"]);
             item.QuantityForTrade = Convert.ToInt32(reader["amount_to_trade"]);
+            item.CollectionId = Convert.ToInt32(reader["collection_id"]);
+            
             return item;
         }
 

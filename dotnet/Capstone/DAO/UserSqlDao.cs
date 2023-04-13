@@ -138,6 +138,8 @@ namespace Capstone.DAO
             //return numberOfRowsUpdated;
         }
 
+       
+
         private User GetUserFromReader(SqlDataReader reader)
         {
             User u = new User()
