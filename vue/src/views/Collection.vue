@@ -96,6 +96,7 @@ div {
   flex-direction: row;
   flex-wrap: wrap;
 }
+
 button {
   background-color: #3466af;
   color: white;
@@ -187,10 +188,11 @@ input:checked + .slider:before {
   border-radius: 20px;
   padding: 20px;
   display: flex;
+
   margin: 20px;
   padding-bottom: 5px;
   padding-top: 5px;
-  justify-content: space-evenly;
+  justify-content: space-between;
   flex-direction: row;
 }
 collection-stats {
