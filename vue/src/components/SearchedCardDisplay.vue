@@ -49,7 +49,9 @@ export default {
                 quantity: this.quantity,
                 quantityForTrade: this.quantityForTrade
             };
-            CollectionService.addCardToCollection(this.$store.state.user.username, this.collectionItem);
+            CollectionService.addCardToCollection(this.$store.state.user.username, this.collectionItem).then(() => {
+                this.$store.commit('SET_CURRENT_COLLECTION_OBJECT');
+            });
         }
     }
 }
