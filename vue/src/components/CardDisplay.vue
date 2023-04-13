@@ -44,7 +44,7 @@ export default {
   padding: 20px;
   display: flex;
   flex-direction: column;
-  margin: 20px;
+  margin: 5px;
   padding-bottom: 5px;
   padding-top: 5px;
 }

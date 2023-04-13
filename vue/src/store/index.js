@@ -25,6 +25,9 @@ export default new Vuex.Store({
     currentCollection: '',
     currentCollectionObject: {},
     currentCollectionValue: 0,
+    totalCardsInCurrentCollection: 0,
+    uniqueCardsInCurrentCollection: 0,
+    numberCardsForTradeInCurrentCollection: 0,
     searchedCardResult: {},
     isPremium: false
   },
@@ -52,11 +55,18 @@ export default new Vuex.Store({
        CollectionService.getCollectionByUser(state.currentCollection).then((response) => {
         state.currentCollectionObject = response.data;
         state.currentCollectionValue = 0;
+        state.totalCardsInCurrentCollection = 0;
+        state.uniqueCardsInCurrentCollection = 0;
+        state.numberCardsForTradeInCurrentCollection = 0;
         state.currentCollectionObject.forEach((collectionItem) => {
           let price = parseFloat(collectionItem.card.price);
           price = price * collectionItem.quantity;
           state.currentCollectionValue += price;
           state.currentCollectionValue = parseFloat(state.currentCollectionValue.toFixed(2));
+
+          state.totalCardsInCurrentCollection += collectionItem.quantity;
+          state.uniqueCardsInCurrentCollection += 1;
+          state.numberCardsForTradeInCurrentCollection += collectionItem.quantityForTrade;
         });
       });
     },
