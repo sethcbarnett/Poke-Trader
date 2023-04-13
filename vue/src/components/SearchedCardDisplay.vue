@@ -38,20 +38,26 @@ export default {
     },
     methods: {
         addCardToCollection(){
-            this.collectionItem = {
-                card: {
-                    id: this.searchedCard.id,
-                    name: this.searchedCard.name,
-                    img: this.searchedCard.img,
-                    price: this.searchedCard.price,
-                    tcgUrl: this.searchedCard.tcgUrl,
-                },
-                quantity: this.quantity,
-                quantityForTrade: this.quantityForTrade
-            };
-            CollectionService.addCardToCollection(this.$store.state.user.username, this.collectionItem).then(() => {
-                this.$store.commit('SET_CURRENT_COLLECTION_OBJECT');
-            });
+            if (!this.$store.state.isPremium && this.$store.state.currentCollectionObject.length >= 100){
+                return;
+            }
+            else {
+                this.collectionItem = {
+                    card: {
+                        id: this.searchedCard.id,
+                        name: this.searchedCard.name,
+                        img: this.searchedCard.img,
+                        price: this.searchedCard.price,
+                        tcgUrl: this.searchedCard.tcgUrl,
+                    },
+                    quantity: this.quantity,
+                    quantityForTrade: this.quantityForTrade
+                };
+                CollectionService.addCardToCollection(this.$store.state.user.username, this.collectionItem).then(() => {
+                    this.$store.commit('SET_CURRENT_COLLECTION_OBJECT');
+                });
+            }
+            
         }
     }
 }
