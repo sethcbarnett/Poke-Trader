@@ -1,5 +1,8 @@
 <template>
   <div class="home">
+    <div id = "testing">
+      <search-filters/>
+    </div>
     <div>
       <h1>Home</h1>
     </div>
@@ -12,9 +15,12 @@
 
 <script>
 import CollectionService from "../services/CollectionService.js";
-
+import SearchFilters from "../components/SearchFilters.vue";
 export default {
   name: "home",
+  components: {
+    SearchFilters
+  },
   data() {
     return {
       publicCollections: []
@@ -38,7 +44,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .home {
   margin-top: 20px;
 }

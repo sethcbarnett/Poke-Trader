@@ -11,6 +11,7 @@
         v-bind:key="collectionItem.card.id"
       />
     </div>
+    <div id = "collection-and-search-options">
     <p>Change collection to public</p>
    <div class="switch-container">
     <label class="switch">
@@ -22,6 +23,7 @@
       <add-cards />
     </div>
     <div id = "spacer"/>
+  </div>
   </div>
 </template>
 

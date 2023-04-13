@@ -47,8 +47,9 @@ export default {
 #search-bar {
     height: 30px;
     border-radius: 5px;
-    width: 400px;
-    margin-right: 20px;
+    width: 364px;
+    margin-right: 10px;
+    margin-left: 10px;
 }
 #search-form {
     align-self: center;
@@ -58,7 +59,7 @@ export default {
     color: #3466af;
     border-color: #3466af;
     border-radius: 5px;
-    height: 30px;
+    height: 36px;
     width: 75px;
     cursor: pointer;
 }
