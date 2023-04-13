@@ -28,11 +28,11 @@ export default {
 <style>
 @import url('https://fonts.cdnfonts.com/css/pokemon-solid');
   #app {
+    height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     font-family: 'Pokemon Solid', sans-serif;
-    overflow: auto;
     letter-spacing: 1px;
   }
   #nav {
@@ -52,9 +52,9 @@ export default {
     text-decoration: none;
   }
   #nav-spacer {
-    margin: 40px;
+    margin: 34px;
   }
-  
+
 
 
 </style>

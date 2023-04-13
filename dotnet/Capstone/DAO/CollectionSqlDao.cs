@@ -19,7 +19,7 @@ namespace Capstone.DAO
         public CollectionItem AddCollectionItemToCollection(CollectionItem collectionItem, string username)
         {
             CollectionItem databaseItem = null;
-            try
+            //try
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
@@ -104,10 +104,10 @@ namespace Capstone.DAO
                 }
                 databaseItem = collectionItem;
             }
-            catch(Exception ex)
-            {
-                throw new Exception();
-            }
+            //catch(Exception ex)
+            //{
+            //    throw new Exception();
+            //}
             return databaseItem;
         }
 

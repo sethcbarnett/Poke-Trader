@@ -7,7 +7,7 @@
         <img v-bind:src="searchedCard.img"/>
       </div>
       <div id ="bottom-text">
-        <h4>{{searchedCard.price}}</h4>
+        <h4><span v-if="searchedCard.price.length < 13">$</span>{{searchedCard.price}}</h4>
         <div id = "add-cards-div">
             <input id = "quantity-ticker" type = "number" v-model.number="quantity" min = "1"/>
             <button @click = "addCardToCollection">Add</button>
@@ -38,20 +38,26 @@ export default {
     },
     methods: {
         addCardToCollection(){
-            this.collectionItem = {
-                card: {
-                    id: this.searchedCard.id,
-                    name: this.searchedCard.name,
-                    img: this.searchedCard.img,
-                    price: this.searchedCard.price,
-                    tcgUrl: this.searchedCard.tcgUrl,
-                },
-                quantity: this.quantity,
-                quantityForTrade: this.quantityForTrade
-            };
-            CollectionService.addCardToCollection(this.$store.state.user.username, this.collectionItem).then(() => {
-                this.$store.commit('SET_CURRENT_COLLECTION_OBJECT');
-            });
+            if (!this.$store.state.isPremium && this.$store.state.currentCollectionObject.length >= 100){
+                return;
+            }
+            else {
+                this.collectionItem = {
+                    card: {
+                        id: this.searchedCard.id,
+                        name: this.searchedCard.name,
+                        img: this.searchedCard.img,
+                        price: this.searchedCard.price,
+                        tcgUrl: this.searchedCard.tcgUrl,
+                    },
+                    quantity: this.quantity,
+                    quantityForTrade: this.quantityForTrade
+                };
+                CollectionService.addCardToCollection(this.$store.state.user.username, this.collectionItem).then(() => {
+                    this.$store.commit('SET_CURRENT_COLLECTION_OBJECT');
+                });
+            }
+            
         }
     }
 }

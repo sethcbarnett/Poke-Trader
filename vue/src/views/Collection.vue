@@ -22,6 +22,7 @@
 
       <button @click="redirectToPremium" id="go-premium">Go Premium!</button>
     </footer>
+    <div id = "spacer"/>
   </div>
 </template>
 
@@ -59,7 +60,8 @@ div {
 }
 #collection-area {
   height: 100vh;
-  width: 100vw;
+  width: 100vw; 
+  overflow: auto;
 }
 #card-display-area {
   display: flex;
@@ -88,6 +90,7 @@ button {
   padding-left: 20px;
   padding-right: 20px;
 }
+<<<<<<< vue/src/views/Collection.vue
 .switch {
   display: inline-block;
   position: relative;
@@ -153,4 +156,11 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%;
 }
+#spacer {
+  margin: 20px;
+}
+
+
+
+>>>>>>> vue/src/views/Collection.vue
 </style>

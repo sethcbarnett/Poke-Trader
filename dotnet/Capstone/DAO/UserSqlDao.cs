@@ -68,6 +68,11 @@ namespace Capstone.DAO
                     cmd.Parameters.AddWithValue("@state_abbreviation", stateAbbreviation);
                     cmd.Parameters.AddWithValue("@zip_code", zipCode);
                     cmd.ExecuteNonQuery();
+
+                    SqlCommand sqlCommand = new SqlCommand("INSERT INTO collection (user_id) " +
+                                                           "VALUES ((SELECT user_id FROM users WHERE username = @username));", conn);
+                    sqlCommand.Parameters.AddWithValue("@username", username);
+                    sqlCommand.ExecuteNonQuery();
                 }
             }
             catch (SqlException)
