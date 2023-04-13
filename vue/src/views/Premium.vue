@@ -93,12 +93,13 @@ export default {
 
 <style scoped>
 .text-center {
-  background-image: url("../assets/pokeball.png");
+  background-image: none;
   width: 100vw;
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
+  background: url('../assets/pokeball wallpaper.jpg');
 }
 form {
   display: flex;
