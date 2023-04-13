@@ -1,5 +1,8 @@
 <template>
   <div id="collection-area">
+    <div id="collection-value">
+      Value of all cards in collection: ${{ $store.state.currentCollectionValue }}
+    </div>
     <div id="card-display-area">
       <card-display
         v-bind:collectionItem="collectionItem"
