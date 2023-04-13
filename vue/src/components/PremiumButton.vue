@@ -29,9 +29,8 @@ button {
   padding-bottom: 5px;
   display: inline-block;
   cursor: pointer;
-  max-width: 400px;
+  width: 100px;
+  height: 80px;
   align-self: center;
-  padding-left: 20px;
-  padding-right: 20px;
 }
 </style>
