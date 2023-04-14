@@ -1,23 +1,25 @@
 <template>
   <form id="search-form">
-    <div id="search-name" @submit.prevent="submitSearch">
-        <button id = "show-hide-filters" @click.prevent="showHideFilters">{{(filterVisibility ? "Hide Filters" : "Show Filters")}}</button>
+    <div id="search-name" v-on:submit.prevent="submitSearch">
+      <button id="show-hide-filters" @click.prevent="showHideFilters">
+        {{ filterVisibility ? "Hide Filters" : "Show Filters" }}
+      </button>
       <input
-        v-model="searchString"
+        v-model="nameSearch"
         id="search-bar"
         type="text"
         placeholder="Search for Pokemon to catch by name..."
       />
-      <input id="search-button" type="submit" value="Search" />
+      <input id="search-button" type="submit" @click.prevent="submitSearch" value="Search" />
     </div>
     <div id="search-filters" v-show="filterVisibility">
       <div id="price-filter">
         <p>Filter results by price:</p>
         <div id="min-max-input">
           <label for="min-price" name="min-price">Min: $</label>
-          <input id="min-price" name="min-price" type="text" />
+          <input id="min-price" name="min-price" type="text" v-model="minPrice"/>
           <label for="max-price" name="max-price">Max: $</label>
-          <input id="max-price" type="text" name="max-price" />
+          <input id="max-price" type="text" name="max-price" v-model="maxPrice"/>
         </div>
       </div>
       <div id="rarity-filter">
@@ -27,21 +29,21 @@
             <p>COMMON</p>
             <div class="symbol-and-checkbox">
               <p>●</p>
-              <input type="checkbox" checked />
+              <input type="checkbox" checked v-model="rarities" value="common"/>
             </div>
           </div>
           <div id="uncommon" class="rarity">
             <p>UNCOMMON</p>
             <div class="symbol-and-checkbox">
               <p>◆</p>
-              <input type="checkbox" checked />
+              <input type="checkbox" checked v-model="rarities" value="uncommon"/>
             </div>
           </div>
           <div id="rare" class="rarity">
             <p>RARE</p>
             <div class="symbol-and-checkbox">
               <p>🟊</p>
-              <input type="checkbox" checked />
+              <input type="checkbox" checked v-model="rarities" value="rare"/>
             </div>
           </div>
         </div>
@@ -51,30 +53,90 @@
 </template>
 
 <script>
+import SearchService from "../services/SearchService.js";
 export default {
   name: "search-filters",
   data() {
-      return {
-          filterVisibility: false
-      }
+    return {
+    filterVisibility: false,
+      nameSearch: "",
+      minPrice: 0,
+      maxPrice: 200000,
+      rarities: ["common", "uncommon", "rare"],
+    };
+  },
+  computed: {
+      getNameFilterString() {
+          if (this.nameSearch.length > 0)
+          {
+            return `name:*${this.nameSearch}* `;
+          }
+          else return "";
+        },
+        getPriceFilterString() {
+            return `(tcgplayer.prices.normal.mid:[${this.minPrice} TO ${this.maxPrice}] OR tcgplayer.prices.holofoil.mid:[${this.minPrice} TO ${this.maxPrice}] OR cardmarket.prices.averageSellPrice:[${this.minPrice} TO ${this.maxPrice}]) `
+        },
+        getRarityFilterString() {
+            var rarityFilterString = "";
+            if (this.rarities.length > 1){
+                rarityFilterString += "("
+            }
+            if (this.rarities.includes('common'))
+            {
+                rarityFilterString += "rarity:Common ";
+            }
+            if (this.rarities.includes('uncommon'))
+            {
+                if (this.rarities.includes('common'))
+                {
+                    rarityFilterString += 'OR '
+                }
+                rarityFilterString += "rarity:Uncommon ";
+            }
+            if (this.rarities.includes('rare'))
+            {
+                if (this.rarities.includes('common') || this.rarities.includes('uncommon'))
+                {
+                    rarityFilterString += 'OR '
+                }
+                rarityFilterString += `rarity:*r* OR rarity:*l* OR rarity:*v*`;
+            }
+            if (this.rarities.length > 1){
+                rarityFilterString += ")"
+            }
+            return rarityFilterString;
+        },
+        getCompleteFilterString() {
+            var completeFilterString = this.getNameFilterString + this.getPriceFilterString + this.getRarityFilterString;
+            return completeFilterString;
+        }
   },
   methods: {
-      showHideFilters() {
-          this.filterVisibility = !this.filterVisibility;
-      }
-  }
+    showHideFilters() {
+      this.filterVisibility = !this.filterVisibility;
+    },
+    submitSearch() {
+        this.submitSearchToApi();
+    },
+    submitSearchToApi() {
+        console.log(this.completeFilterString);
+        SearchService.getCardsBySearch(`${this.getCompleteFilterString}`).then((response) => {
+                this.$store.commit('SET_SEARCHED_CARDS', response.data);
+            });
+    }
+  },
 };
 </script>
 
 <style>
 button {
-    width: 60px;
+  width: 60px;
 }
 
 #search-name {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
 }
 
 #search-form {
@@ -182,7 +244,7 @@ button {
 #min-max-input {
   display: flex;
 }
-#min-max-input label{
+#min-max-input label {
   font-size: 15px;
 }
 #min-max-input input {

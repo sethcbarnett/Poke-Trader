@@ -1,9 +1,6 @@
 <template>
   <div id = "container">
-    <form id = "search-form" @submit.prevent ="submitSearch" >
-        <input v-model = "searchString" id = "search-bar" type = "text" placeholder="Search for Pokemon to catch by name..."/>
-        <input id = "search-button" type ="submit" value="Search"/>
-    </form>
+    <search-filters/>
     <div id="searched-cards-area">
       <searched-card-display v-bind:searchedCard = "searchedCard" v-for="searchedCard in $store.state.searchedCardResult" v-bind:key="searchedCard.id"/>
     </div>
@@ -13,6 +10,7 @@
 <script>
 import SearchService from "../services/SearchService.js";
 import SearchedCardDisplay from "./SearchedCardDisplay.vue"
+import SearchFilters from "./SearchFilters.vue"
 export default {
     name: "add-cards",
     data() {
@@ -22,16 +20,55 @@ export default {
     },
     methods: {
         submitSearch() {
-            SearchService.getCardsBySearch(`name:${this.searchString}`).then((response) => {
+            SearchService.getCardsBySearch(`name:${this.getCompleteFilterString}`).then((response) => {
                 this.$store.commit('SET_SEARCHED_CARDS', response.data);
             });
         }
     },
     components: {
-        SearchedCardDisplay
+        SearchedCardDisplay,
+        SearchFilters
     },
-    created() {
-        
+    computed: {
+        // getNameFilterString() {
+        //     return `name: ${SearchFilters.nameSearch} `;
+        // },
+        // getPriceFilterString() {
+        //     return `tcgplayer.prices.normal.mid:[${SearchFilters.minPrice} TO ${SearchFilters.maxPrice}] `
+        // },
+        // getRarityFilterString() {
+        //     var rarityFilterString = "";
+        //     if (SearchFilters.rarities.includes('common'))
+        //     {
+        //         rarityFilterString += "rarities:Common ";
+        //     }
+        //     else if (SearchFilters.rarities.includes('uncommon'))
+        //     {
+        //         if (SearchFilters.rarities.includes('common'))
+        //         {
+        //             rarityFilterString += 'OR '
+        //         }
+        //         rarityFilterString += "rarities:Uncommon ";
+        //     }
+        //     else
+        //     {
+        //         if (SearchFilters.rarities.includes('common') || SearchFilters.rarities.includes('uncommon'))
+        //         {
+        //             rarityFilterString += 'OR '
+        //         }
+        //         for (var rarity in SearchService.apiSearchRares)
+        //         {
+        //             rarityFilterString += `rarities:${rarity} OR `;
+        //         }
+        //     }
+        //     rarityFilterString = rarityFilterString.substring(0, rarityFilterString.length-2);
+        //     return rarityFilterString;
+        // },
+        // getCompleteFilterString() {
+        //     var completeFilterString = this.getNameFilterString + this.getPriceFilterString + this.getRarityFilterString;
+        //     console.log(completeFilterString);
+        //     return completeFilterString;
+        // }
     }
 }
 </script>
