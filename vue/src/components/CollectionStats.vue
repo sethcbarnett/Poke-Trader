@@ -12,6 +12,15 @@
       <div id="collection-stats">
         Value of collection:<p class="number-display"> ${{ $store.state.currentCollectionValue }}</p>
       </div>
+      <div id="collection-stats">
+        Commons:<p class="number-display"> {{$store.state.numberCommonCards}}</p>
+      </div>
+      <div id="collection-stats">
+        Uncommons:<p class="number-display"> {{$store.state.numberUncommonCards}}</p>
+      </div>
+      <div id="collection-stats">
+        Rares:<p class="number-display"> {{$store.state.numberRareCards}}</p>
+      </div>
     </div>
 </template>
 
