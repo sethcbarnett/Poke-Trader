@@ -57,6 +57,7 @@ export default {
             this.$store.commit("SET_USER", response.data.user);
             this.$store.commit("SET_PREMIUM", response.data.user);
             this.$store.commit("SET_VISIBILITY", response.data.user);
+            this.$store.commit('TOGGLE_SEARCHING_OFF');
             this.$router.push("/");
           }
         })

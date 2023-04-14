@@ -42,6 +42,7 @@ export default new Vuex.Store({
     },
     TOGGLE_SEARCHING_OFF(state) {
       state.isSearching = false;
+      state.searchedCardResult = {};
     },
     SET_AUTH_TOKEN(state, token) {
       state.token = token;

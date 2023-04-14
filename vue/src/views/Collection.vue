@@ -51,6 +51,7 @@ export default {
   },
   methods: {
     redirectToPremium() {
+      this.$store.commit('TOGGLE_SEARCHING_OFF');
       this.$router.push({ name: "premium" });
     },
     checkForPremium() {

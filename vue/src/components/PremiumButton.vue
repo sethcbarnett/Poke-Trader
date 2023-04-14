@@ -10,6 +10,7 @@ export default {
     name: 'premium-button',
     methods: {
         redirectToPremium() {
+            this.$store.commit('TOGGLE_SEARCHING_OFF');
             this.$router.push({ name: "premium" });
         },
     }
