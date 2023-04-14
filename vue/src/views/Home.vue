@@ -6,8 +6,14 @@
     <div>
       <h1>Home</h1>
     </div>
-    <div >
-      <router-link
+    <div id="content-container">
+      <div id="public-users">
+        left
+      </div>
+      <div id="pokemon-picture">
+          <img :src="imgSrc" @click="generateImg"/>
+      </div>
+      <!-- <router-link
         v-for="collection in publicCollections"
         v-bind:key="collection.id"
         :to="{
@@ -18,7 +24,7 @@
         <span id="public-user" @click="switchSearchedUser(collection.username)">{{
           collection.username
         }}</span></router-link
-      >
+      > -->
     </div>
   </div>
 </template>
@@ -26,6 +32,7 @@
 <script>
 import CollectionService from "../services/CollectionService.js";
 import SearchFilters from "../components/SearchFilters.vue";
+
 export default {
   name: "home",
   components: {
@@ -34,6 +41,8 @@ export default {
   data() {
     return {
       publicCollections: [],
+      imgSrc: '',
+      randomNumber: ''
     };
   },
   methods: {
@@ -47,9 +56,14 @@ export default {
       this.$store.commit("SET_CURRENT_COLLECTION", username);
       this.$store.commit("SET_CURRENT_COLLECTION_OBJECT");
     },
+    generateImg() {
+      this.randomNumber = Math.random()*10;
+      this.imgSrc = 'https://lorempokemon.fakerapi.it/pokemon/200/' + this.randomNumber;
+    }
   },
   created() {
     this.getPublicCollectionUsers();
+    this.generateImg();
   },
 };
 </script>
@@ -86,5 +100,62 @@ h1 {
 p {
   text-align: center;
   
+}
+#content-container {
+  display: flex;
+  height: 500px;
+  justify-content: space-around;
+}
+#public-users {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 50%;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100px;
+  color: #3466af;
+  background-color: #ffcb05;
+  border-width: 20px;
+  border-style: solid;
+  border-color: #3466af;
+  font-size: 1.25em;
+  padding-bottom: 10px;
+  line-height: 0.55em;
+  justify-content: space-evenly;
+  text-align: center;
+  line-height: 25px;
+  position: relative;
+  margin-right: 5px;
+  margin-left: 5px;
+  max-width: 500px;
+  max-height: 500px;
+}
+#pokemon-picture {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 50%;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100px;
+  max-width: 500px;
+  max-height: 500px;
+  color: #3466af;
+  background-color: #ffcb05;
+  border-width: 20px;
+  border-style: solid;
+  border-color: #3466af;
+  font-size: 1.25em;
+  padding-bottom: 10px;
+  line-height: 0.55em;
+  justify-content: space-evenly;
+  text-align: center;
+  line-height: 25px;
+  position: relative;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+img {
+  height: 550px;
+  width: 550px;
 }
 </style>
