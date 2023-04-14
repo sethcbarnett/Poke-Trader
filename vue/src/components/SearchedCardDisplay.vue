@@ -67,6 +67,7 @@ export default {
                 };
                 CollectionService.addCardToCollection(this.$store.state.user.username, this.collectionItem).then(() => {
                     this.$store.commit('SET_CURRENT_COLLECTION_OBJECT');
+                    this.$store.commit('SET_FILTERED_COLLECTION_OBJ', {name: "", minPrice: 0, maxPrice: 200000, rarity: ["common", "uncommon", "rare"]});
                 });
             }
             

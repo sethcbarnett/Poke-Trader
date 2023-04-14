@@ -89,15 +89,15 @@ export default new Vuex.Store({
     },
     SET_FILTERED_COLLECTION_OBJ(state, payload)
     {
-      console.log(payload);
       CollectionService.getCollectionByUser(state.currentCollection).then(()=> {
         let unfilteredCollection = state.currentCollectionObject;
         state.filteredCollection = [];
         for (let collectionItem of unfilteredCollection)
         {
           let containsName = collectionItem.card.name.toLowerCase().includes(payload.name.toLowerCase());
-          let overMinPrice = collectionItem.card.price >= payload.minPrice;
-          let underMaxPrice = collectionItem.card.price <= payload.maxPrice;
+          let overMinPrice = collectionItem.card.price >= parseInt(payload.minPrice);
+          let underMaxPrice = collectionItem.card.price <= parseInt(payload.maxPrice);
+          console.log(underMaxPrice);
           let isCommonRarity = false;
           let isUncommonRarity = false;
           let isRareRarity = false;
