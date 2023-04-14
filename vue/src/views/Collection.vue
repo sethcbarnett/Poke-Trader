@@ -198,4 +198,8 @@ input:checked + .slider:before {
 collection-stats {
   flex-basis: 33%;
 }
+#collection-and-search-options {
+  display: flex;
+  align-items: center;
+}
 </style>
