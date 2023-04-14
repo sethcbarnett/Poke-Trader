@@ -131,11 +131,12 @@ export default {
     },
     clearSearch() {
       this.$store.commit('TOGGLE_SEARCHING_OFF');
+    },
     filterCollection() {
       this.$store.commit('SET_FILTERED_COLLECTION_OBJ', {name:this.nameSearch, minPrice:this.minPrice, maxPrice:this.maxPrice, rarity:this.rarities});
     }
   },
-};
+}
 </script>
 
 <style>
