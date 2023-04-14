@@ -1,6 +1,8 @@
 <template>
   <form id="search-form">
     <div id="search-name" v-on:submit.prevent="submitSearch">
+      <button id="clear-search" v-show="$store.state.isSearching" @click.prevent="clearSearch">Clear Search
+      </button>
       <button id="show-hide-filters" @click.prevent="showHideFilters">
         {{ filterVisibility ? "Hide Filters" : "Show Filters" }}
       </button>
@@ -59,6 +61,7 @@ export default {
   props: ['searchType'],
   data() {
     return {
+    isSearching: false,
     filterVisibility: false,
       nameSearch: "",
       minPrice: 0,
@@ -115,6 +118,7 @@ export default {
     submitSearch() {
       if (this.searchType == 'apicall'){
         this.submitSearchToApi();
+        this.$store.commit('TOGGLE_SEARCHING_ON');
       }
       else if (this.searchType == 'filterCollection'){
         this.filterCollection();
@@ -125,6 +129,8 @@ export default {
                 this.$store.commit('SET_SEARCHED_CARDS', response.data);
             });
     },
+    clearSearch() {
+      this.$store.commit('TOGGLE_SEARCHING_OFF');
     filterCollection() {
       this.$store.commit('SET_FILTERED_COLLECTION_OBJ', {name:this.nameSearch, minPrice:this.minPrice, maxPrice:this.maxPrice, rarity:this.rarities});
     }
@@ -274,6 +280,9 @@ background-color: #ffcb05;
   margin-left: 5px;
 }
 #max-price {
+  margin-right: 5px;
+}
+#clear-search {
   margin-right: 5px;
 }
 </style>

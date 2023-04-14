@@ -34,9 +34,17 @@ export default new Vuex.Store({
     numberRareCards: 0,
     searchedCardResult: {},
     isPremium: false,
-    isPublic: false
+    isPublic: false,
+    isSearching: false
   },
   mutations: {
+    TOGGLE_SEARCHING_ON(state) {
+      state.isSearching = true;
+    },
+    TOGGLE_SEARCHING_OFF(state) {
+      state.isSearching = false;
+      state.searchedCardResult = {};
+    },
     SET_AUTH_TOKEN(state, token) {
       state.token = token;
       localStorage.setItem('token', token);

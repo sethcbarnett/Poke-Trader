@@ -1,7 +1,7 @@
 <template>
   <div id = "container">
-    <search-filters :searchType="this.searchType"/>
-    <div id="searched-cards-area">
+    <search-filters/>
+    <div v-show="$store.state.isSearching" id="searched-cards-area">
       <searched-card-display v-bind:searchedCard = "searchedCard" v-for="searchedCard in $store.state.searchedCardResult" v-bind:key="searchedCard.id"/>
     </div>
   </div>

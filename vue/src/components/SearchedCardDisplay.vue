@@ -45,6 +45,7 @@ export default {
         addCardToCollection(){
             if (!this.$store.state.isPremium && this.$store.state.currentCollectionObject.length >= 100){
                 if (confirm('Standard users can only have up to 100 unique cards in their collection.\nWould you like to Catch \'Em All?') == true) {
+                    this.$store.commit('TOGGLE_SEARCHING_OFF');
                     this.$router.push({name: 'premium'});
                 } else {
                     return;

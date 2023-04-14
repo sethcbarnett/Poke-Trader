@@ -80,6 +80,7 @@ export default {
             console.log(response);
             if (response.status == 200) {
               this.$store.commit('GO_PREMIUM');
+              this.$store.commit('TOGGLE_SEARCHING_OFF');
               this.$router.push({ name: 'collection', params: {username: `${this.$store.state.user.username}`}});
             }
             else{ this.PremRegErrors = true;
