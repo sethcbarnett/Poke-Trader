@@ -18,7 +18,9 @@ export default {
   methods: {
     SetCollectionToCurrentUser(){
       this.$store.commit('SET_CURRENT_COLLECTION', this.$store.state.user.username);
-      this.$store.commit('SET_CURRENT_COLLECTION_OBJECT');
+      this.$store.commit('SET_CURRENT_COLLECTION_OBJECT')
+      let payload = {name:"", minPrice:0, maxPrice:200000, rarity:["common", "uncommon", "rare"]};
+      this.$store.commit('SET_FILTERED_COLLECTION_OBJ', payload);
     }
   }
 }

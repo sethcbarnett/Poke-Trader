@@ -1,5 +1,6 @@
 <template>
   <div id="collection-area">
+    <search-filters :searchType="searchType"/>
     <div class="options">
       <collection-stats />
       <premium-button v-if="$store.state.isPremium == false" />
@@ -7,23 +8,27 @@
     <div id="card-display-area">
       <card-display
         v-bind:collectionItem="collectionItem"
-        v-for="collectionItem in $store.state.currentCollectionObject"
+        v-for="collectionItem in $store.state.filteredCollection"
         v-bind:key="collectionItem.card.id"
       />
     </div>
-    <div id = "collection-and-search-options">
-    <p>Change collection to public</p>
-   <div class="switch-container">
-    <label class="switch">
-      <input @change="toggleVisibility" type="checkbox" v-model="this.$store.state.user.isPublic"/>
-      <span class="slider round"></span>
-    </label>
+    <div id="collection-and-search-options">
+      <p>Collection Visibility</p>
+      <div class="switch-container">
+        <p>Private</p>
+        <label class="switch">
+          <input
+            @change="toggleVisibility"
+            type="checkbox"
+            v-model="this.$store.state.user.isPublic"
+          />
+          <span class="slider round"></span>
+        </label>
+        <p>Public</p>
+      </div>
+      <add-cards/>
+      <div id="spacer" />
     </div>
-    <div id="add-cards-testing">
-      <add-cards />
-    </div>
-    <div id = "spacer"/>
-  </div>
   </div>
 </template>
 
@@ -33,20 +38,23 @@ import AddCards from "../components/AddCards.vue";
 import authService from "../services/AuthService.js";
 import CollectionStats from "../components/CollectionStats.vue";
 import PremiumButton from "../components/PremiumButton.vue";
+import SearchFilters from '../components/SearchFilters.vue';
 export default {
   name: "collection",
   components: {
     CardDisplay,
     AddCards,
     CollectionStats,
-    PremiumButton
+    PremiumButton,
+    SearchFilters
   },
   data() {
     return {
       user: {
         username: "",
-        isPublic: this.$store.state.user.username
+        isPublic: this.$store.state.user.username,
       },
+      searchType: "filterCollection"
     };
   },
   methods: {
@@ -56,22 +64,24 @@ export default {
     },
     checkForPremium() {
       if (this.$store.state.user.isPremium == true) {
-        this.$store.commit('SET_PREMIUM');
+        this.$store.commit("SET_PREMIUM");
       }
     },
     checkForPublic() {
       if (this.$store.state.user.isPublic == true) {
-        this.$store.commit('TOGGLE_VISIBILITY');
+        this.$store.commit("TOGGLE_VISIBILITY");
       }
     },
     toggleVisibility() {
-       authService.toggleVisibility(this.$store.state.user.username).then((response) =>{
-            if (response.status == 200) {
-              this.$store.commit('SWITCH_PUBLIC');
-            }
-            else {console.log('NO SIR');
-            }
-        })
+      authService
+        .toggleVisibility(this.$store.state.user.username)
+        .then((response) => {
+          if (response.status == 200) {
+            this.$store.commit("SWITCH_PUBLIC");
+          } else {
+            console.log("NO SIR");
+          }
+        });
     },
   },
   created() {
@@ -89,7 +99,7 @@ div {
 }
 #collection-area {
   height: 100vh;
-  width: 100vw; 
+  width: 100vw;
   overflow: auto;
 }
 #card-display-area {
@@ -117,19 +127,28 @@ button {
   padding-left: 20px;
   padding-right: 20px;
 }
+#collection-and-search-options > p {
+  font-size: 14px;
+  margin-bottom: 0px;
+}
 .switch {
   display: inline-block;
   position: relative;
-  
-  
+
   width: 60px;
   height: 34px;
 }
 .switch-container {
   display: flex;
-  justify-content:center;
+  justify-content: space-around;
+  align-items: center;
+  text-align: center;
   flex-direction: row;
   padding-bottom: 10px;
+}
+.switch-container p {
+  font-size: 12px;
+  padding: 8px;
 }
 .switch input {
   opacity: 0;

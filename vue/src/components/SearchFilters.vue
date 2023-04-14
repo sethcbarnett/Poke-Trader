@@ -58,6 +58,7 @@
 import SearchService from "../services/SearchService.js";
 export default {
   name: "search-filters",
+  props: ['searchType'],
   data() {
     return {
     isSearching: false,
@@ -81,9 +82,7 @@ export default {
         },
         getRarityFilterString() {
             var rarityFilterString = "";
-            if (this.rarities.length > 1){
-                rarityFilterString += "("
-            }
+            rarityFilterString += "("
             if (this.rarities.includes('common'))
             {
                 rarityFilterString += "rarity:Common ";
@@ -104,9 +103,7 @@ export default {
                 }
                 rarityFilterString += `rarity:*r* OR rarity:*l* OR rarity:*v*`;
             }
-            if (this.rarities.length > 1){
-                rarityFilterString += ")"
-            }
+            rarityFilterString += ")"
             return rarityFilterString;
         },
         getCompleteFilterString() {
@@ -119,17 +116,23 @@ export default {
       this.filterVisibility = !this.filterVisibility;
     },
     submitSearch() {
+      if (this.searchType == 'apicall'){
         this.submitSearchToApi();
         this.$store.commit('TOGGLE_SEARCHING_ON');
+      }
+      else if (this.searchType == 'filterCollection'){
+        this.filterCollection();
+      }
     },
     submitSearchToApi() {
-        console.log(this.completeFilterString);
         SearchService.getCardsBySearch(`${this.getCompleteFilterString}`).then((response) => {
                 this.$store.commit('SET_SEARCHED_CARDS', response.data);
             });
     },
     clearSearch() {
       this.$store.commit('TOGGLE_SEARCHING_OFF');
+    filterCollection() {
+      this.$store.commit('SET_FILTERED_COLLECTION_OBJ', {name:this.nameSearch, minPrice:this.minPrice, maxPrice:this.maxPrice, rarity:this.rarities});
     }
   },
 };
@@ -142,17 +145,15 @@ button {
 }
 #show-hide-filters {
 background-color: #ffcb05;
+    background-color: #ffcb05;
     color: #3466af;
-    border-left: solid 2px #3466af;  
-    border-top: solid 2px #3466af; 
-    border-right: solid 2px black; 
-    border-bottom: solid 2px black; 
+    border: solid #3466af 2px;
     border-radius: 5px;
-     
-            
-            
-            
-
+    height: 36px;
+    width: 75px;
+    cursor: pointer;
+    font-family: sans-serif;
+    font-size: 11px;
 }
 
 #search-name {

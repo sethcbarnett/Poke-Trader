@@ -15,7 +15,8 @@ export default {
     name: "add-cards",
     data() {
         return {
-            searchString: ""
+            searchString: "",
+            searchType: "apicall"
         }
     },
     methods: {
@@ -100,5 +101,6 @@ export default {
     height: 36px;
     width: 75px;
     cursor: pointer;
+    font-size: 11px
 }
 </style>
