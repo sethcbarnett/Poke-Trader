@@ -1,6 +1,8 @@
 <template>
   <form id="search-form">
     <div id="search-name" v-on:submit.prevent="submitSearch">
+      <button id="clear-search" v-show="$store.state.isSearching" @click.prevent="clearSearch">Clear Search
+      </button>
       <button id="show-hide-filters" @click.prevent="showHideFilters">
         {{ filterVisibility ? "Hide Filters" : "Show Filters" }}
       </button>
@@ -58,6 +60,7 @@ export default {
   name: "search-filters",
   data() {
     return {
+    isSearching: false,
     filterVisibility: false,
       nameSearch: "",
       minPrice: 0,
@@ -117,12 +120,16 @@ export default {
     },
     submitSearch() {
         this.submitSearchToApi();
+        this.$store.commit('TOGGLE_SEARCHING_ON');
     },
     submitSearchToApi() {
         console.log(this.completeFilterString);
         SearchService.getCardsBySearch(`${this.getCompleteFilterString}`).then((response) => {
                 this.$store.commit('SET_SEARCHED_CARDS', response.data);
             });
+    },
+    clearSearch() {
+      this.$store.commit('TOGGLE_SEARCHING_OFF');
     }
   },
 };
@@ -272,6 +279,9 @@ background-color: #ffcb05;
   margin-left: 5px;
 }
 #max-price {
+  margin-right: 5px;
+}
+#clear-search {
   margin-right: 5px;
 }
 </style>
