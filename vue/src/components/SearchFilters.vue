@@ -130,7 +130,22 @@ export default {
 
 <style>
 button {
-  width: 60px;
+    width: 60px;
+    
+}
+#show-hide-filters {
+background-color: #ffcb05;
+    color: #3466af;
+    border-left: solid 2px #3466af;  
+    border-top: solid 2px #3466af; 
+    border-right: solid 2px black; 
+    border-bottom: solid 2px black; 
+    border-radius: 5px;
+     
+            
+            
+            
+
 }
 
 #search-name {
@@ -143,6 +158,8 @@ button {
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
+  margin: 5px;
 }
 
 #search-filters {

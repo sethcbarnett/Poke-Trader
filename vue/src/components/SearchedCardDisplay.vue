@@ -3,9 +3,11 @@
       <div id ="top-text" >
         <h4>{{searchedCard.name}}</h4>
       </div>
+      <a :href="searchedCard.tcgUrl" target="_blank">
       <div id="card-image">
         <img v-bind:src="searchedCard.img"/>
       </div>
+      </a>
       <div id ="bottom-text">
         <h4><span v-if="searchedCard.price.length < 13">$</span>{{searchedCard.price}}</h4>
         <div id = "add-cards-div">
@@ -39,7 +41,11 @@ export default {
     methods: {
         addCardToCollection(){
             if (!this.$store.state.isPremium && this.$store.state.currentCollectionObject.length >= 100){
-                return;
+                if (confirm('Standard users can only have up to 100 unique cards in their collection.\nWould you like to Catch \'Em All?') == true) {
+                    this.$router.push({name: 'premium'});
+                } else {
+                    return;
+                }
             }
             else {
                 this.collectionItem = {

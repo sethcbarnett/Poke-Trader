@@ -56,6 +56,7 @@ export default {
             this.$store.commit("SET_AUTH_TOKEN", response.data.token);
             this.$store.commit("SET_USER", response.data.user);
             this.$store.commit("SET_PREMIUM", response.data.user);
+            this.$store.commit("SET_VISIBILITY", response.data.user);
             this.$router.push("/");
           }
         })
@@ -121,5 +122,6 @@ button.theButton {
   padding-bottom: 5px;
   display: inline-block;
   cursor: pointer;
+  height: 50px;
 }
 </style>

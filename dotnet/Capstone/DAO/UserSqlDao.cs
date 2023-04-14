@@ -27,7 +27,8 @@ namespace Capstone.DAO
                 {
                     conn.Open();
                     
-                    SqlCommand cmd = new SqlCommand("SELECT user_id, username, password_hash, salt, user_role, email, street_address, city, state_abbreviation, zip_code, is_premium FROM users WHERE username = @username", conn);
+                    SqlCommand cmd = new SqlCommand("SELECT users.user_id, username, password_hash, salt, user_role, email, street_address, city, state_abbreviation, zip_code, is_premium, collection.is_public " +
+                        "FROM users JOIN collection ON users.user_id = collection.user_id WHERE username = @username", conn);
                     cmd.Parameters.AddWithValue("@username", username);
                     SqlDataReader reader = cmd.ExecuteReader();
 
@@ -113,6 +114,34 @@ namespace Capstone.DAO
             }
             return publicUsers;
         }
+
+        public void ToggleCollectionPrivacy(string userName)
+        {
+            //int numberOfRowsUpdated = 0;
+            try
+            {
+
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand("UPDATE collection SET collection.is_public = 1 - collection.is_public " +
+                        "FROM collection " +
+                        "JOIN users ON users.user_id = collection.user_id " +
+                        "WHERE users.username = @username;", conn);
+                    cmd.Parameters.AddWithValue("@username", userName);
+
+                    cmd.ExecuteNonQuery();
+
+
+                }
+            }
+            catch (SqlException)
+            {
+                throw;
+            }
+            //return numberOfRowsUpdated;
+        }
         public void ChangeUsersToPremium(string userName)
         {
             //int numberOfRowsUpdated = 0;
@@ -154,7 +183,8 @@ namespace Capstone.DAO
                 City = Convert.ToString(reader["city"]),
                 StateAbbreviation = Convert.ToString(reader["state_abbreviation"]),
                 ZipCode = Convert.ToInt32(reader["zip_code"]),
-                isPremium = Convert.ToBoolean(reader["is_premium"])
+                isPremium = Convert.ToBoolean(reader["is_premium"]),
+                IsPublic = Convert.ToBoolean(reader["is_public"])
             };
 
             return u;

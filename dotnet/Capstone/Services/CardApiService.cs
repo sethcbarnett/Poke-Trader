@@ -60,6 +60,7 @@ namespace Capstone.Services
 
                 newCard.Id = (string)card["id"];
                 newCard.Name = (string)card["name"];
+                newCard.Rarity = (string)card["rarity"];
 
                 Dictionary<string, Object> images = (Dictionary<string, Object>)card["images"];
                 newCard.Img = (string)images["small"];
@@ -77,7 +78,9 @@ namespace Capstone.Services
                 {
                     Dictionary<string, Object> tcgplayeritems = (Dictionary<string, Object>)card["tcgplayer"];
                     Dictionary<string, Object> priceInfo = (Dictionary<string, Object>)((Dictionary<string, Object>)tcgplayeritems["prices"]).ElementAt(0).Value;
-                    newCard.Price = Convert.ToString(priceInfo["mid"]);
+                    newCard.Price = Convert.ToString(priceInfo["market"]);
+                    newCard.LowPrice = Convert.ToString(priceInfo["low"]);
+                    newCard.HighPrice = Convert.ToString(priceInfo["high"]);
                 }
                 catch (Exception) {
                     newCard.TcgUrl = "";

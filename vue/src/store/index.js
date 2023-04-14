@@ -24,8 +24,13 @@ export default new Vuex.Store({
     user: currentUser || {},
     currentCollection: '',
     currentCollectionObject: {},
+    currentCollectionValue: 0,
+    totalCardsInCurrentCollection: 0,
+    uniqueCardsInCurrentCollection: 0,
+    numberCardsForTradeInCurrentCollection: 0,
     searchedCardResult: {},
-    isPremium: false
+    isPremium: false,
+    isPublic: false
   },
   mutations: {
     SET_AUTH_TOKEN(state, token) {
@@ -50,6 +55,22 @@ export default new Vuex.Store({
     SET_CURRENT_COLLECTION_OBJECT(state) {
        CollectionService.getCollectionByUser(state.currentCollection).then((response) => {
         state.currentCollectionObject = response.data;
+        state.currentCollectionValue = 0;
+        state.totalCardsInCurrentCollection = 0;
+        state.uniqueCardsInCurrentCollection = 0;
+        state.numberCardsForTradeInCurrentCollection = 0;
+        state.currentCollectionObject.forEach((collectionItem) => {
+            if (collectionItem.card.price.length < 13){
+              let price = parseFloat(collectionItem.card.price);
+              price = price * collectionItem.quantity;
+              state.currentCollectionValue += price;
+              state.currentCollectionValue = parseFloat(state.currentCollectionValue.toFixed(2));
+            }
+
+          state.totalCardsInCurrentCollection += collectionItem.quantity;
+          state.uniqueCardsInCurrentCollection += 1;
+          state.numberCardsForTradeInCurrentCollection += collectionItem.quantityForTrade;
+        });
       });
     },
     ADD_TO_COLLECTION(state, collectionItem){
@@ -66,7 +87,18 @@ export default new Vuex.Store({
     GO_PREMIUM(state)
     {
       state.isPremium = true;
+      let premiumChanger = JSON.parse(localStorage.getItem('user'));
+      premiumChanger.premiumStatus = state.isPremium;
+      localStorage.setItem('user', JSON.stringify(premiumChanger));
+    },
+    SET_VISIBILITY(state, user) {
+      state.isPublic = user.isPublic;
+    },
+    SWITCH_PUBLIC(state) {
+      state.user.isPublic = !state.user.isPublic;
+     let thing = JSON.parse(localStorage.getItem('user'));
+     thing.isPublic = state.user.isPublic;
+     localStorage.setItem('user', JSON.stringify(thing));
     }
-
   }
 })
