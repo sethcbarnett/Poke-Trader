@@ -24,6 +24,7 @@ button {
   border-radius: 5px;
   font-family: "Pokemon Solid", sans-serif;
   text-align: center;
+  line-height: 1.5em;
   text-justify: auto;
   letter-spacing: 1px;
   padding-bottom: 5px;

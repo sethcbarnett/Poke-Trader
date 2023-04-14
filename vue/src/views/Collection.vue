@@ -95,6 +95,7 @@ div {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 button {
@@ -103,6 +104,7 @@ button {
   border: none;
   border-radius: 5px;
   font-family: "Pokemon Solid", sans-serif;
+  line-height: 1.5em;
   text-align: center;
   text-justify: auto;
   letter-spacing: 1px;

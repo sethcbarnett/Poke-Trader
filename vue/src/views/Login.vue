@@ -122,5 +122,6 @@ button.theButton {
   padding-bottom: 5px;
   display: inline-block;
   cursor: pointer;
+  height: 50px;
 }
 </style>
