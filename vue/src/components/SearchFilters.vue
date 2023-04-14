@@ -1,7 +1,7 @@
 <template>
   <form id="search-form">
     <div id="search-name" @submit.prevent="submitSearch">
-        <button id = "show-hide-filters" @click.prevent="showHideFilters">{{(filterVisibility ? "Hide Filters" : "Show Filters")}}</button>
+        <button id = "show-hide-filters" @click.prevent="showHideFilters">{{(filterVisibility ? "Hide  Filters" : "Show Filters")}}</button>
       <input
         v-model="searchString"
         id="search-bar"
@@ -69,6 +69,21 @@ export default {
 <style>
 button {
     width: 60px;
+    
+}
+#show-hide-filters {
+background-color: #ffcb05;
+    color: #3466af;
+    border-left: solid 2px #3466af;  
+    border-top: solid 2px #3466af; 
+    border-right: solid 2px black; 
+    border-bottom: solid 2px black; 
+    border-radius: 5px;
+     
+            
+            
+            
+
 }
 
 #search-name {
@@ -81,6 +96,8 @@ button {
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
+  margin: 5px;
 }
 
 #search-filters {

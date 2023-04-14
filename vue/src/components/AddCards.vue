@@ -43,6 +43,7 @@ export default {
 #searched-cards-area{
     display:flex;
     flex-wrap: wrap;
+    justify-content:center;
 }
 #search-bar {
     height: 30px;
