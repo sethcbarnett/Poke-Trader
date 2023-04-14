@@ -38,11 +38,14 @@ namespace Capstone.DAO
 
                     if (!cardExists)
                     {
-                        SqlCommand addCardToCardTable = new SqlCommand("INSERT INTO card (name, id, img, price, tcg_url) VALUES (@name, @id, @img, @price, @tcg_url);", conn);
+                        SqlCommand addCardToCardTable = new SqlCommand("INSERT INTO card (name, id, img, price, low_price, high_price, rarity, tcg_url) VALUES (@name, @id, @img, @price, @low_price, @high_price, @rarity, @tcg_url);", conn);
                         addCardToCardTable.Parameters.AddWithValue("@name", collectionItem.Card.Name);
                         addCardToCardTable.Parameters.AddWithValue("@id", collectionItem.Card.Id);
                         addCardToCardTable.Parameters.AddWithValue("@img", collectionItem.Card.Img);
                         addCardToCardTable.Parameters.AddWithValue("@price", collectionItem.Card.Price);
+                        addCardToCardTable.Parameters.AddWithValue("@low_price", collectionItem.Card.LowPrice);
+                        addCardToCardTable.Parameters.AddWithValue("@high_price", collectionItem.Card.HighPrice);
+                        addCardToCardTable.Parameters.AddWithValue("@rarity", collectionItem.Card.Rarity);
                         addCardToCardTable.Parameters.AddWithValue("@tcg_url", collectionItem.Card.TcgUrl);
                         int numCardRowsAffected = addCardToCardTable.ExecuteNonQuery();
                         if (numCardRowsAffected != 1)
@@ -121,7 +124,7 @@ namespace Capstone.DAO
                 {
                     conn.Open();
 
-                    SqlCommand cmd = new SqlCommand("SELECT card.id, card.name, card.img, card.price, card.tcg_url, collection_card.quantity, collection_card.amount_to_trade FROM card" +
+                    SqlCommand cmd = new SqlCommand("SELECT card.id, card.name, card.img, card.price, card.low_price, card.high_price, card.rarity, card.tcg_url, collection_card.quantity, collection_card.amount_to_trade FROM card" +
                         " JOIN collection_card ON card.id = collection_card.id" +
                         " JOIN collection ON collection_card.collection_id = collection.collection_id" +
                         " JOIN users ON collection.user_id = users.user_id WHERE users.username = @username;", conn);

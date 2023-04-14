@@ -50,6 +50,9 @@ namespace Capstone.DAO
                 Name = Convert.ToString(reader["name"]),
                 Img = Convert.ToString(reader["img"]),
                 Price = Convert.ToString(reader["price"]),
+                LowPrice = Convert.ToString(reader["low_price"]),
+                HighPrice = Convert.ToString(reader["high_price"]),
+                Rarity = Convert.ToString(reader["rarity"]),
                 TcgUrl = Convert.ToString(reader["tcg_url"])
             };
             return card;

@@ -43,7 +43,11 @@ CREATE TABLE card (
 	name varchar(50) NOT NULL,
 	img varchar(100) NOT NULL,
 	price varchar(20) NOT NULL,
+	low_price varchar(20) NOT NULL,
+	high_price varchar(20) NOT NULL,
+	rarity varchar(50) NOT NULL,
 	tcg_url varchar(100) NOT NULL,
+	grade decimal,
 	CONSTRAINT PK_card PRIMARY KEY (id)
 )
 
@@ -64,9 +68,9 @@ INSERT INTO users (username, password_hash, salt, user_role, email, street_addre
 INSERT INTO collection (user_id) VALUES ((SELECT user_id FROM users WHERE username = 'user'));
 INSERT INTO collection (user_id, is_public) VALUES ((SELECT user_id FROM users WHERE username = 'admin'), 1);
 
-INSERT INTO card (name, id, img, price, tcg_url) VALUES ('Alakazam-EX', 'xy10-117', 'https://images.pokemontcg.io/xy10/117.png', '8.40', 'https://prices.pokemontcg.io/tcgplayer/xy10-117');
-INSERT INTO card (name, id, img, price, tcg_url) VALUES ('Detective Pikachu','det1-10','https://images.pokemontcg.io/det1/10.png','2.10', 'https://prices.pokemontcg.io/tcgplayer/det1-10');
-INSERT INTO card (name, id, img, price, tcg_url) VALUES ('Caterpie','xy2-1','https://images.pokemontcg.io/xy2/1.png', '0.24', 'https://prices.pokemontcg.io/tcgplayer/xy2-1');
+INSERT INTO card (name, id, img, price, low_price, high_price, rarity, tcg_url) VALUES ('Alakazam-EX', 'xy10-117', 'https://images.pokemontcg.io/xy10/117.png', '7.43', '4.33', '25', 'Rare Ultra', 'https://prices.pokemontcg.io/tcgplayer/xy10-117');
+INSERT INTO card (name, id, img, price, low_price, high_price, rarity, tcg_url) VALUES ('Detective Pikachu','det1-10','https://images.pokemontcg.io/det1/10.png','2.37', '1.78', '9.99', 'Rare', 'https://prices.pokemontcg.io/tcgplayer/det1-10');
+INSERT INTO card (name, id, img, price, low_price, high_price, rarity, tcg_url) VALUES ('Caterpie','xy2-1','https://images.pokemontcg.io/xy2/1.png', '0.17', '0.06', '1.61', 'Common', 'https://prices.pokemontcg.io/tcgplayer/xy2-1');
 
 INSERT INTO collection_card (collection_id, id, quantity, amount_to_trade) VALUES 
 (
