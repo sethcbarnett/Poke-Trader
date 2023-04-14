@@ -28,6 +28,9 @@ export default {
             name: "",
             img: "",
             price: "",
+            lowPrice: "",
+            highPrice: "",
+            rarity: "",
             tcgUrl: ""
         }
     },
@@ -54,6 +57,9 @@ export default {
                         name: this.searchedCard.name,
                         img: this.searchedCard.img,
                         price: this.searchedCard.price,
+                        lowPrice: this.searchedCard.lowPrice,
+                        highPrice: this.searchedCard.highPrice,
+                        rarity: this.searchedCard.rarity,
                         tcgUrl: this.searchedCard.tcgUrl,
                     },
                     quantity: this.quantity,

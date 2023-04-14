@@ -29,6 +29,9 @@ export default new Vuex.Store({
     totalCardsInCurrentCollection: 0,
     uniqueCardsInCurrentCollection: 0,
     numberCardsForTradeInCurrentCollection: 0,
+    numberCommonCards: 0,
+    numberUncommonCards: 0,
+    numberRareCards: 0,
     searchedCardResult: {},
     isPremium: false,
     isPublic: false
@@ -60,6 +63,9 @@ export default new Vuex.Store({
         state.totalCardsInCurrentCollection = 0;
         state.uniqueCardsInCurrentCollection = 0;
         state.numberCardsForTradeInCurrentCollection = 0;
+        state.numberCommonCards = 0,
+        state.numberUncommonCards = 0,
+        state.numberRareCards = 0,
         state.currentCollectionObject.forEach((collectionItem) => {
             if (collectionItem.card.price.length < 13){
               let price = parseFloat(collectionItem.card.price);
@@ -69,6 +75,13 @@ export default new Vuex.Store({
             }
 
           state.totalCardsInCurrentCollection += collectionItem.quantity;
+          if(collectionItem.card.rarity == 'Common') {
+            state.numberCommonCards += collectionItem.quantity;
+          } else if(collectionItem.card.rarity == 'Uncommon') {
+            state.numberUncommonCards += collectionItem.quantity;
+          } else {
+            state.numberRareCards += collectionItem.quantity;
+          }
           state.uniqueCardsInCurrentCollection += 1;
           state.numberCardsForTradeInCurrentCollection += collectionItem.quantityForTrade;
         });

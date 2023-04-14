@@ -85,6 +85,8 @@ namespace Capstone.Services
                 catch (Exception) {
                     newCard.TcgUrl = "";
                     newCard.Price = "Price Not Found";
+                    newCard.LowPrice = "Price Not Found";
+                    newCard.HighPrice = "Price Not Found";
                 }
                 cards.Add(newCard);
             }
