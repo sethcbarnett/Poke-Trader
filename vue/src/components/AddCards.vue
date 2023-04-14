@@ -1,6 +1,6 @@
 <template>
   <div id = "container">
-    <search-filters/>
+    <search-filters :searchType="this.searchType"/>
     <div id="searched-cards-area">
       <searched-card-display v-bind:searchedCard = "searchedCard" v-for="searchedCard in $store.state.searchedCardResult" v-bind:key="searchedCard.id"/>
     </div>
@@ -15,7 +15,8 @@ export default {
     name: "add-cards",
     data() {
         return {
-            searchString: ""
+            searchString: "",
+            searchType: "apicall"
         }
     },
     methods: {
@@ -100,5 +101,6 @@ export default {
     height: 36px;
     width: 75px;
     cursor: pointer;
+    font-size: 11px
 }
 </style>

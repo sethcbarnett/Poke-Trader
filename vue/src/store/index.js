@@ -24,6 +24,7 @@ export default new Vuex.Store({
     user: currentUser || {},
     currentCollection: '',
     currentCollectionObject: {},
+    filteredCollection: [],
     currentCollectionValue: 0,
     totalCardsInCurrentCollection: 0,
     uniqueCardsInCurrentCollection: 0,
@@ -84,6 +85,42 @@ export default new Vuex.Store({
           state.uniqueCardsInCurrentCollection += 1;
           state.numberCardsForTradeInCurrentCollection += collectionItem.quantityForTrade;
         });
+      });
+    },
+    SET_FILTERED_COLLECTION_OBJ(state, payload)
+    {
+      console.log(payload);
+      CollectionService.getCollectionByUser(state.currentCollection).then(()=> {
+        let unfilteredCollection = state.currentCollectionObject;
+        state.filteredCollection = [];
+        for (let collectionItem of unfilteredCollection)
+        {
+          let containsName = collectionItem.card.name.toLowerCase().includes(payload.name.toLowerCase());
+          let overMinPrice = collectionItem.card.price >= payload.minPrice;
+          let underMaxPrice = collectionItem.card.price <= payload.maxPrice;
+          let isCommonRarity = false;
+          let isUncommonRarity = false;
+          let isRareRarity = false;
+          if (payload.rarity.includes("common"))
+          {
+            isCommonRarity = collectionItem.card.rarity == "Common";
+          }
+          if (payload.rarity.includes("uncommon"))
+          {
+            isUncommonRarity = collectionItem.card.rarity == "Uncommon";
+          }
+          if (payload.rarity.includes("rare"))
+          {
+            isRareRarity = collectionItem.card.rarity.toLowerCase().includes('v') ||
+            collectionItem.card.rarity.toLowerCase().includes('l') ||
+            collectionItem.card.rarity.toLowerCase().includes('r');
+          }
+          let includesRarity = (isCommonRarity || isUncommonRarity || isRareRarity);
+          if (containsName && overMinPrice && underMaxPrice && includesRarity)
+          {
+            state.filteredCollection.push(collectionItem);
+          }
+        }
       });
     },
     ADD_TO_COLLECTION(state, collectionItem){
