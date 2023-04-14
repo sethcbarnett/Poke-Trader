@@ -60,10 +60,12 @@ export default new Vuex.Store({
         state.uniqueCardsInCurrentCollection = 0;
         state.numberCardsForTradeInCurrentCollection = 0;
         state.currentCollectionObject.forEach((collectionItem) => {
-          let price = parseFloat(collectionItem.card.price);
-          price = price * collectionItem.quantity;
-          state.currentCollectionValue += price;
-          state.currentCollectionValue = parseFloat(state.currentCollectionValue.toFixed(2));
+            if (collectionItem.card.price.length < 13){
+              let price = parseFloat(collectionItem.card.price);
+              price = price * collectionItem.quantity;
+              state.currentCollectionValue += price;
+              state.currentCollectionValue = parseFloat(state.currentCollectionValue.toFixed(2));
+            }
 
           state.totalCardsInCurrentCollection += collectionItem.quantity;
           state.uniqueCardsInCurrentCollection += 1;
