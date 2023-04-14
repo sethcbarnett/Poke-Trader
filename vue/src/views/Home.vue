@@ -8,7 +8,15 @@
     </div>
     <div id="content-container">
       <div id="public-users">
-        left
+        <router-link v-for="collection in publicCollections" 
+                v-bind:key="collection.id" 
+                :to="{
+                  name: 'collection',
+                  params: { username: `${collection.username}` },
+                }">
+                <span id="public-user" @click="switchSearchedUser(collection.username)">
+                  {{ collection.username }}</span>
+        </router-link>
       </div>
       <div id="pokemon-picture">
           <img :src="imgSrc" @click="generateImg"/>
@@ -55,6 +63,8 @@ export default {
     switchSearchedUser(username) {
       this.$store.commit("SET_CURRENT_COLLECTION", username);
       this.$store.commit("SET_CURRENT_COLLECTION_OBJECT");
+      let payload = {name:"", minPrice:0, maxPrice:200000, rarity:["common", "uncommon", "rare"]};
+      this.$store.commit('SET_FILTERED_COLLECTION_OBJ', payload);
     },
     generateImg() {
       this.randomNumber = Math.random()*10;
