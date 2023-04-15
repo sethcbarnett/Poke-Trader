@@ -56,41 +56,109 @@ namespace Capstone.Services
 
             foreach (Dictionary<string, Object> card in listOfJsonCards)
             {
-                Card newCard = new Card();
-
-                newCard.Id = (string)card["id"];
-                newCard.Name = (string)card["name"];
-                newCard.Rarity = (string)card["rarity"];
-
-                Dictionary<string, Object> images = (Dictionary<string, Object>)card["images"];
-                newCard.Img = (string)images["small"];
-
                 try
                 {
-                    Dictionary<string, Object> tcgplayeritems = (Dictionary<string, Object>)card["tcgplayer"];
-                    newCard.TcgUrl = (string)tcgplayeritems["url"];
+                    Card newCard = new Card();
+
+                    newCard.Id = (string)card["id"];
+                    newCard.Name = (string)card["name"];
+                    newCard.Rarity = (string)card["rarity"];
+                    Dictionary<string, Object> images = (Dictionary<string, Object>)card["images"];
+                    newCard.Img = (string)images["small"];
+
+
+                    if (card.ContainsKey("tcgplayer"))
+                    {
+                        Dictionary<string, Object> tcgplayeritems = (Dictionary<string, Object>)card["tcgplayer"];
+                        newCard.TcgUrl = (string)tcgplayeritems["url"];
+                        List<string> prices = getTcgPrices(tcgplayeritems);
+                        newCard.LowPrice = prices[0];
+                        newCard.Price = prices[1];
+                        newCard.HighPrice = prices[2];
+                        if (newCard.Price == "Price Not Found")
+                        {
+                            if (card.ContainsKey("cardmarket"))
+                            {
+                                Dictionary<string, Object> cardMarketItems = (Dictionary<string, Object>)card["cardmarket"];
+                                prices = getCardMarketPrices(cardMarketItems);
+                                newCard.LowPrice = prices[0];
+                                newCard.Price = prices[1];
+                                newCard.HighPrice = prices[2];
+                            }
+                        }
+                    }
+                    else if (card.ContainsKey("cardmarket"))
+                    {
+                        Dictionary<string, Object> cardMarketItems = (Dictionary<string, Object>)card["cardmarket"];
+                        newCard.TcgUrl = (string)cardMarketItems["url"];
+                        List<string> prices = getCardMarketPrices(cardMarketItems);
+                        newCard.LowPrice = prices[0];
+                        newCard.Price = prices[1];
+                        newCard.HighPrice = prices[2];
+                    }
+                    else
+                    {
+                        newCard.TcgUrl = "";
+                        newCard.Price = "Price Not Found";
+                        newCard.LowPrice = "Price Not Found";
+                        newCard.HighPrice = "Price Not Found";
+                    }
+                    cards.Add(newCard);
                 }
-                catch (Exception)
+                catch(Exception e)
                 {
-                    newCard.TcgUrl = "";
+                    throw new Exception();
                 }
-                try
-                {
-                    Dictionary<string, Object> tcgplayeritems = (Dictionary<string, Object>)card["tcgplayer"];
-                    Dictionary<string, Object> priceInfo = (Dictionary<string, Object>)((Dictionary<string, Object>)tcgplayeritems["prices"]).ElementAt(0).Value;
-                    newCard.Price = Convert.ToString(priceInfo["market"]);
-                    newCard.LowPrice = Convert.ToString(priceInfo["low"]);
-                    newCard.HighPrice = Convert.ToString(priceInfo["high"]);
-                }
-                catch (Exception) {
-                    newCard.TcgUrl = "";
-                    newCard.Price = "Price Not Found";
-                    newCard.LowPrice = "Price Not Found";
-                    newCard.HighPrice = "Price Not Found";
-                }
-                cards.Add(newCard);
             }
             return cards;
+        }
+        
+        public List<string> getTcgPrices(Dictionary<string, Object> websiteInfo)
+        {
+            Dictionary<string, Object> priceInfo = ((Dictionary<string, Object>)websiteInfo["prices"]);
+            if (priceInfo.Count <= 0)
+            {
+                return new List<string>() { "Price Not Found", "Price Not Found", "Price Not Found" };
+            }
+            Dictionary<string, Object> priceDict = (Dictionary<string, Object>)priceInfo.ElementAt(0).Value;
+            string lowPrice = Convert.ToString(priceDict["low"]);
+            string midPrice = Convert.ToString(priceDict["market"]);
+            if (midPrice == "")
+            {
+                midPrice = Convert.ToString(priceDict["mid"]);
+            }
+            if (midPrice == "")
+            {
+                midPrice = "Price Not Found";
+            }
+            string highPrice = Convert.ToString(priceDict["high"]);
+
+            return new List<string>() { lowPrice, midPrice, highPrice };
+        }
+
+        public List<string> getCardMarketPrices(Dictionary<string, Object> websiteInfo)
+        {
+            string lowPrice;
+            string midPrice;
+            string highPrice = "Price Not Found";
+            Dictionary<string, Object> priceInfo = ((Dictionary<string, Object>)websiteInfo["prices"]);
+            if ((double)priceInfo["lowPrice"] == 0.0)
+            {
+                lowPrice = "Price Not Found";
+            }
+            else
+            {
+                lowPrice = Convert.ToString(priceInfo["lowPrice"]);
+            }
+            if ((double)priceInfo["averageSellPrice"] == 0.0)
+            {
+                midPrice = "Price Not Found";
+            }
+            else
+            {
+                midPrice = Convert.ToString(priceInfo["averageSellPrice"]);
+            }
+            return new List<string>() { lowPrice, midPrice, highPrice };
         }
     }
 }

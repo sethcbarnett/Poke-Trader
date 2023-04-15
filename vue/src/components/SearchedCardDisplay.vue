@@ -9,7 +9,7 @@
       </div>
       </a>
       <div id ="bottom-text">
-        <h4><span v-if="searchedCard.price.length < 13">$</span>{{searchedCard.price}}</h4>
+        <h4><span v-if="searchedCard.price.length < 13">$</span>{{Number(searchedCard.price).toFixed(2)}}</h4>
         <div id = "add-cards-div">
             <input id = "quantity-ticker" type = "number" v-model.number="quantity" min = "1"/>
             <button @click = "addCardToCollection">Add</button>
@@ -72,6 +72,13 @@ export default {
                 });
             }
             
+        },
+        computed: {
+            getDisplayedPriceString() {
+                let initialPriceString = this.searchedCard.price;
+                let price = Number(initialPriceString);
+                return price.toFixed(2);
+            }
         }
     }
 }
