@@ -11,6 +11,7 @@
         id="search-bar"
         type="text"
         placeholder="Search for Pokemon to catch by name..."
+        @keyup.enter.prevent="submitSearch"
       />
       <input id="search-button" type="submit" @click.prevent="submitSearch" value="Search" />
     </div>
@@ -19,9 +20,9 @@
         <p>Filter results by price:</p>
         <div id="min-max-input">
           <label for="min-price" name="min-price">Min: $</label>
-          <input id="min-price" name="min-price" type="text" v-model="minPrice"/>
+          <input id="min-price" name="min-price" type="text" v-model="minPrice" @keyup.enter.prevent="submitSearch"/>
           <label for="max-price" name="max-price">Max: $</label>
-          <input id="max-price" type="text" name="max-price" v-model="maxPrice"/>
+          <input id="max-price" type="text" name="max-price" v-model="maxPrice" @keyup.enter.prevent="submitSearch"/>
         </div>
       </div>
       <div id="rarity-filter">
@@ -144,7 +145,7 @@ button {
     width: 60px;
     
 }
-#show-hide-filters {
+#clear-search, #show-hide-filters {
 background-color: #ffcb05;
     background-color: #ffcb05;
     color: #3466af;

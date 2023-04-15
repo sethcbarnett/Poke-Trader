@@ -105,7 +105,6 @@ export default new Vuex.Store({
           let containsName = collectionItem.card.name.toLowerCase().includes(payload.name.toLowerCase());
           let overMinPrice = collectionItem.card.price >= parseInt(payload.minPrice);
           let underMaxPrice = collectionItem.card.price <= parseInt(payload.maxPrice);
-          console.log(underMaxPrice);
           let isCommonRarity = false;
           let isUncommonRarity = false;
           let isRareRarity = false;
