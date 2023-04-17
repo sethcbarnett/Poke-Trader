@@ -136,7 +136,6 @@ export default {
                 this.$store.commit('SET_SEARCH_RESULTS_EXIST', true);
                 this.$emit('setIsLoading', false);
                 this.$emit('setIsSearching', true);
-                console.log("found results");
             }).catch((error) => {
               console.log("404");
               if (error.response) {this.$store.commit('SET_SEARCH_RESULTS_EXIST', false);

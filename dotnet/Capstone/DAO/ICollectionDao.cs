@@ -12,5 +12,7 @@ namespace Capstone.DAO
 
         CollectionItem AddCollectionItemToCollection(CollectionItem collectionItem, string username);
 
+        void UpdateCard(string username, CollectionItem item);
+
     }
 }

@@ -160,6 +160,31 @@ namespace Capstone.DAO
             return item;
         }
 
+        public void UpdateCard(string username, CollectionItem item)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                SqlCommand updateCardValue = new SqlCommand("UPDATE collection_card SET quantity = @quantity, amount_to_trade = @amount_to_trade, grade = @grade " +
+                                                                        "WHERE id = @id AND " +
+                                                                        "collection_id = (SELECT collection_id FROM collection WHERE user_id = " +
+                                                                        "(SELECT user_id FROM users WHERE username = @username)); ", conn);
+                if (item.Grade == null)
+                {
+                    updateCardValue.Parameters.AddWithValue("@grade", DBNull.Value);
+                }
+                else
+                {
+                    updateCardValue.Parameters.AddWithValue("@grade", item.Grade);
+                }
+                updateCardValue.Parameters.AddWithValue("@quantity", item.Quantity);
+                updateCardValue.Parameters.AddWithValue("@amount_to_trade", item.QuantityForTrade);
+                updateCardValue.Parameters.AddWithValue("@id", item.Card.Id);
+                updateCardValue.Parameters.AddWithValue("@username", username);
+                updateCardValue.ExecuteNonQuery();
+            }
+        }
+
     }
 
     
