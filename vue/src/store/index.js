@@ -35,7 +35,8 @@ export default new Vuex.Store({
     searchedCardResult: {},
     isPremium: false,
     isPublic: false,
-    isSearching: false
+    isSearching: false,
+    resultsExist: true
   },
   mutations: {
     TOGGLE_SEARCHING_ON(state) {
@@ -156,6 +157,9 @@ export default new Vuex.Store({
      let thing = JSON.parse(localStorage.getItem('user'));
      thing.isPublic = state.user.isPublic;
      localStorage.setItem('user', JSON.stringify(thing));
+    },
+    SET_SEARCH_RESULTS_EXIST(state, results) {
+      state.resultsExist = results;
     }
   }
 })

@@ -73,14 +73,14 @@ export default {
             }
             
         },
-        computed: {
+    },
+    computed: {
             getDisplayedPriceString() {
                 let initialPriceString = this.searchedCard.price;
                 let price = Number(initialPriceString);
                 return price.toFixed(2);
             }
         }
-    }
 }
 </script>
 
