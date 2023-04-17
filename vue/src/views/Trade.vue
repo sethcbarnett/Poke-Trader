@@ -19,11 +19,4 @@ export default {
     display: flex;
     width: 100vw;
 }
-trade-side-bar {
-    height: 1000px;
-}
-trade-interface {
-    flex-basis: 80%;
-    width: 100%;
-}
 </style>
