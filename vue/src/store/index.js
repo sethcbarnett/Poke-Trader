@@ -36,7 +36,8 @@ export default new Vuex.Store({
     isPremium: false,
     isPublic: false,
     isSearching: false,
-    resultsExist: true
+    resultsExist: true,
+    collectionResultsExist: true
   },
   mutations: {
     TOGGLE_SEARCHING_ON(state) {
@@ -159,6 +160,9 @@ export default new Vuex.Store({
      localStorage.setItem('user', JSON.stringify(thing));
     },
     SET_SEARCH_RESULTS_EXIST(state, results) {
+      state.resultsExist = results;
+    },
+    SET_COLLECTION_SEARCH_RESULTS_EXIST(state, results) {
       state.resultsExist = results;
     }
   }
