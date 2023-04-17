@@ -1,16 +1,18 @@
 <template>
   <div id="container">
-    <search-filters :searchType="this.searchType" :isSearching="this.isSearching" @setIsSearching="(isSearching) => this.isSearching = isSearching"/>
-   
+    <search-filters :searchType="this.searchType" :isSearching="this.isSearching" 
+    @setIsSearching="(isSearching) => this.isSearching = isSearching"
+    @setIsLoading="(isLoading) => this.isLoading = isLoading" />
+     <div class="loading" v-if="isLoading"  :isLoading="this.isLoading" >
+         <img id="pokeball-spinning" src="../assets/pokeball-spinning.gif"/>
+    </div>
         <div
-          v-if="$store.state.resultsExist"
+          v-if="!this.isLoading && $store.state.resultsExist"
           v-show="this.isSearching"
           id="searched-cards-area"
         >
-        <div class="loading" v-if="isLoading">
-         <img src="../assets/pokeball.gif"/>
-    </div>
         <searched-card-display
+        
         v-bind:searchedCard="searchedCard"
         v-for="searchedCard in $store.state.searchedCardResult"
         v-bind:key="searchedCard.id"
@@ -75,6 +77,15 @@ export default {
   width: 75px;
   cursor: pointer;
   font-size: 11px;
+}
+#pokeball-spinning{
+  height: 200px;
+  width: auto;
+  border-radius: 15px;
+}
+.loading {
+display: flex;
+  justify-content: center;
 }
 
 
