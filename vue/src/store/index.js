@@ -37,7 +37,8 @@ export default new Vuex.Store({
     isPublic: false,
     isSearching: false,
     resultsExist: true,
-    collectionResultsExist: true
+    collectionResultsExist: true,
+    isLoginUser: false
   },
   mutations: {
     TOGGLE_SEARCHING_ON(state) {
@@ -164,6 +165,14 @@ export default new Vuex.Store({
     },
     SET_COLLECTION_SEARCH_RESULTS_EXIST(state, results) {
       state.resultsExist = results;
+    },
+    CHECK_IF_IS_LOGIN_USER(state) {
+      if (state.user.username == state.currentCollection) {
+        state.isLoginUser = true;
+      }
+      else {
+        state.isLoginUser = false;
+      }
     }
   }
 })
