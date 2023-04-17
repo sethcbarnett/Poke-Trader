@@ -11,7 +11,7 @@
     <div id="bottom-text">
       <h4>
         <span v-if="collectionItem.card.price.length < 13">$</span
-        >{{ collectionItem.card.price }}
+        >{{ Number(collectionItem.card.price).toFixed(2) }}
       </h4>
       <h4>Quantity Owned: {{ collectionItem.quantity }}</h4>
       <h4>Quantity For Trade: {{ collectionItem.quantityForTrade }}</h4>

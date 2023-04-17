@@ -128,6 +128,11 @@ export default {
     submitSearchToApi() {
         SearchService.getCardsBySearch(`${this.getCompleteFilterString}`).then((response) => {
                 this.$store.commit('SET_SEARCHED_CARDS', response.data);
+                this.$store.commit('SET_SEARCH_RESULTS_EXIST', true);
+                console.log("found results");
+            }).catch((error) => {
+              console.log("404");
+              if (error.response) this.$store.commit('SET_SEARCH_RESULTS_EXIST', false);
             });
     },
     clearSearch() {
@@ -146,7 +151,7 @@ button {
     
 }
 #clear-search, #show-hide-filters {
-background-color: #ffcb05;
+  background-color: #ffcb05;
     background-color: #ffcb05;
     color: #3466af;
     border: solid #3466af 2px;
