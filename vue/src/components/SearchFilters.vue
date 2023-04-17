@@ -1,7 +1,7 @@
 <template>
   <form id="search-form">
     <div id="search-name" v-on:submit.prevent="submitSearch">
-      <button id="clear-search" v-show="$store.state.isSearching" @click.prevent="clearSearch">Clear Search
+      <button id="clear-search" v-show="this.isSearching" @click.prevent="clearSearch">Clear Search
       </button>
       <button id="show-hide-filters" @click.prevent="showHideFilters">
         {{ filterVisibility ? "Hide Filters" : "Show Filters" }}
@@ -59,10 +59,9 @@
 import SearchService from "../services/SearchService.js";
 export default {
   name: "search-filters",
-  props: ['searchType'],
+  props: ['searchType', 'isSearching'],
   data() {
     return {
-    isSearching: false,
     filterVisibility: false,
       nameSearch: "",
       minPrice: 0,
@@ -119,7 +118,6 @@ export default {
     submitSearch() {
       if (this.searchType == 'apicall'){
         this.submitSearchToApi();
-        this.$store.commit('TOGGLE_SEARCHING_ON');
       }
       else if (this.searchType == 'filterCollection'){
         this.filterCollection();
@@ -129,6 +127,7 @@ export default {
         SearchService.getCardsBySearch(`${this.getCompleteFilterString}`).then((response) => {
                 this.$store.commit('SET_SEARCHED_CARDS', response.data);
                 this.$store.commit('SET_SEARCH_RESULTS_EXIST', true);
+                this.$emit('setIsSearching', true);
                 console.log("found results");
             }).catch((error) => {
               console.log("404");
@@ -136,9 +135,11 @@ export default {
             });
     },
     clearSearch() {
-      this.$store.commit('TOGGLE_SEARCHING_OFF');
+      this.$emit('setIsSearching', false)
+      // this.$store.commit('TOGGLE_SEARCHING_OFF');
     },
     filterCollection() {
+      this.$emit('setIsSearching', true);
       this.$store.commit('SET_FILTERED_COLLECTION_OBJ', {name:this.nameSearch, minPrice:this.minPrice, maxPrice:this.maxPrice, rarity:this.rarities});
     }
   },
