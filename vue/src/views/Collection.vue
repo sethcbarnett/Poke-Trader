@@ -92,14 +92,10 @@ export default {
           }
         });
     },
-    changePlaceholder() {
-      document.getElementById ("search-bar").placeholder = "Test Text";
-    }
   },
   created() {
     this.checkForPremium();
     this.checkForPublic();
-    this.changePlaceholder();
   },
 };
 </script>
