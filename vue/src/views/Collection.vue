@@ -93,7 +93,7 @@ export default {
         });
     },
     changePlaceholder() {
-      document.getElementById ("search-bar").placeholder = "Test Text";
+      document.getElementById("search-bar").placeholder = "Test Text";
     }
   },
   created() {
