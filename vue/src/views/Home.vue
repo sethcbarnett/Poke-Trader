@@ -1,8 +1,5 @@
 <template>
   <div class="home">
-    <div id="testing">
-      <search-filters />
-    </div>
     <div>
       <h1>Home</h1>
     </div>
@@ -39,12 +36,11 @@
 
 <script>
 import CollectionService from "../services/CollectionService.js";
-import SearchFilters from "../components/SearchFilters.vue";
+//import SearchFilters from "../components/SearchFilters.vue";
 
 export default {
   name: "home",
   components: {
-    SearchFilters,
   },
   data() {
     return {
@@ -65,6 +61,7 @@ export default {
       this.$store.commit("SET_CURRENT_COLLECTION_OBJECT");
       let payload = {name:"", minPrice:0, maxPrice:200000, rarity:["common", "uncommon", "rare"]};
       this.$store.commit('SET_FILTERED_COLLECTION_OBJ', payload);
+      this.$store.commit('CHECK_IF_IS_LOGIN_USER');
     },
     generateImg() {
       this.randomNumber = Math.random()*10;

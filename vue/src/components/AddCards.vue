@@ -1,7 +1,7 @@
 <template>
   <div id = "container">
-    <search-filters :searchType="this.searchType"/>
-    <div v-if="$store.state.resultsExist" v-show="$store.state.isSearching" id="searched-cards-area">
+    <search-filters :searchType="this.searchType" :isSearching="this.isSearching" @setIsSearching="(isSearching) => this.isSearching = isSearching"/>
+    <div v-if="$store.state.resultsExist" v-show="this.isSearching" id="searched-cards-area">
       <searched-card-display v-bind:searchedCard = "searchedCard" v-for="searchedCard in $store.state.searchedCardResult" v-bind:key="searchedCard.id"/>
     </div>
     <div id = "no results found" v-if="!$store.state.resultsExist">
@@ -20,7 +20,8 @@ export default {
         return {
             searchString: "",
             searchType: "apicall",
-            resultsExist: true
+            resultsExist: true,
+            isSearching: false
         }
     },
     components: {

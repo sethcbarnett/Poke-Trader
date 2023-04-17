@@ -1,18 +1,25 @@
 <template>
   <div id="collection-area">
-    <search-filters :searchType="searchType"/>
+    <search-filters :searchType="searchType" :isSearching="this.isSearching" @setIsSearching="(isSearching) => this.isSearching = isSearching"/>
     <div class="options">
       <collection-stats />
-      <premium-button v-if="$store.state.isPremium == false" />
+      <premium-button v-if="$store.state.isPremium == false && $store.state.isLoginUser" />
     </div>
-    <div id="card-display-area">
+    <div id="card-display-area" v-show="this.isSearching">
       <card-display
         v-bind:collectionItem="collectionItem"
         v-for="collectionItem in $store.state.filteredCollection"
         v-bind:key="collectionItem.card.id"
       />
     </div>
-    <div id="collection-and-search-options">
+    <div id="card-display-area" v-show="!this.isSearching">
+      <card-display
+        v-bind:collectionItem="collectionItem"
+        v-for="collectionItem in $store.state.currentCollectionObject"
+        v-bind:key="collectionItem.card.id"
+      />
+    </div>
+    <div id="collection-and-search-options" v-if="$store.state.isLoginUser">
       <p>Collection Visibility</p>
       <div class="switch-container">
         <p>Private</p>
@@ -55,6 +62,8 @@ export default {
         isPublic: this.$store.state.user.username,
       },
       searchType: "filterCollection",
+      isLoginUser: null,
+      isSearching: false
     };
   },
   methods: {
