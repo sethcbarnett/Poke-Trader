@@ -4,6 +4,7 @@
     <div id="nav">
       <router-link class="nav-link" v-bind:to="{ name: 'home' }">Home</router-link>
       <router-link class="nav-link" v-bind:to="{name: 'collection', params: {username: `${this.$store.state.user.username}`}}" @click.native="SetCollectionToCurrentUser" v-if="$store.state.token != ''">&nbsp;|&nbsp;My Collection</router-link>
+      <router-link class="nav-link" v-bind:to="{ name: 'trade' }" v-if="$store.state.token != ''">&nbsp;|&nbsp;Trade</router-link>
       <router-link class="nav-link" v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">&nbsp;|&nbsp;Logout</router-link>
       <router-link class="nav-link" v-bind:to="{ name: 'login' }" v-if="$store.state.token == ''">&nbsp;|&nbsp;Login</router-link>
     </div>
