@@ -1,17 +1,16 @@
 <template>
   <form id="search-form">
-    <div id="search-name" v-on:submit.prevent="submitSearch">
-      <button id="clear-search" v-show="this.isSearching" @click.prevent="clearSearch">Clear Search
-      </button>
-      <button id="show-hide-filters" @click.prevent="showHideFilters">
+    <div id="search-name">
+      <button id="clear-search" v-show="this.isSearching" @click.prevent="clearSearch" type = "button">Clear Search</button>
+      <button id="show-hide-filters" @click.prevent="showHideFilters" type = "button">
         {{ filterVisibility ? "Hide Filters" : "Show Filters" }}
       </button>
       <input
         v-model="nameSearch"
         id="search-bar"
         type="text"
-        placeholder="Search for Pokemon to catch by name..."
-        @keyup.enter.prevent="submitSearch"
+        v-bind:placeholder="getPlaceholderText"
+        @keyup.enter.stop.prevent="submitSearch"
       />
       <input id="search-button" type="submit" @click.prevent="submitSearch" value="Search" />
     </div>
@@ -62,7 +61,7 @@ export default {
   props: ['searchType', 'isSearching'],
   data() {
     return {
-    filterVisibility: false,
+      filterVisibility: false,
       nameSearch: "",
       minPrice: 0,
       maxPrice: 200000,
@@ -109,6 +108,13 @@ export default {
         getCompleteFilterString() {
             var completeFilterString = this.getNameFilterString + this.getPriceFilterString + this.getRarityFilterString;
             return completeFilterString;
+        },
+        getPlaceholderText() {
+          if(this.searchType == "apicall") {
+            return "Search for Pokemon to catch by name..."
+          } else {
+            return "Search your caught Pokemon..."
+          }
         }
   },
   methods: {
@@ -135,8 +141,11 @@ export default {
             });
     },
     clearSearch() {
+      this.nameSearch = "";
+      this.minPrice = 0;
+      this.maxPrice = 200000;
+      this.rarities = ["common", "uncommon", "rare"];
       this.$emit('setIsSearching', false)
-      // this.$store.commit('TOGGLE_SEARCHING_OFF');
     },
     filterCollection() {
       this.$emit('setIsSearching', true);

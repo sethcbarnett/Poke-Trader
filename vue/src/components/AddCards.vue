@@ -1,23 +1,20 @@
 <template>
   <div id="container">
-    <search-filters :searchType="this.searchType" />
+    <search-filters :searchType="this.searchType" :isSearching="this.isSearching" @setIsSearching="(isSearching) => this.isSearching = isSearching"/>
    
         <div
           v-if="$store.state.resultsExist"
-          v-show="$store.state.isSearching"
+          v-show="this.isSearching"
           id="searched-cards-area"
         >
-        <div class="loading" v-if="isloading">
+        <div class="loading" v-if="isLoading">
          <img src="../assets/pokeball.gif"/>
-        </div>
-          <searched-card-display
-            v-bind:searchedCard="searchedCard"
-            v-for="searchedCard in $store.state.searchedCardResult"
-            v-bind:key="searchedCard.id"
-            
-          />
-        
-      
+    </div>
+        <searched-card-display
+        v-bind:searchedCard="searchedCard"
+        v-for="searchedCard in $store.state.searchedCardResult"
+        v-bind:key="searchedCard.id"
+        />
     </div>
 
     <div id="no results found" v-if="!$store.state.resultsExist">
@@ -37,8 +34,8 @@ export default {
       searchString: "",
       searchType: "apicall",
       resultsExist: true,
-      isLoading: true,
-     
+      isLoading: false,
+      isSearching: false
     };
   },
   
