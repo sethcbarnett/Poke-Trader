@@ -1,12 +1,28 @@
 <template>
-  <div id = "container">
-    <search-filters :searchType="this.searchType"/>
-    <div v-if="$store.state.resultsExist" v-show="$store.state.isSearching" id="searched-cards-area">
-      <searched-card-display v-bind:searchedCard = "searchedCard" v-for="searchedCard in $store.state.searchedCardResult" v-bind:key="searchedCard.id"/>
+  <div id="container">
+    <search-filters :searchType="this.searchType" />
+   
+        <div
+          v-if="$store.state.resultsExist"
+          v-show="$store.state.isSearching"
+          id="searched-cards-area"
+        >
+        <div class="loading" v-if="isloading">
+         <img src="../assets/pokeball.gif"/>
+        </div>
+          <searched-card-display
+            v-bind:searchedCard="searchedCard"
+            v-for="searchedCard in $store.state.searchedCardResult"
+            v-bind:key="searchedCard.id"
+            
+          />
+        
+      
     </div>
-    <div id = "no results found" v-if="!$store.state.resultsExist">
-          <h1>No pokemon here...</h1>
-          <p>Try reworking your search or checking your spelling</p>
+
+    <div id="no results found" v-if="!$store.state.resultsExist">
+      <h1>No pokemon here...</h1>
+      <p>Try reworking your search or checking your spelling</p>
     </div>
   </div>
 </template>
@@ -15,48 +31,57 @@
 import SearchedCardDisplay from "./SearchedCardDisplay.vue";
 import SearchFilters from "./SearchFilters.vue";
 export default {
-    name: "add-cards",
-    data() {
-        return {
-            searchString: "",
-            searchType: "apicall",
-            resultsExist: true
-        }
-    },
-    components: {
-        SearchedCardDisplay,
-        SearchFilters
-    }
-}
+  name: "add-cards",
+  data() {
+    return {
+      searchString: "",
+      searchType: "apicall",
+      resultsExist: true,
+      isLoading: true,
+     
+    };
+  },
+  
+     
+  components: {
+    SearchedCardDisplay,
+    SearchFilters,
+  },
+};
 </script>
 
 <style>
 #container {
-    display: flex;
+  display: flex;
 }
-#searched-cards-area{
-    display:flex;
-    flex-wrap: wrap;
-    justify-content:center;
+#searched-cards-area {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 #search-bar {
-    height: 30px;
-    border-radius: 5px;
-    width: 364px;
-    margin-right: 10px;
-    margin-left: 10px;
+  height: 30px;
+  border-radius: 5px;
+  width: 364px;
+  margin-right: 10px;
+  margin-left: 10px;
 }
 #search-form {
-    align-self: center;
+  align-self: center;
 }
 #search-button {
-    background-color: #ffcb05;
-    color: #3466af;
-    border-color: #3466af;
-    border-radius: 5px;
-    height: 36px;
-    width: 75px;
-    cursor: pointer;
-    font-size: 11px
+  background-color: #ffcb05;
+  color: #3466af;
+  border-color: #3466af;
+  border-radius: 5px;
+  height: 36px;
+  width: 75px;
+  cursor: pointer;
+  font-size: 11px;
 }
+
+
+
+
+
 </style>
