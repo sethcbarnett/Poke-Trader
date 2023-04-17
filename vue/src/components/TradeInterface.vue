@@ -5,6 +5,7 @@
           <user-trade-window :username="this.loginUser" />
           <user-trade-window :username="this.tradingPartner" />
       </div>
+      <input type="submit" value="Propose Trade!" />
   </div>
 </template>
 
@@ -39,5 +40,10 @@ export default {
 }
 h2 {
     text-align: center;
+}
+input {
+    max-width: 100px;
+    text-align: center;
+    align-self: center;
 }
 </style>
