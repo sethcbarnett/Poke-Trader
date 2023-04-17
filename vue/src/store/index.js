@@ -35,7 +35,8 @@ export default new Vuex.Store({
     searchedCardResult: {},
     isPremium: false,
     isPublic: false,
-    isSearching: false
+    isSearching: false,
+    isLoginUser: false
   },
   mutations: {
     TOGGLE_SEARCHING_ON(state) {
@@ -156,6 +157,14 @@ export default new Vuex.Store({
      let thing = JSON.parse(localStorage.getItem('user'));
      thing.isPublic = state.user.isPublic;
      localStorage.setItem('user', JSON.stringify(thing));
+    },
+    CHECK_IF_IS_LOGIN_USER(state) {
+      if (state.user.username == state.currentCollection) {
+        state.isLoginUser = true;
+      }
+      else {
+        state.isLoginUser = false;
+      }
     }
   }
 })

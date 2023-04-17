@@ -21,6 +21,7 @@ export default {
       this.$store.commit('SET_CURRENT_COLLECTION_OBJECT')
       let payload = {name:"", minPrice:0, maxPrice:200000, rarity:["common", "uncommon", "rare"]};
       this.$store.commit('SET_FILTERED_COLLECTION_OBJ', payload);
+      this.$store.commit('CHECK_IF_IS_LOGIN_USER');
     }
   }
 }
