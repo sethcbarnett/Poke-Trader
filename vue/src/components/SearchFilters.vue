@@ -10,7 +10,7 @@
         v-model="nameSearch"
         id="search-bar"
         type="text"
-        placeholder="Search for Pokemon to catch by name..."
+        v-bind:placeholder="getPlaceholderText"
         @keyup.enter.prevent="submitSearch"
       />
       <input id="search-button" type="submit" @click.prevent="submitSearch" value="Search" />
@@ -110,6 +110,13 @@ export default {
         getCompleteFilterString() {
             var completeFilterString = this.getNameFilterString + this.getPriceFilterString + this.getRarityFilterString;
             return completeFilterString;
+        },
+        getPlaceholderText() {
+          if(this.searchType == "apicall") {
+            return "Search for Pokemon to catch by name..."
+          } else {
+            return "Search your caught Pokemon..."
+          }
         }
   },
   methods: {

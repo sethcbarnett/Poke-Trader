@@ -54,7 +54,7 @@ export default {
         username: "",
         isPublic: this.$store.state.user.username,
       },
-      searchType: "filterCollection"
+      searchType: "filterCollection",
     };
   },
   methods: {
@@ -83,10 +83,14 @@ export default {
           }
         });
     },
+    changePlaceholder() {
+      document.getElementById ("search-bar").placeholder = "Test Text";
+    }
   },
   created() {
     this.checkForPremium();
     this.checkForPublic();
+    this.changePlaceholder();
   },
 };
 </script>
