@@ -38,7 +38,8 @@ export default new Vuex.Store({
     isSearching: false,
     resultsExist: true,
     collectionResultsExist: true,
-    isLoginUser: false
+    isLoginUser: false,
+    creatingNewTrade: false
   },
   mutations: {
     TOGGLE_SEARCHING_ON(state) {
@@ -173,6 +174,9 @@ export default new Vuex.Store({
       else {
         state.isLoginUser = false;
       }
+    },
+    TOGGLE_CREATING_NEW_TRADE(state) {
+      state.creatingNewTrade = !state.creatingNewTrade;
     }
   }
 })
