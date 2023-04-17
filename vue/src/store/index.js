@@ -36,6 +36,8 @@ export default new Vuex.Store({
     isPremium: false,
     isPublic: false,
     isSearching: false,
+    resultsExist: true,
+    collectionResultsExist: true,
     isLoginUser: false
   },
   mutations: {
@@ -157,6 +159,12 @@ export default new Vuex.Store({
      let thing = JSON.parse(localStorage.getItem('user'));
      thing.isPublic = state.user.isPublic;
      localStorage.setItem('user', JSON.stringify(thing));
+    },
+    SET_SEARCH_RESULTS_EXIST(state, results) {
+      state.resultsExist = results;
+    },
+    SET_COLLECTION_SEARCH_RESULTS_EXIST(state, results) {
+      state.resultsExist = results;
     },
     CHECK_IF_IS_LOGIN_USER(state) {
       if (state.user.username == state.currentCollection) {
