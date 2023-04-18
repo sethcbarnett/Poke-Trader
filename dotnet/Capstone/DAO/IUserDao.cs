@@ -12,5 +12,7 @@ namespace Capstone.DAO
         void ChangeUsersToPremium(string userName);
         void ToggleCollectionPrivacy(string userName);
         public List<string> GetUsernamesBySearch(string searchString);
+
+        List<string> GetUsernamesOfMyActiveTrades(string username);
     }
 }

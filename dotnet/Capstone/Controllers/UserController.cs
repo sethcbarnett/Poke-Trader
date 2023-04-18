@@ -47,5 +47,16 @@ namespace Capstone.Controllers
             userDao.ToggleCollectionPrivacy(userName);
             return Ok();
         }
+
+        [HttpGet("{username}/active_trades")]
+        public IActionResult GetUsernamesOfMyActiveTrades(string username)
+        {
+            List<string> usernames = userDao.GetUsernamesOfMyActiveTrades(username);
+            if (usernames.Count == 0)
+            {
+                return NotFound();
+            }
+            return Ok(usernames);
+        }
     }
 }
