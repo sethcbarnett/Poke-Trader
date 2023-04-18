@@ -9,7 +9,7 @@
           <h2> Public Users</h2>
           </header>
         <div id="scrollable-content" >
-        <router-link v-for="collection in publicCollections" 
+        <router-link v-for="collection in $store.state.publicUsers" 
                 v-bind:key="collection.id" 
                 :to="{
                   name: 'collection',
@@ -24,26 +24,11 @@
       <div id="pokemon-picture">
           <img :src="imgSrc" @click="generateImg"/>
       </div>
-      <!-- <router-link
-        v-for="collection in publicCollections"
-        v-bind:key="collection.id"
-        :to="{
-          name: 'collection',
-          params: { username: `${collection.username}` },
-        }"
-      >
-        <span id="public-user" @click="switchSearchedUser(collection.username)">{{
-          collection.username
-        }}</span></router-link
-      > -->
     </div>
   </div>
 </template>
 
 <script>
-import CollectionService from "../services/CollectionService.js";
-//import SearchFilters from "../components/SearchFilters.vue";
-
 export default {
   name: "home",
   components: {
@@ -57,10 +42,7 @@ export default {
   },
   methods: {
     getPublicCollectionUsers() {
-      CollectionService.getPublicCollectionUsers().then((response) => {
-        this.publicCollections = response.data;
-      });
-      console.log(this.publicCollections);
+      this.$store.commit('SET_PUBLIC_USERS');
     },
     switchSearchedUser(username) {
       this.$store.commit("SET_CURRENT_COLLECTION", username);
