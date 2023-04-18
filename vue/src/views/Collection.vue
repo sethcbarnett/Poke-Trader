@@ -1,12 +1,36 @@
 <template>
   <div id="collection-area">
-    <search-filters :searchType="searchType" :isSearching="this.isSearching" @setIsSearching="(isSearching) => this.isSearching = isSearching"/>
     <div class="options">
       <collection-stats />
-      <premium-button v-if="$store.state.isPremium == false && $store.state.isLoginUser" />
+      <div id="privacy-container">
+        <p id="privacy-title">Collection Visibility</p>
+        <div class="switch-container">
+          <p>Private</p>
+          <label class="switch">
+            <input
+              @change="toggleVisibility"
+              type="checkbox"
+              v-model="this.$store.state.user.isPublic"
+            />
+            <span class="slider round"></span>
+          </label>
+          <p>Public</p>
+        </div>
+      </div>
+      <premium-button
+        v-if="$store.state.isPremium == false && $store.state.isLoginUser"
+      />
     </div>
+    <search-filters
+      :searchType="searchType"
+      :isSearching="this.isSearching"
+      @setIsSearching="(isSearching) => (this.isSearching = isSearching)"
+    />
     <div id="card-display-area" v-show="this.isSearching">
-      <card-display 
+      <a id="plus-card" href="#collection-and-search-options" rel="bookmark" v-if="$store.state.isLoginUser" v-on:click="setAddingCardToYes">
+        <img src="../assets/plus.png"/>
+      </a>      
+      <card-display
         v-bind:collectionItem="collectionItem"
         v-for="collectionItem in $store.state.filteredCollection"
         v-bind:key="collectionItem.card.id"
@@ -16,6 +40,9 @@
       />
     </div>
     <div id="card-display-area" v-show="!this.isSearching">
+      <a id="plus-card" href="#collection-and-search-options" rel="bookmark" v-if="$store.state.isLoginUser" v-on:click="setAddingCardToYes">
+        <img src="../assets/plus.png"/>
+      </a>
       <card-display
         v-bind:collectionItem="collectionItem"
         v-for="collectionItem in $store.state.currentCollectionObject"
@@ -25,21 +52,8 @@
         @set-grade="(grade) => setGrade(collectionItem, grade)"
       />
     </div>
-    <div id="collection-and-search-options" v-if="$store.state.isLoginUser">
-      <p>Collection Visibility</p>
-      <div class="switch-container">
-        <p>Private</p>
-        <label class="switch">
-          <input
-            @change="toggleVisibility"
-            type="checkbox"
-            v-model="this.$store.state.user.isPublic"
-          />
-          <span class="slider round"></span>
-        </label>
-        <p>Public</p>
-      </div>
-      <add-cards/>
+    <div id="collection-and-search-options" v-show="$store.state.isAddingCard">
+      <add-cards />
       <div id="spacer" />
     </div>
   </div>
@@ -60,7 +74,7 @@ export default {
     AddCards,
     CollectionStats,
     PremiumButton,
-    SearchFilters
+    SearchFilters,
   },
   data() {
     return {
@@ -71,12 +85,15 @@ export default {
       collectionItem: {},
       searchType: "filterCollection",
       isLoginUser: null,
-      isSearching: false
+      isSearching: false,
     };
   },
   methods: {
+    setAddingCardToYes() {
+      this.$store.commit('TOGGLE_ADDING_CARD_ON');
+    },
     redirectToPremium() {
-      this.$store.commit('TOGGLE_SEARCHING_OFF');
+      this.$store.commit("TOGGLE_SEARCHING_OFF");
       this.$router.push({ name: "premium" });
     },
     checkForPremium() {
@@ -171,7 +188,7 @@ div {
   justify-content: center;
 }
 
-button {
+/* button {
   background-color: #3466af;
   color: white;
   border: none;
@@ -188,7 +205,7 @@ button {
   align-self: center;
   padding-left: 20px;
   padding-right: 20px;
-}
+} */
 #collection-and-search-options > p {
   font-size: 14px;
   margin-bottom: 0px;
@@ -207,6 +224,7 @@ button {
   text-align: center;
   flex-direction: row;
   padding-bottom: 10px;
+  font-family: "Pokemon Solid", sans-serif;
 }
 .switch-container p {
   font-size: 12px;
@@ -278,6 +296,7 @@ input:checked + .slider:before {
   padding-top: 5px;
   justify-content: space-between;
   flex-direction: row;
+  align-items: center;
 }
 collection-stats {
   flex-basis: 33%;
@@ -285,5 +304,28 @@ collection-stats {
 #collection-and-search-options {
   display: flex;
   align-items: center;
+}
+#privacy-title {
+  margin-bottom: 8px;
+  font-family: "Pokemon Solid", sans-serif;
+}
+#privacy-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+  line-height: 1em;
+}
+#plus-card {
+  background-color: rgb(207, 200, 177);
+  border: 2px solid black;
+  border-radius: 20px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  margin: 5px;
+  padding-bottom: 5px;
+  padding-top: 5px;
+  width: 160px;
+  justify-content: center;
 }
 </style>
