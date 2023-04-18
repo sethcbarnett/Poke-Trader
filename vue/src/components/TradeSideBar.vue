@@ -1,7 +1,7 @@
 <template>
   <div id="side-bar">
       <h2>Trades In Progress</h2>
-      <p class="trade" v-for="trade in $store.state.tradesInProgress" v-bind:key="trade.id"></p>
+      <p class="trade" v-for="trade in $store.state.tradesInProgress" v-bind:key="trade.id">Trade with {{ trade }}</p>
       <form v-on:submit.prevent="SubmitUserSearch">
         <input type="button" value="+ New Trade" v-on:click="NewTradeToggle" v-show="!$store.state.creatingNewTrade" />
         <div id="user-search-container" v-show="$store.state.creatingNewTrade">
@@ -39,7 +39,13 @@ export default {
         },
         SetOtherUserInfo(username) {
             this.$store.commit('SET_OTHER_USER_INFO', username);
+        },
+        SetTradesInProgress() {
+            this.$store.commit('SET_TRADES_IN_PROGRESS');
         }
+    },
+    created() {
+        this.SetTradesInProgress();
     }
 }
 </script>
