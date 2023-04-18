@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System;
 using System.Security.Cryptography.Xml;
+using System.Diagnostics;
 
 namespace Capstone.DAO
 {
@@ -80,9 +81,32 @@ namespace Capstone.DAO
             return "Hooray";
         }
 
-        public Trade GetTrade(int tradeId)
+        public Trade GetTrade(string userOne, string userTwo)
         {
-            return null;
+            using (SqlConnection conn = new SqlConnection(connectionString)) 
+            {
+                conn.Open();
+
+                SqlCommand getTrade = new SqlCommand("SELECT * FROM trade " +
+                                                     "WHERE user_id_from = " +
+                                                     "(SELECT user_id FROM users WHERE username = @userOne) AND " +
+                                                     "user_id_to = " +
+                                                     "(SELECT user_id FROM users WHERE username = @userTwo) OR " +
+                                                     "user_id_from = " +
+                                                     "(SELECT user_id FROM users WHERE username = @userTwo) AND " +
+                                                     "user_id_to = " +
+                                                     "(SELECT user_id FROM users WHERE username = @userOne)); ", conn);
+                getTrade.Parameters.AddWithValue("@userOne", userOne);
+                getTrade.Parameters.AddWithValue("@userTwo", userTwo);
+
+                SqlDataReader reader = getTrade.ExecuteReader();
+                if(reader.Read())
+                {
+                    Trade trade = CreateTradeFromReader(reader, userOne, userTwo);
+
+                }
+
+            }
         }
 
         public Trade AttemptTrade(Trade trade)
@@ -116,12 +140,12 @@ namespace Capstone.DAO
             return null;
         }
 
-        private Trade CreateTradeFromReader(SqlDataReader reader)
+        private Trade CreateTradeFromReader(SqlDataReader reader,string UserOne, string UserTwo)
         {
             Trade trade = new Trade();
             trade.TradeId = Convert.ToInt32(reader["trade_id"]);
-            trade.UserIdTo = Convert.ToInt32(reader["user_id_to"]);
-            trade.UserIdFrom = Convert.ToInt32(reader["user_id_from"]);
+            trade.UsernameFrom = UserOne;
+            trade.UsernameTo = UserTwo;
             trade.Status = Convert.ToString(reader["status"]);
             return trade;
         }
