@@ -2,8 +2,7 @@
   <div id="container">
     <search-filters :searchType="this.searchType" :isSearching="this.isSearching" 
     @setIsSearching="(isSearching) => this.isSearching = isSearching"
-    @setIsLoading="(isLoading) => this.isLoading = isLoading" 
-    @set-is-adding-card="toggleIsAddingCard"/>
+    @setIsLoading="(isLoading) => this.isLoading = isLoading" />
      <div class="loading" v-if="isLoading"  :isLoading="this.isLoading" >
          <img id="pokeball-spinning" src="../assets/pokeball-spinning.gif"/>
     </div>
@@ -42,10 +41,6 @@ export default {
     };
   },
   methods: {
-    toggleIsAddingCard() {
-      this.$emit('set-is-adding-card', false);
-      console.log("HI");
-    }
   },
      
   components: {

@@ -149,8 +149,8 @@ export default {
       this.minPrice = 0;
       this.maxPrice = 200000;
       this.rarities = ["common", "uncommon", "rare"];
-      this.$emit('set-is-adding-card');
       this.$emit('setIsSearching', false);
+      this.$store.commit('TOGGLE_ADDING_CARD_OFF');
     },
     filterCollection() {
       this.$emit('setIsSearching', true);

@@ -38,9 +38,16 @@ export default new Vuex.Store({
     isSearching: false,
     resultsExist: true,
     collectionResultsExist: true,
-    isLoginUser: false
+    isLoginUser: false,
+    isAddingCard: false
   },
   mutations: {
+    TOGGLE_ADDING_CARD_ON(state) {
+      state.isAddingCard = true;
+    },
+    TOGGLE_ADDING_CARD_OFF(state) {
+      state.isAddingCard = false;
+    },
     TOGGLE_SEARCHING_ON(state) {
       state.isSearching = true;
     },

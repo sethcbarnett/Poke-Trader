@@ -25,9 +25,11 @@
       :searchType="searchType"
       :isSearching="this.isSearching"
       @setIsSearching="(isSearching) => (this.isSearching = isSearching)"
-      @set-is-adding-card="(isAddingCard) => (this.isAddingCard = isAddingCard)"
     />
     <div id="card-display-area" v-show="this.isSearching">
+      <a id="plus-card" href="#collection-and-search-options" rel="bookmark" v-if="$store.state.isLoginUser" v-on:click="setAddingCardToYes">
+        <img src="../assets/plus.png"/>
+      </a>      
       <card-display
         v-bind:collectionItem="collectionItem"
         v-for="collectionItem in $store.state.filteredCollection"
@@ -35,7 +37,7 @@
       />
     </div>
     <div id="card-display-area" v-show="!this.isSearching">
-      <a id="plus-card" href="#collection-and-search-options" rel="bookmark" v-if="$store.state.isLoginUser" v-on:click="isAddingCard = true">
+      <a id="plus-card" href="#collection-and-search-options" rel="bookmark" v-if="$store.state.isLoginUser" v-on:click="setAddingCardToYes">
         <img src="../assets/plus.png"/>
       </a>
       <card-display
@@ -44,7 +46,7 @@
         v-bind:key="collectionItem.card.id"
       />
     </div>
-    <div id="collection-and-search-options" v-show="isAddingCard">
+    <div id="collection-and-search-options" v-show="$store.state.isAddingCard">
       <add-cards />
       <div id="spacer" />
     </div>
@@ -76,12 +78,11 @@ export default {
       searchType: "filterCollection",
       isLoginUser: null,
       isSearching: false,
-      isAddingCard: false
     };
   },
   methods: {
-    testMethod() {
-      console.log("HI");
+    setAddingCardToYes() {
+      this.$store.commit('TOGGLE_ADDING_CARD_ON');
     },
     redirectToPremium() {
       this.$store.commit("TOGGLE_SEARCHING_OFF");
