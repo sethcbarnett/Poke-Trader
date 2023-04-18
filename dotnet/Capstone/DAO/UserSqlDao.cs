@@ -45,6 +45,35 @@ namespace Capstone.DAO
 
             return returnUser;
         }
+        public List<string> GetUsernamesBySearch(string searchString)
+        {
+            List<string> usernames = new List<string>();
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand("SELECT  username" +
+                        "FROM users WHERE username LIKE @username", conn);
+                    cmd.Parameters.AddWithValue("@username","%" + searchString + "%");
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        string username = Convert.ToString(reader["username"]);
+                        usernames.Add(username);
+                    }
+                }
+            }
+            catch (SqlException)
+            {
+                throw;
+            }
+
+            return usernames;
+        }
 
         public User AddUser(string username, string password, string role, string email, string streetAddress, string city, string stateAbbreviation, string zipCode)
         {

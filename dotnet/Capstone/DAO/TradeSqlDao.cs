@@ -62,7 +62,7 @@ namespace Capstone.DAO
             trade.TradeId = Convert.ToInt32(reader["trade_id"]);
             trade.UserIdTo = Convert.ToInt32(reader["user_id_to"]);
             trade.UserIdFrom = Convert.ToInt32(reader["user_id_from"]);
-            trade.TradeStatus = Convert.ToString(reader["trade_status"]);
+            trade.Status = Convert.ToString(reader["status"]);
             return trade;
         }
 
