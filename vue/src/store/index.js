@@ -17,6 +17,7 @@ if(currentToken != null) {
 }
 
 import CollectionService from '../services/CollectionService';
+import UserService from '../services/UserService'
 
 export default new Vuex.Store({
   state: {
@@ -216,6 +217,11 @@ export default new Vuex.Store({
             state.searchedUsers.push(user.username);
           }
         });
+      });
+    },
+    SET_TRADES_IN_PROGRESS(state) {
+      UserService.getTradesInProgress(state.user.username).then((response) => {
+        state.tradesInProgress = response.data;
       });
     }
   }
