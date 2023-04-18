@@ -40,7 +40,8 @@ export default {
       isSearching: false
     };
   },
-  
+  methods: {
+  },
      
   components: {
     SearchedCardDisplay,

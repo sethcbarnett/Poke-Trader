@@ -61,6 +61,26 @@ CREATE TABLE collection_card (
 	CONSTRAINT FK_collection_card_card FOREIGN KEY (id) references card (id),
 )
 
+CREATE TABLE trade (
+	trade_id int IDENTITY(1, 1) NOT NULL,
+	user_id_from int NOT NULL,
+	user_id_to int NOT NULL,
+	status varchar(10) DEFAULT 'pending',
+	CONSTRAINT PK_trade PRIMARY KEY (trade_id),
+	CONSTRAINT FK_trade_user_from FOREIGN KEY (user_id_from) references users (user_id),
+	CONSTRAINT FK_trade_user_to FOREIGN KEY (user_id_to) references users (user_id),
+)
+
+CREATE TABLE trade_card_collection (
+	trade_id int NOT NULL,
+	id varchar(20) NOT NULL,
+	collection_id int NOT NULL,
+	CONSTRAINT PK_trade_card_collection PRIMARY KEY (trade_id, id, collection_id),
+	CONSTRAINT FK_trade_card_collection_trade FOREIGN KEY (trade_id) references trade (trade_id),
+	CONSTRAINT FK_trade_card_collection_card FOREIGN KEY (id) references card (id),
+	CONSTRAINT FK_trade_card_collection_collection FOREIGN KEY (collection_id) references collection (collection_id)
+)
+
 --populate default data
 INSERT INTO users (username, password_hash, salt, user_role, email, street_address, city, state_abbreviation, zip_code) VALUES ('user','Jg45HuwT7PZkfuKTz6IB90CtWY4=','LHxP4Xh7bN0=','user', 'abc123@hello.com', '123 muffin lane', 'Cleveland', 'RI', 12345);
 INSERT INTO users (username, password_hash, salt, user_role, email, street_address, city, state_abbreviation, zip_code, is_premium) VALUES ('admin','YhyGVQ+Ch69n4JMBncM4lNF/i9s=', 'Ar/aB2thQTI=','admin', 'abc123@hello.com', '123 muffin lane', 'Cleveland', 'RI', 12345, 1);
@@ -123,5 +143,47 @@ INSERT INTO collection_card (collection_id, id, quantity, amount_to_trade) VALUE
 		SELECT id FROM card WHERE name = 'Caterpie'
 	), 7, 3
 );
+
+INSERT INTO trade (user_id_from, user_id_to) VALUES ((SELECT user_id FROM users WHERE username = 'user'), (SELECT user_id FROM users WHERE username = 'admin'))
+
+INSERT INTO trade_card_collection (trade_id, id, collection_id) VALUES (
+--! Subquery for trade ID for trade involving 'user' and 'admin'
+(SELECT trade_id FROM trade WHERE user_id_from = (SELECT user_id FROM users WHERE username = 'user') 
+AND user_id_to = (SELECT user_id FROM users WHERE username = 'admin')),
+--! Subquery for card from user's collection that is named 'Alakazam'
+(SELECT id FROM collection_card WHERE collection_id = 
+(SELECT collection_id FROM collection WHERE user_id = 
+(SELECT user_id from users WHERE username = 'user')) AND id = 
+(SELECT id FROM card where name = 'Alakazam-EX')),
+--! Subquery for user's collection ID 
+(SELECT collection_id FROM collection WHERE user_id = 
+(SELECT user_id from users WHERE username = 'user')));
+
+INSERT INTO trade_card_collection (trade_id, id, collection_id) VALUES (
+--! Subquery for trade ID for trade involving 'user' and 'admin'
+(SELECT trade_id FROM trade WHERE user_id_from = (SELECT user_id FROM users WHERE username = 'user') 
+AND user_id_to = (SELECT user_id FROM users WHERE username = 'admin')),
+--! Subquery for card from user's collection that is named 'Alakazam'
+(SELECT id FROM collection_card WHERE collection_id = 
+(SELECT collection_id FROM collection WHERE user_id = 
+(SELECT user_id from users WHERE username = 'user')) AND id = 
+(SELECT id FROM card where name = 'Detective Pikachu')),
+--! Subquery for user's collection ID 
+(SELECT collection_id FROM collection WHERE user_id = 
+(SELECT user_id from users WHERE username = 'user')));
+
+INSERT INTO trade_card_collection (trade_id, id, collection_id) VALUES (
+--! Subquery for trade ID for trade involving 'user' and 'admin'
+(SELECT trade_id FROM trade WHERE user_id_from = (SELECT user_id FROM users WHERE username = 'user') 
+AND user_id_to = (SELECT user_id FROM users WHERE username = 'admin')),
+--! Subquery for card from user's collection that is named 'Alakazam'
+(SELECT id FROM collection_card WHERE collection_id = 
+(SELECT collection_id FROM collection WHERE user_id = 
+(SELECT user_id from users WHERE username = 'admin')) AND id = 
+(SELECT id FROM card where name = 'Caterpie')),
+--! Subquery for user's collection ID 
+(SELECT collection_id FROM collection WHERE user_id = 
+(SELECT user_id from users WHERE username = 'admin')));
+
 
 GO

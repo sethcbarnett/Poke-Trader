@@ -1,5 +1,5 @@
 <template>
-  <div id = "card-display" :href ="searchedCard.tcgUrl"> 
+  <div id = "card-display" :href="searchedCard.tcgUrl"> 
       <div id ="top-text" >
         <h4>{{searchedCard.name}}</h4>
       </div>
