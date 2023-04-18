@@ -7,19 +7,49 @@
       </div>
       
       <div id="collection">
-          <h5>Alakazam</h5>
+          <simplified-card-display 
+          v-bind:availableCard="availableCard" 
+          v-for="availableCard in availableCards"
+          v-bind:key="availableCard.card.id" />
       </div>
   </div>
 </template>
 
 <script>
+import SimplifiedCardDisplay from './SimplifiedCardDisplay.vue';
+
 export default {
     name: 'user-trade-window',
-    props: ['username']
+    props: ['username'],
+    components: { SimplifiedCardDisplay },
+    data() {
+        return {
+            availableCard: {},
+            availableCards: []
+        }
+    },
+    methods: {
+        GetAvailableCards() {
+            this.$store.commit('SET_USER_INFO', this.$store.state.user.username);
+        },
+        CheckUsername() {
+            if (this.username == this.$store.state.user.username) {
+                this.availableCards = this.$store.state.loginUserAvailableCards;
+            }
+            else {
+                this.availableCards = this.$store.state.otherUserAvailableCards;
+            }
+                
+        },
+    },
+    created() {
+        this.GetAvailableCards();
+        this.CheckUsername();
+    }
 }
 </script>
 
-<style>
+<style scoped>
 #user-window {
     border-style: solid;
     margin: 5px;
@@ -49,5 +79,10 @@ h4 {
 h3 {
     margin: 0;
     flex-basis: 5%;
+}
+#collection {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
 </style>
