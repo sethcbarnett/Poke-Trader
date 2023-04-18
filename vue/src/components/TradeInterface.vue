@@ -1,9 +1,9 @@
 <template>
   <div id="trade-interface">
-      <h2>Trade with (other username here)!</h2>
+      <h2>Trade with {{ $store.state.otherUserUsername }}!</h2>
       <div id="trade-windows-container">
-          <user-trade-window :username="this.loginUser" />
-          <user-trade-window :username="this.tradingPartner" />
+          <user-trade-window :username="this.$store.state.user.username" />
+          <user-trade-window :username="this.$store.state.otherUserUsername" />
       </div>
       <input type="submit" value="Propose Trade!" />
   </div>
@@ -16,8 +16,7 @@ export default {
     name: 'trade-interface',
     data() {
         return {
-            loginUser: this.$store.state.user.username,
-            tradingPartner: 'Rachel'
+            
         }
     }
 }

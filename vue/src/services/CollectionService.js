@@ -16,5 +16,9 @@ export default {
   updateCard(collectionItem, username) {
     console.log(collectionItem.grade);
     return axios.post(`/collection/${collectionItem.card.id}/${username}`, collectionItem)
+  },
+
+  getAvailableCardsByUser(username) {
+    return axios.get(`/collection/${username}/for_trade`);
   }
 }

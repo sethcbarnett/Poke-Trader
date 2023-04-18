@@ -39,7 +39,15 @@ export default new Vuex.Store({
     resultsExist: true,
     collectionResultsExist: true,
     isLoginUser: false,
-    creatingNewTrade: false
+    creatingNewTrade: false,
+    searchedUsers: [],
+    otherUserUsername: '',
+    tradesInProgress: [],
+    loginUserProposedCards: [],
+    otherUserProposedCards: [],
+    loginUserAvailableCards: [],
+    otherUserAvailableCards: [],
+    publicUsers: []
   },
   mutations: {
     TOGGLE_SEARCHING_ON(state) {
@@ -177,6 +185,26 @@ export default new Vuex.Store({
     },
     TOGGLE_CREATING_NEW_TRADE(state) {
       state.creatingNewTrade = !state.creatingNewTrade;
+    },
+    SET_SEARCHED_USERS(state, users) {
+      state.searchedUsers = users;
+    },
+    SET_OTHER_USER_INFO(state, username) {
+      state.otherUserUsername = username;
+      state.searchedUsers = [];
+      state.otherUserProposedCards;
+      state.otherUserAvailableCards;
+    },
+    SET_PUBLIC_USERS(state) {
+      CollectionService.getPublicCollectionUsers().then((response) => {
+        state.publicUsers = response.data;
+        state.searchedUsers = [];
+        state.publicUsers.forEach((user) => {
+          if(user.username !== state.user.username) {
+            state.searchedUsers.push(user.username);
+          }
+        });
+      });
     }
   }
 })
