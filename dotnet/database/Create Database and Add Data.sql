@@ -187,4 +187,10 @@ AND user_id_to = (SELECT user_id FROM users WHERE username = 'admin')),
 (SELECT collection_id FROM collection WHERE user_id = 
 (SELECT user_id from users WHERE username = 'admin')));
 
+SELECT username FROM users
+WHERE (users.user_id IN (SELECT user_id_from FROM trade
+WHERE user_id_to = (SELECT user_id FROM user WHERE username = 'user')) OR
+users.user_id IN (SELECT user_id_to FROM trade
+WHERE user_id_from = (SELECT user_id FROM user WHERE username = 'user'))) 
+
 GO

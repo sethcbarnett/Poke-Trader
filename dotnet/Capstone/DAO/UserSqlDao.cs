@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using Capstone.Models;
 using Capstone.Security;
 using Capstone.Security.Models;
@@ -72,6 +73,43 @@ namespace Capstone.DAO
                 throw;
             }
 
+            return usernames;
+        }
+
+        public List<string> GetUsernamesOfMyActiveTrades(string username)
+        {
+            List<string> usernames = new List<string>();
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand("SELECT " +
+                                                        "username FROM users " +
+                                                    "WHERE " +
+                                                        "(users.user_id IN " +
+                                                        "(SELECT user_id_from FROM trade WHERE user_id_to = " +
+                                                        "(SELECT user_id FROM users WHERE username = @username)) " +
+                                                    "OR " +
+                                                        "users.user_id IN " +
+                                                        "(SELECT user_id_to FROM trade WHERE user_id_from = " +
+                                                        "(SELECT user_id FROM users WHERE username = @username)))", conn);
+                    cmd.Parameters.AddWithValue("@username", username);
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        string trader = Convert.ToString(reader["username"]);
+                        usernames.Add(trader);
+                    }
+                }
+            }
+            catch (SqlException)
+            {
+                throw;
+            }
             return usernames;
         }
 
