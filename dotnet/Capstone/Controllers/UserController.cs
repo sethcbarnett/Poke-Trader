@@ -24,6 +24,16 @@ namespace Capstone.Controllers
             List<PublicCollectionUser> users = userDao.GetPublicUsers();
             return Ok(users);
         }
+        [HttpGet("{search}")]
+        public IActionResult GetUsernamesBySearch(string searchString)
+        {
+            List<string> searchedUsers = userDao.GetUsernamesBySearch(searchString);
+            if(searchedUsers.Count == 0)
+            {
+                return NotFound();
+            }
+            return Ok(searchedUsers);
+        }
         
         [HttpPut("{userName}")]
         public IActionResult ChangeToPremium(string userName) 

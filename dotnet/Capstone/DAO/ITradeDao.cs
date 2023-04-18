@@ -1,6 +1,17 @@
-﻿namespace Capstone.DAO
+﻿
+using Capstone.Models;
+using System.Collections.Generic;
+
+
+
+
+namespace Capstone.DAO
 {
-    public class ITradeSqlDao
+    public interface ITradeDao
     {
+        
+    
+    
     }
+
 }
