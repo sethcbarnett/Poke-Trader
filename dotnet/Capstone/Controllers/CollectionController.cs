@@ -44,5 +44,16 @@ namespace Capstone.Controllers
             return Ok();
         }
 
+        [HttpGet("{username}/for_trade")]
+        public IActionResult GetCollectionItemsForTrade(string username)
+        {
+            List<CollectionItem> cards = collectionDao.GetCollectionItemsForTrade(username);
+            if (cards.Count == 0)
+            {
+                return NotFound();
+            }
+            return Ok(cards);
+        }
+
     }
 }
