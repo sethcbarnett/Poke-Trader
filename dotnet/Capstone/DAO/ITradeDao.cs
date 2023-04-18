@@ -9,9 +9,10 @@ namespace Capstone.DAO
 {
     public interface ITradeDao
     {
-        
-    
-    
+        string AddTrade(Trade trade);
+
+
+
     }
 
 }
