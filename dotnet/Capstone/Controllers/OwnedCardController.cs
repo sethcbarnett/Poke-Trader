@@ -21,5 +21,6 @@ namespace Capstone.Controllers
             Card card = cardDao.GetCardById(id);
             return Ok(card);
         }
+
     }
 }

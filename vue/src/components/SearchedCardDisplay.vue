@@ -64,7 +64,8 @@ export default {
                         tcgUrl: this.searchedCard.tcgUrl,
                     },
                     quantity: this.quantity,
-                    quantityForTrade: this.quantityForTrade
+                    quantityForTrade: this.quantityForTrade,
+                    grade: this.grade
                 };
                 CollectionService.addCardToCollection(this.$store.state.user.username, this.collectionItem).then(() => {
                     this.$store.commit('SET_CURRENT_COLLECTION_OBJECT');

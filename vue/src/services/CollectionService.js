@@ -11,5 +11,10 @@ export default {
 
   addCardToCollection(username, collectionItem) {
     return axios.post(`/collection/${username}`, collectionItem);
+  },
+  
+  updateCard(collectionItem, username) {
+    console.log(collectionItem.grade);
+    return axios.post(`/collection/${collectionItem.card.id}/${username}`, collectionItem)
   }
 }

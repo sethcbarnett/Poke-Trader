@@ -39,7 +39,8 @@ export default new Vuex.Store({
     resultsExist: true,
     collectionResultsExist: true,
     isLoginUser: false,
-    isAddingCard: false
+    isAddingCard: false,
+    creatingNewTrade: false
   },
   mutations: {
     TOGGLE_ADDING_CARD_ON(state) {
@@ -180,6 +181,9 @@ export default new Vuex.Store({
       else {
         state.isLoginUser = false;
       }
+    },
+    TOGGLE_CREATING_NEW_TRADE(state) {
+      state.creatingNewTrade = !state.creatingNewTrade;
     }
   }
 })

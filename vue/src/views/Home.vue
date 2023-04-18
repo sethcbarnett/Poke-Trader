@@ -5,6 +5,10 @@
     </div>
     <div id="content-container">
       <div id="public-users">
+        <header id="public-headline">
+          <h2> Public Users</h2>
+          </header>
+        <div id="scrollable-content" >
         <router-link v-for="collection in publicCollections" 
                 v-bind:key="collection.id" 
                 :to="{
@@ -13,7 +17,9 @@
                 }">
                 <span id="public-user" @click="switchSearchedUser(collection.username)">
                   {{ collection.username }}</span>
+                  
         </router-link>
+        </div>
       </div>
       <div id="pokemon-picture">
           <img :src="imgSrc" @click="generateImg"/>
@@ -161,8 +167,58 @@ p {
   margin-left: 5px;
   margin-right: 5px;
 }
+#public-user{
+  display: flex;
+  background-color: #3466af;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-family: "Pokemon Solid", sans-serif;
+  line-height: 80px;
+  letter-spacing: 1px;
+  font-size: 1.2em;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  align-items:center;
+  display: inline-block;
+  cursor: pointer;
+  width: 90%;
+  height: 80px;
+  justify-content: center;
+  margin: 15px;
+  
+   
+}
+*::-webkit-scrollbar {
+  width: 20px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #ffcb05;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #3466af;
+  border-radius: 20px;
+  border: 3px solid orange;
+}
 img {
   height: 550px;
   width: 550px;
+}
+#scrollable-content {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  height: 400px;
+  width: 400px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-top: 80px;
+  
+}
+#public-headline{
+  position: sticky;
+  
 }
 </style>

@@ -47,13 +47,13 @@ CREATE TABLE card (
 	high_price varchar(20) NOT NULL,
 	rarity varchar(50) NOT NULL,
 	tcg_url varchar(100) NOT NULL,
-	grade decimal,
 	CONSTRAINT PK_card PRIMARY KEY (id)
 )
 
 CREATE TABLE collection_card (
 	collection_id int NOT NULL,
 	id varchar(20) NOT NULL,
+	grade varchar(50),
 	quantity int NOT NULL,
 	amount_to_trade int NOT NULL,
 	CONSTRAINT PK_collection_card PRIMARY KEY (collection_id, id),

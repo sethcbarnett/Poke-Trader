@@ -9,6 +9,7 @@ import CardComponent from '../components/CardDisplay.vue'
 import Collection from '../views/Collection.vue'
 import Premium from '../views/Premium.vue'
 import AddCards from '../components/AddCards.vue'
+import Trade from '../views/Trade.vue'
 
 Vue.use(Router)
 
@@ -97,6 +98,14 @@ const router = new Router({
       meta: {
         requiresAuth: true
       },
+    },
+    {
+      path: "/trade",
+      name: "trade",
+      component: Trade,
+      meta: {
+        requiresAuth: true
+      }
     }
   
   ]

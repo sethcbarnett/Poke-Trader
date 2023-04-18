@@ -37,5 +37,12 @@ namespace Capstone.Controllers
             }
         }
 
+        [HttpPost("{id}/{username}")]
+        public IActionResult UpdateCard(string id, string username, CollectionItem item)
+        {
+            collectionDao.UpdateCard(username, item);
+            return Ok();
+        }
+
     }
 }
