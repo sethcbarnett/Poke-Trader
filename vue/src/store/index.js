@@ -196,6 +196,11 @@ export default new Vuex.Store({
     SET_SEARCHED_USERS(state, users) {
       state.searchedUsers = users;
     },
+    SET_USER_INFO(state, username) {
+      CollectionService.getAvailableCardsByUser(username).then((response) => {
+        state.loginUserAvailableCards = response.data;
+    });
+    },
     SET_OTHER_USER_INFO(state, username) {
       state.otherUserUsername = username;
       state.searchedUsers = [];
