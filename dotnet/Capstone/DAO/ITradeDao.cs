@@ -11,7 +11,7 @@ namespace Capstone.DAO
     {
         string AddTrade(Trade trade);
 
-
+        Trade GetTrade(string userOne, string userTwo);
 
     }
 

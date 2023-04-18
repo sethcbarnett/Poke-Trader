@@ -157,6 +157,7 @@ export default {
 #bottom-text h4 {
   margin: 5px;
   text-align: center;
+  width: 100%;
 }
 a {
   text-decoration: none;
@@ -178,6 +179,7 @@ h4 {
 .quantity-wrapper {
   display: flex;
   flex-direction: row;
+  justify-content: center;
 }
 .quantity-wrapper h4 {
   font-size: 0.65em;

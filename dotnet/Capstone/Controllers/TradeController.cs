@@ -15,7 +15,7 @@ namespace Capstone.Controllers
         }
 
         [HttpPost("{usernameFrom}/{usernameTo}")]
-        public IActionResult AddTrade(Trade trade)
+        public IActionResult AddTrade(string usernameFrom, string usernameTo, Trade trade)
         {
             string result = tradeDao.AddTrade(trade);
             if (result == "Hooray")
@@ -23,6 +23,17 @@ namespace Capstone.Controllers
                 return Ok();
             }
             return BadRequest(result);
+        }
+
+        [HttpGet("{usernameFrom}/{usernameTo}")]
+        public IActionResult GetTrade(string usernameFrom, string usernameTo)
+        {
+            Trade trade = tradeDao.GetTrade(usernameFrom, usernameTo);
+            if (trade.TradeId == 0)
+            {
+                return NotFound();
+            }
+            return Ok(trade);
         }
     }
 }
