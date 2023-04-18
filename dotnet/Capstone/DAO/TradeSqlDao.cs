@@ -116,15 +116,15 @@ namespace Capstone.DAO
             return null;
         }
 
-        private Trade CreateTradeFromReader(SqlDataReader reader)
-        {
-            Trade trade = new Trade();
-            trade.TradeId = Convert.ToInt32(reader["trade_id"]);
-            trade.UserIdTo = Convert.ToInt32(reader["user_id_to"]);
-            trade.UserIdFrom = Convert.ToInt32(reader["user_id_from"]);
-            trade.Status = Convert.ToString(reader["status"]);
-            return trade;
-        }
+        //private Trade CreateTradeFromReader(SqlDataReader reader)
+        //{
+        //    Trade trade = new Trade();
+        //    trade.TradeId = Convert.ToInt32(reader["trade_id"]);
+        //    trade.UserIdTo = Convert.ToInt32(reader["user_id_to"]);
+        //    trade.UserIdFrom = Convert.ToInt32(reader["user_id_from"]);
+        //    trade.Status = Convert.ToString(reader["status"]);
+        //    return trade;
+        //}
 
     }
 }

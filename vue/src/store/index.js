@@ -205,8 +205,9 @@ export default new Vuex.Store({
     SET_OTHER_USER_INFO(state, username) {
       state.otherUserUsername = username;
       state.searchedUsers = [];
-      state.otherUserProposedCards;
-      state.otherUserAvailableCards;
+      CollectionService.getAvailableCardsByUser(username).then((response) => {
+        state.otherUserAvailableCards = response.data;
+    });
     },
     SET_PUBLIC_USERS(state) {
       CollectionService.getPublicCollectionUsers().then((response) => {
@@ -223,6 +224,12 @@ export default new Vuex.Store({
       UserService.getTradesInProgress(state.user.username).then((response) => {
         state.tradesInProgress = response.data;
       });
+    },
+    MAKE_CARD_PROPOSED(state, card) {
+      let placeholder = state.loginUserAvailableCards.filter((e) => {return e.card.name != card.card.name});
+      console.log(placeholder);
+      state.loginUserAvailableCards = placeholder;
+      state.loginUserProposedCards.push(card);
     }
   }
 })

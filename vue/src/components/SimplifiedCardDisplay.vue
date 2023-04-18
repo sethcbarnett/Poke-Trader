@@ -1,10 +1,11 @@
 <template>
   <div id="simplified-card-display">
       <div id="top-text">
-          <h4>{{ availableCard.name }}</h4>
+          <h4>{{ availableCard.card.name }}</h4>
       </div>
       <div id="card-image">
-          <img v-bind:src="availableCard.card.img" />
+          <img v-bind:src="availableCard.card.img" 
+          @click="MakeCardProposed(availableCard)" />
       </div>
       <div id="bottom-text">
           <h4>
@@ -31,10 +32,46 @@ export default {
             quantityForTrade: 0,
             grade: ""
         }
+    },
+    methods: {
+        
+        MakeCardProposed(card) {
+            this.$store.commit('MAKE_CARD_PROPOSED', card);
+        }
     }
 }
 </script>
 
-<style>
+<style scoped>
+#simplified-card-display {
+  background-color: rgb(207, 200, 177);
+  border: 2px solid black;
+  border-radius: 20px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  margin: 5px;
+  padding-bottom: 5px;
+  padding-top: 5px;
+}
+#top-text h4 {
+  margin: 5px;
+  text-align: center;
+}
+#card-image {
+  display: block;
+  align-self: center;
+}
+#bottom-text h4 {
+  margin: 5px;
+  text-align: center;
+}
+img {
+  width: 90px;
+}
+h4 {
+  font-size: 0.7em;
+  font-weight: 700;
+}
 
 </style>

@@ -30,7 +30,7 @@ export default {
     },
     methods: {
         GetAvailableCards() {
-            this.$store.commit('SET_USER_INFO', this.username);
+            this.$store.commit('SET_USER_INFO', this.$store.state.user.username);
         },
         CheckUsername() {
             if (this.username == this.$store.state.user.username) {
@@ -39,7 +39,8 @@ export default {
             else {
                 this.availableCards = this.$store.state.otherUserAvailableCards;
             }
-        }
+                
+        },
     },
     created() {
         this.GetAvailableCards();
@@ -48,7 +49,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 #user-window {
     border-style: solid;
     margin: 5px;
@@ -78,5 +79,10 @@ h4 {
 h3 {
     margin: 0;
     flex-basis: 5%;
+}
+#collection {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div id="trade-view">
       <trade-side-bar />
-      <trade-interface />
+      <trade-interface v-if="$store.state.otherUserUsername != ''" />
   </div>
 </template>
 
