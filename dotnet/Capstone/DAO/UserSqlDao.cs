@@ -55,8 +55,8 @@ namespace Capstone.DAO
                 {
                     conn.Open();
 
-                    SqlCommand cmd = new SqlCommand("SELECT  username" +
-                        "FROM users WHERE username LIKE @username", conn);
+                    SqlCommand cmd = new SqlCommand("SELECT username " +
+                        "FROM users WHERE username LIKE @username;", conn);
                     cmd.Parameters.AddWithValue("@username","%" + searchString + "%");
                     SqlDataReader reader = cmd.ExecuteReader();
 

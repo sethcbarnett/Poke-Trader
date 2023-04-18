@@ -10,11 +10,11 @@ using System.Security.Cryptography.Xml;
 
 namespace Capstone.DAO
 {
-    public class TradeSQLDao
+    public class TradeSqlDao : ITradeDao
     {
         private readonly string connectionString;
 
-        public void TradeSqlDao(string dbConnectionString)
+        public TradeSqlDao(string dbConnectionString)
         {
             connectionString = dbConnectionString;
         }

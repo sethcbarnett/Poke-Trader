@@ -24,7 +24,7 @@ namespace Capstone.Controllers
             List<PublicCollectionUser> users = userDao.GetPublicUsers();
             return Ok(users);
         }
-        [HttpGet("{search}")]
+        [HttpGet("search/{searchString}")]
         public IActionResult GetUsernamesBySearch(string searchString)
         {
             List<string> searchedUsers = userDao.GetUsernamesBySearch(searchString);

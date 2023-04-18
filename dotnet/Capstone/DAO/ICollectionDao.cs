@@ -14,5 +14,6 @@ namespace Capstone.DAO
 
         void UpdateCard(string username, CollectionItem item);
 
+        List<CollectionItem> GetCollectionItemsForTrade(string username);
     }
 }
