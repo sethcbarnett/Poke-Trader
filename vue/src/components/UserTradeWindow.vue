@@ -121,6 +121,7 @@ export default {
     border-width: 2px;
     border-radius: 10px;
     gap:2px;
+    max-width: 90%;
 }
 h4 {
     margin: 0;
@@ -157,7 +158,8 @@ h3 {
   flex-direction: row;
   overflow-y: hidden;
   overflow-x: auto;
-  width: 100%;
+  
+  max-width: 36vw;
   flex-wrap: nowrap;
 }
 #trades-scroll::-webkit-scrollbar {
