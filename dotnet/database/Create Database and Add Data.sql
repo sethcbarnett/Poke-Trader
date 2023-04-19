@@ -144,13 +144,6 @@ INSERT INTO collection_card (collection_id, id, quantity, amount_to_trade) VALUE
 	), 1, 1
 );
 
-INSERT INTO trade (user_id_from, user_id_to) VALUES (1, 2);
-
-INSERT INTO trade_card_collection (trade_id, collection_id, id) VALUES (1, 1, 'xy10-117');
-INSERT INTO trade_card_collection (trade_id, collection_id, id) VALUES (1, 1, 'det1-10');
-INSERT INTO trade_card_collection (trade_id, collection_id, id) VALUES (1, 2, 'xy2-1');
-
-
 --Proxy Data for demonstration
 
 --Pikachu Loverrr3000's collection of 100 Pikachu's

@@ -104,11 +104,11 @@ namespace Capstone.DAO
                         try
                         {
                             SqlCommand addCollectionItemsFrom = new SqlCommand("INSERT INTO trade_card_collection (trade_id, id, collection_id) VALUES (@tradeId," +
-                                                                           "(SELECT id FROM card where name = @cardName)," +
+                                                                           "@id," +
                                                                            "(SELECT collection_id FROM collection WHERE user_id = " +
                                                                            "(SELECT user_id from users WHERE username = @username)));", conn);
                             addCollectionItemsFrom.Parameters.AddWithValue("@tradeId", tradeId);
-                            addCollectionItemsFrom.Parameters.AddWithValue("@cardName", item.Card.Name);
+                            addCollectionItemsFrom.Parameters.AddWithValue("@id", item.Card.Id);
                             addCollectionItemsFrom.Parameters.AddWithValue("@username", trade.UsernameTo);
                             addCollectionItemsFrom.Transaction = transaction;
 

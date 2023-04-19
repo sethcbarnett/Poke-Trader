@@ -5,7 +5,9 @@
           <user-trade-window :username="this.$store.state.user.username" />
           <user-trade-window :username="this.$store.state.otherUserUsername" />
       </div>
-      <input type="submit" value="Propose Trade!" @click="PostTrade(MakeTradeObject)"/>
+      <input v-if="!this.$store.state.isPendingTrade" type="submit" value="Propose Trade!" @click="PostTrade(MakeTradeObject)"/>
+      <input v-if="DisplayAcceptTrade" type="submit" value="Accept Trade!" @click="PostTrade(MakeTradeObject)"/>
+      <input v-if="DisplayAcceptTrade" type="submit" value="Reject Trade!" @click="PostTrade(MakeTradeObject)"/>
   </div>
 </template>
 
@@ -33,6 +35,7 @@ export default {
             alert(
               `Trade Requested with ${this.$store.state.otherUserUsername}`
             );
+            this.$store.commit('SET_PROPOSED_TRADE_USER', tradeObject);
             this.$store.commit("SET_OTHER_USER_INFO", "");
             this.$store.commit('SET_TRADES_IN_PROGRESS');
           }
@@ -47,16 +50,43 @@ export default {
           }
         });
     },
+    DetermineTradeSender() {
+      let ProposedUserTrades = this.$store.state.proposedUserTrades;
+      for (let item of ProposedUserTrades)
+      {
+        if (item.trade.usernameFrom == this.tradeObject.usernameFrom && item.trade.usernameTo == this.tradeObject.usernameTo)
+        {
+          if (item.usernameFrom == this.$store.state.user.username)
+          {
+            return false;
+          }
+          else
+          {
+            return true;
+          }
+        }
+      }
+      return true;
+    }
   },
   computed: {
-        MakeTradeObject() {
-            let tradeObject = {};
-            tradeObject.usernameFrom = this.$store.state.user.username;
-            tradeObject.usernameTo = this.$store.state.otherUserUsername;
-            tradeObject.collectionItemsFrom = this.$store.state.loginUserProposedCards;
-            tradeObject.collectionItemsTo = this.$store.state.otherUserProposedCards;
-            return tradeObject;
-        }
+    MakeTradeObject() {
+        let tradeObject = {};
+        tradeObject.usernameFrom = this.$store.state.user.username;
+        tradeObject.usernameTo = this.$store.state.otherUserUsername;
+        tradeObject.collectionItemsFrom = this.$store.state.loginUserProposedCards;
+        tradeObject.collectionItemsTo = this.$store.state.otherUserProposedCards;
+        return tradeObject;
+    },
+    DisplayAcceptTrade() {
+      if (!this.$store.state.isPendingTrade)
+      {
+        return false;
+      }
+      else{
+        return this.DetermineTradeSender();
+      }
+    }
   }
 };
 </script>
