@@ -65,7 +65,7 @@ namespace Capstone.DAO
                     addToTradeTable.Parameters.AddWithValue("@userOne", trade.UsernameFrom);
                     addToTradeTable.Parameters.AddWithValue("@userTwo", trade.UsernameTo);
 
-                    tradeId = Convert.ToInt32(addToTradeTable.ExecuteNonQuery());
+                    tradeId = Convert.ToInt32(addToTradeTable.ExecuteScalar());
                 }
                 catch (Exception ex)
                 {
