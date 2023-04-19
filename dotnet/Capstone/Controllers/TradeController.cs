@@ -1,6 +1,7 @@
 ﻿using Capstone.DAO;
 using Capstone.Models;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace Capstone.Controllers
 {
@@ -14,26 +15,61 @@ namespace Capstone.Controllers
             this.tradeDao = tradeDao;
         }
 
-        [HttpPost("{usernameFrom}/{usernameTo}")]
-        public IActionResult AddTrade(string usernameFrom, string usernameTo, Trade trade)
+        [HttpPost]
+        public IActionResult AddTrade(Trade trade)
         {
-            string result = tradeDao.AddTrade(trade);
-            if (result == "Hooray")
+            try
             {
+                tradeDao.AddTrade(trade);
                 return Ok();
             }
-            return BadRequest(result);
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
 
         [HttpGet("{usernameFrom}/{usernameTo}")]
         public IActionResult GetTrade(string usernameFrom, string usernameTo)
         {
-            Trade trade = tradeDao.GetTrade(usernameFrom, usernameTo);
-            if (trade.TradeId == 0)
+            try
             {
-                return NotFound();
+                Trade trade = tradeDao.GetTrade(usernameFrom, usernameTo);
+                return Ok(trade);
             }
-            return Ok(trade);
+            catch (Exception e)
+            {
+                return NotFound(e.Message);
+            }
+        }
+
+        [HttpPut("{usernameFrom}/{usernameTo}/{status}")]
+        public IActionResult UpdateTrade(string usernameFrom, string usernameTo, string status)
+        {
+            if (status == "rejected")
+            {
+                try
+                {
+                    tradeDao.RejectTrade(usernameFrom, usernameTo);
+                    return Ok();
+                }
+                catch(Exception e)
+                { return BadRequest(e.Message); }
+            }
+            else if (status == "accepted")
+            {
+                try
+                {
+                    tradeDao.AcceptTrade(usernameFrom, usernameTo);
+                    return Ok();
+                }
+                catch (Exception e)
+                { return BadRequest(e.Message); }
+            }
+            else
+            {
+                return BadRequest();
+            }
         }
     }
 }
