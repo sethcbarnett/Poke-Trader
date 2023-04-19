@@ -28,7 +28,9 @@ export default {
     flex-basis: 80%;
     display: flex;
     flex-direction: column;
-    margin:5px;
+    margin-right: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
     color: #3466af;
     border-width: 5px;
     border-radius: 10px;
@@ -41,8 +43,7 @@ export default {
     align-items: center;
     height: 75vh;
     color: black;
-    
-    padding: 0px;
+    background-color:  #ffcb05
     
 }
 h2 {

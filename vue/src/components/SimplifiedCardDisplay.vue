@@ -69,6 +69,12 @@ export default {
 #card-image {
   display: block;
   align-self: center;
+  width: 125px;
+  height: 194px;
+  margin: 2.5px;
+   margin-bottom: 15px;
+ 
+  
 }
 #bottom-text h4 {
   margin: 5px;
@@ -76,7 +82,9 @@ export default {
 }
 img {
   width: 120px;
+  height: 189px;
   margin: 2.5px;
+ 
   border-style: solid;
   border-radius: 8px;
 }
