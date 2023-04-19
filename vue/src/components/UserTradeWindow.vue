@@ -3,13 +3,18 @@
       <h3>{{ this.username }} will give:</h3>
       <h4>Est. Value: </h4>
       <div id="cards-for-trade">
-          <h5>Charizard</h5>
+          <simplified-card-display
+          v-bind:availableCard="availableCard" 
+          v-bind:username="username" 
+          v-for="availableCard in CheckProposedCards"
+          v-bind:key="availableCard.card.id" />
       </div>
       
       <div id="collection">
           <simplified-card-display 
           v-bind:availableCard="availableCard" 
-          v-for="availableCard in availableCards"
+          v-bind:username="username" 
+          v-for="availableCard in CheckAvailableCards"
           v-bind:key="availableCard.card.id" />
       </div>
   </div>
@@ -25,26 +30,42 @@ export default {
     data() {
         return {
             availableCard: {},
-            availableCards: []
+            newUsername: ''
         }
     },
     methods: {
         GetAvailableCards() {
             this.$store.commit('SET_USER_INFO', this.$store.state.user.username);
         },
-        CheckUsername() {
-            if (this.username == this.$store.state.user.username) {
-                this.availableCards = this.$store.state.loginUserAvailableCards;
-            }
-            else {
-                this.availableCards = this.$store.state.otherUserAvailableCards;
-            }
-                
-        },
+        SetNewUsername() {
+            this.newUsername = this.username;
+        }
     },
     created() {
         this.GetAvailableCards();
-        this.CheckUsername();
+        this.SetNewUsername();
+    },
+    computed: {
+         CheckAvailableCards() {
+            let cards = []; 
+            if (this.username == this.$store.state.user.username) {
+                cards = this.$store.state.loginUserAvailableCards;
+            }
+            else {
+                cards = this.$store.state.otherUserAvailableCards;
+            }
+            return cards;
+        },
+        CheckProposedCards() {
+            let cards = []; 
+            if (this.username == this.$store.state.user.username) {
+                cards = this.$store.state.loginUserProposedCards;
+            }
+            else {
+                cards = this.$store.state.otherUserProposedCards;
+            }
+            return cards;
+        }
     }
 }
 </script>
