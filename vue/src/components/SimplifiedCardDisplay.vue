@@ -36,8 +36,9 @@ export default {
     },
     methods: {
         
-        MakeCardProposed(card) {
-            this.$store.commit('MAKE_CARD_PROPOSED', card, this.username);
+        MakeCardProposed(availableCard) {
+          let payload = { 'card':availableCard, 'user':this.username}
+            this.$store.commit('MAKE_CARD_PROPOSED', payload);
         }
     }
 }
