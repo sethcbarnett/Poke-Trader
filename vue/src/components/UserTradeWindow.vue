@@ -9,7 +9,8 @@
       <div id="collection">
           <simplified-card-display 
           v-bind:availableCard="availableCard" 
-          v-for="availableCard in availableCards"
+          v-bind:username="username" 
+          v-for="availableCard in CheckUsername"
           v-bind:key="availableCard.card.id" />
       </div>
   </div>
@@ -25,26 +26,32 @@ export default {
     data() {
         return {
             availableCard: {},
-            availableCards: []
+            newUsername: ''
         }
     },
     methods: {
         GetAvailableCards() {
             this.$store.commit('SET_USER_INFO', this.$store.state.user.username);
         },
-        CheckUsername() {
-            if (this.username == this.$store.state.user.username) {
-                this.availableCards = this.$store.state.loginUserAvailableCards;
-            }
-            else {
-                this.availableCards = this.$store.state.otherUserAvailableCards;
-            }
-                
-        },
+        SetNewUsername() {
+            this.newUsername = this.username;
+        }
     },
     created() {
         this.GetAvailableCards();
-        this.CheckUsername();
+        this.SetNewUsername();
+    },
+    computed: {
+         CheckUsername() {
+            let cards = []; 
+            if (this.username == this.$store.state.user.username) {
+                cards = this.$store.state.loginUserAvailableCards;
+            }
+            else {
+                cards = this.$store.state.otherUserAvailableCards;
+            }
+            return cards;
+        },
     }
 }
 </script>

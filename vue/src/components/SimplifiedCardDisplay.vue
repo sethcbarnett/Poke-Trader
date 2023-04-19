@@ -31,12 +31,13 @@ export default {
             quantity: 0,
             quantityForTrade: 0,
             grade: ""
-        }
+        },
+        username: String
     },
     methods: {
         
         MakeCardProposed(card) {
-            this.$store.commit('MAKE_CARD_PROPOSED', card);
+            this.$store.commit('MAKE_CARD_PROPOSED', card, this.username);
         }
     }
 }

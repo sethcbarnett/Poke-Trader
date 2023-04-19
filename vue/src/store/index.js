@@ -225,11 +225,19 @@ export default new Vuex.Store({
         state.tradesInProgress = response.data;
       });
     },
-    MAKE_CARD_PROPOSED(state, card) {
-      let placeholder = state.loginUserAvailableCards.filter((e) => {return e.card.name != card.card.name});
-      console.log(placeholder);
-      state.loginUserAvailableCards = placeholder;
-      state.loginUserProposedCards.push(card);
+    MAKE_CARD_PROPOSED(state, card, username) {
+      if (username == state.user.username){
+        let placeholder1 = state.loginUserAvailableCards.filter((e) => {return e.card.name != card.card.name});
+        console.log(placeholder1);
+        state.loginUserAvailableCards = placeholder1;
+        state.loginUserProposedCards.push(card);
+      }
+      else {
+        let placeholder = state.otherUserAvailableCards.filter((e) => {return e.card.name != card.card.name});
+        console.log(placeholder);
+        state.otherUserAvailableCards = placeholder;
+        state.otherUserProposedCards.push(card);
+      }
     }
   }
 })
