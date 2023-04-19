@@ -10,7 +10,7 @@
          Cards for trade:<p class="number-display"> {{ $store.state.numberCardsForTradeInCurrentCollection }}</p>
       </div>
       <div id="collection-stats">
-        Value of collection:<p class="number-display"> ${{ $store.state.currentCollectionValue }}</p>
+        Value of collection:<p class="number-display"> ${{ $store.state.currentCollectionValue.toFixed(2) }}</p>
       </div>
       <div id="collection-stats">
         Commons:<p class="number-display"> {{$store.state.numberCommonCards}}</p>
