@@ -9,6 +9,7 @@
           <simplified-card-display
           v-bind:availableCard="availableCard" 
           v-bind:username="username" 
+          :clickAction="MakeCardUnproposed"
           v-for="availableCard in CheckProposedCards"
           v-bind:key="availableCard.card.id" />
           </div>
@@ -19,6 +20,7 @@
           <simplified-card-display 
           v-bind:availableCard="availableCard" 
           v-bind:username="username" 
+          :clickAction="MakeCardProposed"
           v-for="availableCard in CheckAvailableCards"
           v-bind:key="availableCard.card.id" />
       </div>
@@ -37,6 +39,9 @@ export default {
         return {
             availableCard: {},
             newUsername: '',
+            MakeCardProposed: "MakeCardProposed",
+            MakeCardUnproposed: "MakeCardUnproposed",
+            DoNothing: "DoNothing"
         }
     },
     methods: {
