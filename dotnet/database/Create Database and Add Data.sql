@@ -146,51 +146,10 @@ INSERT INTO collection_card (collection_id, id, quantity, amount_to_trade) VALUE
 	), 7, 3
 );
 
-INSERT INTO trade (user_id_from, user_id_to) VALUES ((SELECT user_id FROM users WHERE username = 'user'), (SELECT user_id FROM users WHERE username = 'admin'))
+INSERT INTO trade (user_id_from, user_id_to) VALUES (1, 2);
 
-INSERT INTO trade_card_collection (trade_id, id, collection_id) VALUES (
---! Subquery for trade ID for trade involving 'user' and 'admin'
-(SELECT trade_id FROM trade WHERE user_id_from = (SELECT user_id FROM users WHERE username = 'user') 
-AND user_id_to = (SELECT user_id FROM users WHERE username = 'admin')),
---! Subquery for card from user's collection that is named 'Alakazam'
-(SELECT id FROM collection_card WHERE collection_id = 
-(SELECT collection_id FROM collection WHERE user_id = 
-(SELECT user_id from users WHERE username = 'user')) AND id = 
-(SELECT id FROM card where name = 'Alakazam-EX')),
---! Subquery for user's collection ID 
-(SELECT collection_id FROM collection WHERE user_id = 
-(SELECT user_id from users WHERE username = 'user')));
-
-INSERT INTO trade_card_collection (trade_id, id, collection_id) VALUES (
---! Subquery for trade ID for trade involving 'user' and 'admin'
-(SELECT trade_id FROM trade WHERE user_id_from = (SELECT user_id FROM users WHERE username = 'user') 
-AND user_id_to = (SELECT user_id FROM users WHERE username = 'admin')),
---! Subquery for card from user's collection that is named 'Alakazam'
-(SELECT id FROM collection_card WHERE collection_id = 
-(SELECT collection_id FROM collection WHERE user_id = 
-(SELECT user_id from users WHERE username = 'user')) AND id = 
-(SELECT id FROM card where name = 'Detective Pikachu')),
---! Subquery for user's collection ID 
-(SELECT collection_id FROM collection WHERE user_id = 
-(SELECT user_id from users WHERE username = 'user')));
-
-INSERT INTO trade_card_collection (trade_id, id, collection_id) VALUES (
---! Subquery for trade ID for trade involving 'user' and 'admin'
-(SELECT trade_id FROM trade WHERE user_id_from = (SELECT user_id FROM users WHERE username = 'user') 
-AND user_id_to = (SELECT user_id FROM users WHERE username = 'admin')),
---! Subquery for card from user's collection that is named 'Alakazam'
-(SELECT id FROM collection_card WHERE collection_id = 
-(SELECT collection_id FROM collection WHERE user_id = 
-(SELECT user_id from users WHERE username = 'admin')) AND id = 
-(SELECT id FROM card where name = 'Caterpie')),
---! Subquery for user's collection ID 
-(SELECT collection_id FROM collection WHERE user_id = 
-(SELECT user_id from users WHERE username = 'admin')));
-
-SELECT username FROM users
-WHERE (users.user_id IN (SELECT user_id_from FROM trade
-WHERE user_id_to = (SELECT user_id FROM users WHERE username = 'user')) OR
-users.user_id IN (SELECT user_id_to FROM trade
-WHERE user_id_from = (SELECT user_id FROM users WHERE username = 'user'))) 
+INSERT INTO trade_card_collection (trade_id, collection_id, id) VALUES (1, 1, 'xy10-117');
+INSERT INTO trade_card_collection (trade_id, collection_id, id) VALUES (1, 1, 'det1-10');
+INSERT INTO trade_card_collection (trade_id, collection_id, id) VALUES (1, 2, 'xy2-1');
 
 GO
