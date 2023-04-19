@@ -1,7 +1,8 @@
 <template>
   <div class="home">
-    <div>
-      <h1>Home</h1>
+    <div id="app-name">
+      <!-- <h1>Poke-Trader</h1> -->
+      <img id="title" src="../assets/PokeTrader.png" alt="Poke-Trader"/>
     </div>
     <div id="content-container">
       <div id="public-users">
@@ -100,6 +101,33 @@ p {
   display: flex;
   height: 500px;
   justify-content: space-around;
+}
+#title {
+  border-radius: 50px;
+}
+#app-name {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100px;
+  max-width: 600px;
+  max-height: 140px;
+  color: #3466af;
+  background-color: #ffcb05;
+  border-width: 20px;
+  border-style: solid;
+  border-color: #3466af;
+  font-size: 1.25em;
+  padding-bottom: 10px;
+  line-height: 0.55em;
+  justify-content: space-evenly;
+  text-align: center;
+  line-height: 25px;
+  position: relative;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  left: 30%;
 }
 #public-users {
   display: flex;
