@@ -1,19 +1,19 @@
 <template>
-  <div id="simplified-card-display">
-      <div id="top-text">
+  <!-- <div id="simplified-card-display"> -->
+      <!-- <div id="top-text">
           <h4>{{ availableCard.card.name }}</h4>
-      </div>
+      </div> -->
       <div id="card-image">
           <img v-bind:src="availableCard.card.img" 
           @click="MakeCardProposed(availableCard)" />
       </div>
-      <div id="bottom-text">
+      <!-- <div id="bottom-text">
           <h4>
             <span v-if="availableCard.card.price.length < 13">$</span
             >{{ Number(availableCard.card.price).toFixed(2) }}
             </h4>
-      </div>
-  </div>
+      </div> -->
+  <!-- </div> -->
 </template>
 
 <script>
@@ -45,7 +45,7 @@ export default {
 </script>
 
 <style scoped>
-#simplified-card-display {
+/* #simplified-card-display {
   background-color: rgb(207, 200, 177);
   border: 2px solid black;
   border-radius: 20px;
@@ -55,6 +55,12 @@ export default {
   margin: 5px;
   padding-bottom: 5px;
   padding-top: 5px;
+  max-height: 190px;
+  max-width: 90px;
+} */
+#simplified-card-display {
+  display: flex;
+
 }
 #top-text h4 {
   margin: 5px;
@@ -69,7 +75,10 @@ export default {
   text-align: center;
 }
 img {
-  width: 90px;
+  width: 120px;
+  margin: 2.5px;
+  border-style: solid;
+  border-radius: 8px;
 }
 h4 {
   font-size: 0.7em;

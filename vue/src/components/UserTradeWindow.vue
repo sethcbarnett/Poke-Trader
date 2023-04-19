@@ -3,14 +3,18 @@
       <h3>{{ this.username }} will give:</h3>
       <h4>Est. Value: </h4>
       <div id="cards-for-trade">
-          <h5>Charizard</h5>
+          <simplified-card-display
+          v-bind:availableCard="availableCard" 
+          v-bind:username="username" 
+          v-for="availableCard in CheckProposedCards"
+          v-bind:key="availableCard.card.id" />
       </div>
       
       <div id="collection">
           <simplified-card-display 
           v-bind:availableCard="availableCard" 
           v-bind:username="username" 
-          v-for="availableCard in CheckUsername"
+          v-for="availableCard in CheckAvailableCards"
           v-bind:key="availableCard.card.id" />
       </div>
   </div>
@@ -42,7 +46,7 @@ export default {
         this.SetNewUsername();
     },
     computed: {
-         CheckUsername() {
+         CheckAvailableCards() {
             let cards = []; 
             if (this.username == this.$store.state.user.username) {
                 cards = this.$store.state.loginUserAvailableCards;
@@ -52,6 +56,16 @@ export default {
             }
             return cards;
         },
+        CheckProposedCards() {
+            let cards = []; 
+            if (this.username == this.$store.state.user.username) {
+                cards = this.$store.state.loginUserProposedCards;
+            }
+            else {
+                cards = this.$store.state.otherUserProposedCards;
+            }
+            return cards;
+        }
     }
 }
 </script>
@@ -71,11 +85,18 @@ export default {
     flex-basis: 50%;
     border-style: solid;
     width: 90%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 #collection {
     flex-basis: 30%;
     border-style: solid;
     width: 90%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
 }
 h4 {
     margin: 0;
@@ -86,10 +107,5 @@ h4 {
 h3 {
     margin: 0;
     flex-basis: 5%;
-}
-#collection {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
 }
 </style>
