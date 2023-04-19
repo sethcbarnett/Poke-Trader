@@ -56,12 +56,12 @@ export default {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  border-radius: 50px;
+  border-radius: 10px;
   width: 330px;
-  height: 91vh;
+  height: 89vh;
   color: #3466af;
   background-color: #ffcb05;
-  border-width: 15px;
+  border-width: 5px;
   border-style: solid;
   border-color: #3466af;
   font-size: 1.25em;
@@ -69,6 +69,7 @@ export default {
   line-height: 0.55em;
   text-align: center;
   line-height: 25px;
+  margin: 5px;
 }
 #side-bar h2 {
     text-decoration: underline;
