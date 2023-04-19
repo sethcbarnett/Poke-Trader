@@ -106,6 +106,7 @@ p {
 }
 #title {
   border-radius: 50px;
+  padding: 20px;
 }
 #app-name {
   display: flex;

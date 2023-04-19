@@ -1,7 +1,7 @@
 <template>
   <div id="side-bar">
       <h2>Trades In Progress</h2>
-      <button class="trade" v-for="trade in $store.state.tradesInProgress" v-bind:key="trade.id">Open trade with {{ trade }}</button>
+      <button class="trade" v-for="trade in $store.state.tradesInProgress" v-bind:key="trade.id" @click="GetTrade(trade)">Open trade with {{ trade }}</button>
       <form v-on:submit.prevent="SubmitUserSearch">
         <input type="button" value="+ New Trade" v-on:click="NewTradeToggle" v-show="!$store.state.creatingNewTrade" />
         <div id="user-search-container" v-show="$store.state.creatingNewTrade">
@@ -42,6 +42,19 @@ export default {
         },
         SetTradesInProgress() {
             this.$store.commit('SET_TRADES_IN_PROGRESS');
+        },
+        GetTrade(user) {
+            UserService.getTrade(this.$store.state.user.username, user).then((response) => {
+                if(response.data.usernameFrom == this.$store.state.user.username) {
+                    this.$store.state.otherUserUsername = response.data.usernameTo;
+                    this.$store.state.loginUserProposedCards = response.data.collectionItemsFrom;
+                    this.$store.state.otherUserProposedCards = response.data.collectionItemsTo;
+                } else {
+                    this.$store.state.otherUserUsername = response.data.usernameFrom;
+                    this.$store.state.loginUserProposedCards = response.data.collectionItemsTo;
+                    this.$store.state.otherUserProposedCards = response.data.collectionItemsFrom;
+                }
+            });
         }
     },
     created() {
