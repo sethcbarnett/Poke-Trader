@@ -1,8 +1,10 @@
 <template>
   <div class="home">
+    <div id="app-name-container">
     <div id="app-name">
       <!-- <h1>Poke-Trader</h1> -->
       <img id="title" src="../assets/PokeTrader.png" alt="Poke-Trader"/>
+    </div>
     </div>
     <div id="content-container">
       <div id="public-users">
@@ -127,7 +129,11 @@ p {
   position: relative;
   margin-top: 10px;
   margin-bottom: 10px;
-  left: 30%;
+}
+#app-name-container {
+  display: flex;
+  width: 100vw;
+  justify-content: center;
 }
 #public-users {
   display: flex;
