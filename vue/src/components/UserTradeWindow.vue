@@ -3,11 +3,21 @@
     <h3>{{ this.username }} will give:</h3>
     <h4>Est. Value: ${{ AddAllCardValues }}</h4>
 
+<<<<<<< HEAD
     <div id="cards-for-trade">
       <div id="trades-scroll">
         <simplified-card-display
           v-bind:availableCard="availableCard"
           v-bind:username="username"
+=======
+      
+      <div id="cards-for-trade">
+          <div id="trades-scroll">
+          <simplified-card-display
+          v-bind:availableCard="availableCard" 
+          v-bind:username="username" 
+          :clickAction="MakeCardUnproposed"
+>>>>>>> 1ecfe1e6fd85ee6de07110d7a540f1c22e09127a
           v-for="availableCard in CheckProposedCards"
           v-bind:key="availableCard.card.id"
         />
@@ -16,9 +26,16 @@
 
     <div id="collection">
       <div id="collection-scroll">
+<<<<<<< HEAD
         <simplified-card-display
           v-bind:availableCard="availableCard"
           v-bind:username="username"
+=======
+          <simplified-card-display 
+          v-bind:availableCard="availableCard" 
+          v-bind:username="username" 
+          :clickAction="MakeCardProposed"
+>>>>>>> 1ecfe1e6fd85ee6de07110d7a540f1c22e09127a
           v-for="availableCard in CheckAvailableCards"
           v-bind:key="availableCard.card.id"
         />
@@ -31,6 +48,7 @@
 import SimplifiedCardDisplay from "./SimplifiedCardDisplay.vue";
 
 export default {
+<<<<<<< HEAD
   name: "user-trade-window",
   props: ["username"],
   components: { SimplifiedCardDisplay },
@@ -43,6 +61,19 @@ export default {
   methods: {
     GetAvailableCards() {
       this.$store.commit("SET_USER_INFO", this.$store.state.user.username);
+=======
+    name: 'user-trade-window',
+    props: ['username'],
+    components: { SimplifiedCardDisplay },
+    data() {
+        return {
+            availableCard: {},
+            newUsername: '',
+            MakeCardProposed: "MakeCardProposed",
+            MakeCardUnproposed: "MakeCardUnproposed",
+            DoNothing: "DoNothing"
+        }
+>>>>>>> 1ecfe1e6fd85ee6de07110d7a540f1c22e09127a
     },
     SetNewUsername() {
       this.newUsername = this.username;
@@ -108,6 +139,7 @@ export default {
   background-color: rgb(250, 218, 92);
 }
 #collection {
+<<<<<<< HEAD
   flex-basis: 30%;
   border-style: solid;
   width: 90%;
@@ -120,6 +152,16 @@ export default {
   flex-direction: row;
   justify-content: flex-start;
   background-color: rgb(250, 218, 92);
+=======
+    flex-basis: 30%;
+    border-style: solid;
+    width: 90%;
+    color: black;
+    border-width: 2px;
+    border-radius: 10px;
+    gap:2px;
+    max-width: 90%;
+>>>>>>> 1ecfe1e6fd85ee6de07110d7a540f1c22e09127a
 }
 h4 {
   margin: 0;
@@ -155,7 +197,8 @@ h3 {
   flex-direction: row;
   overflow-y: hidden;
   overflow-x: auto;
-  width: 100%;
+  
+  max-width: 36vw;
   flex-wrap: nowrap;
   
   padding-top:2.5px;

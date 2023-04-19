@@ -43,6 +43,7 @@ export default {
         SetTradesInProgress() {
             this.$store.commit('SET_TRADES_IN_PROGRESS');
         },
+        //TODO: fix this so it uses mutations
         GetTrade(user) {
             UserService.getTrade(this.$store.state.user.username, user).then((response) => {
                 if(response.data.usernameFrom == this.$store.state.user.username) {

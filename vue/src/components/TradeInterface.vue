@@ -5,18 +5,36 @@
           <user-trade-window :username="this.$store.state.user.username" />
           <user-trade-window :username="this.$store.state.otherUserUsername" />
       </div>
-      <input type="submit" value="Propose Trade!" />
+      <input type="submit" value="Propose Trade!" @click="PostTrade(tradeObject)"/>
   </div>
 </template>
 
 <script>
+import UserService from '../services/UserService'
 import UserTradeWindow from './UserTradeWindow.vue'
 export default {
   components: { UserTradeWindow },
     name: 'trade-interface',
     data() {
         return {
-            
+            tradeObject: {
+                usernameFrom: this.$store.state.user.username,
+                usernameTo: this.$store.state.otherUserUsername,
+                collectionItemsFrom: this.$store.state.loginUserProposedCards,
+                collectionItemsTo: this.$store.state.otherUserProposedCards
+            }
+        }
+    },
+    methods: {
+        PostTrade(tradeObject) {
+            UserService.postTrade(tradeObject).then((response) => {
+                if(response.status == 200) {
+                    alert(`Trade Requested with ${this.$store.state.otherUserUsername}`);
+                    this.$store.commit('SET_OTHER_USER_INFO', '');
+                } else {
+                    alert("something broked");
+                }
+            });
         }
     }
 }

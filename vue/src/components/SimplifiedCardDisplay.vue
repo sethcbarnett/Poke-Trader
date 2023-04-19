@@ -5,7 +5,7 @@
       </div> -->
       <div id="card-image">
           <img v-bind:src="availableCard.card.img" 
-          @click="MakeCardProposed(availableCard)" />
+          @click="triggerClickAction(availableCard)" />
       </div>
       <!-- <div id="bottom-text">
           <h4>
@@ -31,15 +31,35 @@ export default {
             quantity: 0,
             quantityForTrade: 0,
             grade: ""
-        },
+        }, 
+        clickAction: String,
         username: String
     },
     methods: {
-        
-        MakeCardProposed(availableCard) {
-          let payload = { 'card':availableCard, 'user':this.username}
-            this.$store.commit('MAKE_CARD_PROPOSED', payload);
+      triggerClickAction(availableCard){
+        if (this.clickAction == 'MakeCardProposed')
+        {
+          console.log("proposing");
+          this.MakeCardProposed(availableCard);
         }
+        else if (this.clickAction == 'MakeCardUnproposed')
+        {
+          console.log("UNproposing");
+          this.MakeCardUnproposed(availableCard);
+        }
+        else 
+        {
+          return;
+        }
+      },
+      MakeCardProposed(availableCard) {
+        let payload = { 'card':availableCard, 'user':this.username}
+          this.$store.commit('MAKE_CARD_PROPOSED', payload);
+      },
+      MakeCardUnproposed(availableCard){
+        let payload = { 'card':availableCard, 'user':this.username}
+          this.$store.commit('MAKE_CARD_UNPROPOSED', payload);
+      }
     }
 }
 </script>
