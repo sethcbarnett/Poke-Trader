@@ -5,18 +5,36 @@
           <user-trade-window :username="this.$store.state.user.username" />
           <user-trade-window :username="this.$store.state.otherUserUsername" />
       </div>
-      <input type="submit" value="Propose Trade!" />
+      <input type="submit" value="Propose Trade!" @click="PostTrade(tradeObject)"/>
   </div>
 </template>
 
 <script>
+import UserService from '../services/UserService'
 import UserTradeWindow from './UserTradeWindow.vue'
 export default {
   components: { UserTradeWindow },
     name: 'trade-interface',
     data() {
         return {
-            
+            tradeObject: {
+                usernameFrom: this.$store.state.user.username,
+                usernameTo: this.$store.state.otherUserUsername,
+                collectionItemsFrom: this.$store.state.loginUserProposedCards,
+                collectionItemsTo: this.$store.state.otherUserProposedCards
+            }
+        }
+    },
+    methods: {
+        PostTrade(tradeObject) {
+            UserService.postTrade(tradeObject).then((response) => {
+                if(response.status == 200) {
+                    alert(`Trade Requested with ${this.$store.state.otherUserUsername}`);
+                    this.$store.commit('SET_OTHER_USER_INFO', '');
+                } else {
+                    alert("something broked");
+                }
+            });
         }
     }
 }
@@ -28,7 +46,9 @@ export default {
     flex-basis: 80%;
     display: flex;
     flex-direction: column;
-    margin:5px;
+    margin-right: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
     color: #3466af;
     border-width: 5px;
     border-radius: 10px;
@@ -41,8 +61,7 @@ export default {
     align-items: center;
     height: 75vh;
     color: black;
-    
-    padding: 0px;
+    background-color:  #ffcb05
     
 }
 h2 {
