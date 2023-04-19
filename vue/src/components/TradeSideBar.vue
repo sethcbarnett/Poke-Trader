@@ -1,7 +1,7 @@
 <template>
   <div id="side-bar">
       <h2>Trades In Progress</h2>
-      <p class="trade" v-for="trade in $store.state.tradesInProgress" v-bind:key="trade.id">Trade with {{ trade }}</p>
+      <button class="trade" v-for="trade in $store.state.tradesInProgress" v-bind:key="trade.id">Open trade with {{ trade }}</button>
       <form v-on:submit.prevent="SubmitUserSearch">
         <input type="button" value="+ New Trade" v-on:click="NewTradeToggle" v-show="!$store.state.creatingNewTrade" />
         <div id="user-search-container" v-show="$store.state.creatingNewTrade">
@@ -52,14 +52,37 @@ export default {
 
 <style>
 #side-bar {
-    border-style: solid;
-    flex-basis: 20%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 91vh;
-    margin-right: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  border-radius: 10px;
+  width: 330px;
+  height: 89vh;
+  color: #3466af;
+  background-color: #ffcb05;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #3466af;
+  font-size: 1.25em;
+  padding-bottom: 10px;
+  line-height: 0.55em;
+  text-align: center;
+  line-height: 25px;
+  margin: 5px;
+}
+#side-bar h2 {
+    text-decoration: underline;
+}
+.searchedUser {
     margin-top: 5px;
-    margin-left: 5px;
+}
+.trade {
+    color: black;
+    background-color: #ffcb05;
+    width: 100%;
+}
+form {
+    margin-bottom: 20px;
 }
 </style>

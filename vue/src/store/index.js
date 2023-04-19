@@ -197,11 +197,17 @@ export default new Vuex.Store({
     SET_SEARCHED_USERS(state, users) {
       state.searchedUsers = users;
     },
+    SET_USER_INFO(state, username) {
+      CollectionService.getAvailableCardsByUser(username).then((response) => {
+        state.loginUserAvailableCards = response.data;
+    });
+    },
     SET_OTHER_USER_INFO(state, username) {
       state.otherUserUsername = username;
       state.searchedUsers = [];
-      state.otherUserProposedCards;
-      state.otherUserAvailableCards;
+      CollectionService.getAvailableCardsByUser(username).then((response) => {
+        state.otherUserAvailableCards = response.data;
+    });
     },
     SET_PUBLIC_USERS(state) {
       CollectionService.getPublicCollectionUsers().then((response) => {
@@ -218,6 +224,20 @@ export default new Vuex.Store({
       UserService.getTradesInProgress(state.user.username).then((response) => {
         state.tradesInProgress = response.data;
       });
+    },
+    MAKE_CARD_PROPOSED(state, payload) {
+      if (payload.user == state.user.username){
+        let placeholder1 = state.loginUserAvailableCards.filter((e) => {return e.card.name != payload.card.card.name});
+        console.log(placeholder1);
+        state.loginUserAvailableCards = placeholder1;
+        state.loginUserProposedCards.push(payload.card);
+      }
+      else {
+        let placeholder = state.otherUserAvailableCards.filter((e) => {return e.card.name != payload.card.card.name});
+        console.log(placeholder);
+        state.otherUserAvailableCards = placeholder;
+        state.otherUserProposedCards.push(payload.card);
+      }
     }
   }
 })

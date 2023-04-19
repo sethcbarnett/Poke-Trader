@@ -17,7 +17,7 @@
         <h4>Quantity Owned:</h4>
         <h4 v-show="!this.editingQuantity">{{ collectionItem.quantity }}</h4>
         <img
-          v-show="!this.editingQuantity"
+          v-show="!this.editingQuantity && $store.state.isLoginUser"
           class="pencil-img"
           @click="editQuantity"
           src="../assets/edit-pencil-icon.png"
@@ -36,7 +36,7 @@
           {{ collectionItem.quantityForTrade }}
         </h4>
         <img
-          v-show="!this.editingForTrade"
+          v-show="!this.editingForTrade  && $store.state.isLoginUser"
           class="pencil-img"
           @click="editQuantityForTrade"
           src="../assets/edit-pencil-icon.png"
@@ -55,7 +55,7 @@
           {{ collectionItem.grade }}
         </h4>
         <img
-          v-show="!this.editingGrade"
+          v-show="!this.editingGrade && $store.state.isLoginUser"
           class="pencil-img"
           @click="editGrade"
           src="../assets/edit-pencil-icon.png"
@@ -157,6 +157,9 @@ export default {
 #bottom-text h4 {
   margin: 5px;
   text-align: center;
+  width: 100%;
+
+  
 }
 a {
   text-decoration: none;
@@ -178,10 +181,14 @@ h4 {
 .quantity-wrapper {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
 }
 .quantity-wrapper h4 {
+  
   font-size: 0.65em;
 }
+
 .small-input-field {
   width: 25px;
 }

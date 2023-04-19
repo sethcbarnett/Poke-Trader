@@ -210,6 +210,8 @@ button {
   width: 255px;
   height: 80px;
   margin-left: 10px;
+  color: #3466af;
+  background-color: #ffcb05;
 }
 #rarity-filter > p {
   margin-bottom: 0px;
@@ -278,6 +280,8 @@ button {
   width: 255px;
   height: 80px;
   align-items: center;
+  color: #3466af;
+  background-color: #ffcb05;
 }
 #price-filter p {
   margin-top: 8px;
