@@ -46,6 +46,10 @@ export default {
     };
   },
   methods: {
+    GetAvailableCards() {
+      this.$store.commit("SET_USER_INFO", this.$store.state.user.username);
+    },
+
     SetNewUsername() {
       this.newUsername = this.username;
     },
@@ -116,8 +120,9 @@ export default {
   color: black;
   border-width: 2px;
   border-radius: 10px;
-  min-height: 227.5px;
+  min-height: 213px;
   gap: 2px;
+  max-width: 90%;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -135,7 +140,7 @@ h3 {
 }
 
 #collection-scroll::-webkit-scrollbar {
-  width: 30px;
+  width: 20px;
 }
 
 #collection-scroll::-webkit-scrollbar-track {
@@ -151,15 +156,15 @@ h3 {
 #collection-scroll {
   display: flex;
   justify-content: flex-start;
+  min-width: 30vw;
   align-self: flex-start;
   flex-direction: row;
   overflow-y: hidden;
   overflow-x: auto;
-
   max-width: 36vw;
   flex-wrap: nowrap;
+  
 
-  padding-top: 2.5px;
 }
 #trades-scroll::-webkit-scrollbar {
   width: 20px;
