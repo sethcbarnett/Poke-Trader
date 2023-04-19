@@ -28,8 +28,7 @@ export default {
     flex-basis: 80%;
     display: flex;
     flex-direction: column;
-    margin-right: 5px;
-    margin-top: 5px;
+    margin:5px;
     color: #3466af;
     border-width: 5px;
     border-radius: 10px;
