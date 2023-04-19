@@ -5,7 +5,7 @@
           <user-trade-window :username="this.$store.state.user.username" />
           <user-trade-window :username="this.$store.state.otherUserUsername" />
       </div>
-      <input type="submit" value="Propose Trade!" @click="PostTrade(tradeObject)"/>
+      <input type="submit" value="Propose Trade!" @click="PostTrade(MakeTradeObject)"/>
   </div>
 </template>
 
@@ -17,12 +17,6 @@ export default {
     name: 'trade-interface',
     data() {
         return {
-            tradeObject: {
-                usernameFrom: this.$store.state.user.username,
-                usernameTo: this.$store.state.otherUserUsername,
-                collectionItemsFrom: this.$store.state.loginUserProposedCards,
-                collectionItemsTo: this.$store.state.otherUserProposedCards
-            }
         }
     },
     methods: {
@@ -35,6 +29,16 @@ export default {
                     alert("something broked");
                 }
             });
+        }
+    },
+    computed: {
+        MakeTradeObject() {
+            let tradeObject = {};
+            tradeObject.usernameFrom = this.$store.state.user.username;
+            tradeObject.usernameTo = this.$store.state.otherUserUsername;
+            tradeObject.collectionItemsFrom = this.$store.state.loginUserProposedCards;
+            tradeObject.collectionItemsTo = this.$store.state.otherUserProposedCards;
+            return tradeObject;
         }
     }
 }
