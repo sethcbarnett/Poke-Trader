@@ -7,5 +7,9 @@ export default {
 
   getTradesInProgress(username) {
     return axios.get(`users/${username}/active_trades`);
+  },
+
+  getTrade(usernameFrom, usernameTo) {
+    return axios.get(`/trade/${usernameFrom}/${usernameTo}`);
   }
 }
