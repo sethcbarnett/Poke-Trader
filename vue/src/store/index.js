@@ -227,22 +227,12 @@ export default new Vuex.Store({
     },
     MAKE_CARD_PROPOSED(state, payload) {
       if (payload.user == state.user.username){
-<<<<<<< Updated upstream
-        let placeholder1 = state.loginUserAvailableCards.filter((e) => {return e.card.id != payload.card.card.id});
-        console.log(placeholder1);
-=======
         let placeholder1 = state.loginUserAvailableCards.filter((e) => {return e.card.name != payload.card.card.name});
->>>>>>> Stashed changes
         state.loginUserAvailableCards = placeholder1;
         state.loginUserProposedCards.push(payload.card);
       }
       else {
-<<<<<<< Updated upstream
-        let placeholder = state.otherUserAvailableCards.filter((e) => {return e.card.id != payload.card.card.id});
-        console.log(placeholder);
-=======
         let placeholder = state.otherUserAvailableCards.filter((e) => {return e.card.name != payload.card.card.name});
->>>>>>> Stashed changes
         state.otherUserAvailableCards = placeholder;
         state.otherUserProposedCards.push(payload.card);
       }

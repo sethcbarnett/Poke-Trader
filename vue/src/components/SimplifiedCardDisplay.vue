@@ -5,7 +5,7 @@
       </div> -->
       <div id="card-image">
           <img v-bind:src="availableCard.card.img" 
-          @click="MakeCardProposed(availableCard)" />
+          @click="triggerClickAction(availableCard)" />
       </div>
       <!-- <div id="bottom-text">
           <h4>
@@ -39,10 +39,12 @@ export default {
       triggerClickAction(availableCard){
         if (this.clickAction == 'MakeCardProposed')
         {
+          console.log("proposing");
           this.MakeCardProposed(availableCard);
         }
         else if (this.clickAction == 'MakeCardUnproposed')
         {
+          console.log("UNproposing");
           this.MakeCardUnproposed(availableCard);
         }
         else 
