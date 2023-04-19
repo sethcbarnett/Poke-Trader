@@ -227,24 +227,24 @@ export default new Vuex.Store({
     },
     MAKE_CARD_PROPOSED(state, payload) {
       if (payload.user == state.user.username){
-        let placeholder1 = state.loginUserAvailableCards.filter((e) => {return e.card.name != payload.card.card.name});
+        let placeholder1 = state.loginUserAvailableCards.filter((e) => {return e.card.id != payload.card.card.id});
         state.loginUserAvailableCards = placeholder1;
         state.loginUserProposedCards.push(payload.card);
       }
       else {
-        let placeholder = state.otherUserAvailableCards.filter((e) => {return e.card.name != payload.card.card.name});
+        let placeholder = state.otherUserAvailableCards.filter((e) => {return e.card.id != payload.card.card.id});
         state.otherUserAvailableCards = placeholder;
         state.otherUserProposedCards.push(payload.card);
       }
     },
     MAKE_CARD_UNPROPOSED(state, payload) {
       if (payload.user == state.user.username){
-        let placeholder1 = state.loginUserProposedCards.filter((e) => {return e.card.name != payload.card.card.name});
+        let placeholder1 = state.loginUserProposedCards.filter((e) => {return e.card.id != payload.card.card.id});
         state.loginUserProposedCards = placeholder1;
         state.loginUserAvailableCards.push(payload.card);
       }
       else {
-        let placeholder = state.otherUserProposedCards.filter((e) => {return e.card.name != payload.card.card.name});
+        let placeholder = state.otherUserProposedCards.filter((e) => {return e.card.id != payload.card.card.id});
         console.log(placeholder);
         state.otherUserProposedCards = placeholder;
         state.otherUserAvailableCards.push(payload.card);
