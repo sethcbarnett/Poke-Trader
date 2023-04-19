@@ -102,7 +102,7 @@ INSERT INTO collection_card (collection_id, id, quantity, amount_to_trade) VALUE
 	), 
 	(
 		SELECT id FROM card WHERE name = 'Alakazam-EX'
-	), 2, 1
+	), 1, 1
 );
 
 INSERT INTO collection_card (collection_id, id, quantity, amount_to_trade) VALUES 
@@ -115,7 +115,7 @@ INSERT INTO collection_card (collection_id, id, quantity, amount_to_trade) VALUE
 	), 
 	(
 		SELECT id FROM card WHERE name = 'Detective Pikachu'
-	), 1, 0
+	), 1, 1
 );
 
 INSERT INTO collection_card (collection_id, id, quantity, amount_to_trade) VALUES 
@@ -128,7 +128,7 @@ INSERT INTO collection_card (collection_id, id, quantity, amount_to_trade) VALUE
 	), 
 	(
 		SELECT id FROM card WHERE name = 'Detective Pikachu'
-	), 3, 1
+	), 1, 1
 );
 
 INSERT INTO collection_card (collection_id, id, quantity, amount_to_trade) VALUES 
@@ -141,7 +141,7 @@ INSERT INTO collection_card (collection_id, id, quantity, amount_to_trade) VALUE
 	), 
 	(
 		SELECT id FROM card WHERE name = 'Caterpie'
-	), 7, 3
+	), 1, 1
 );
 
 INSERT INTO trade (user_id_from, user_id_to) VALUES (1, 2);
@@ -155,7 +155,7 @@ INSERT INTO trade_card_collection (trade_id, collection_id, id) VALUES (1, 2, 'x
 
 --Pikachu Loverrr3000's collection of 100 Pikachu's
 INSERT INTO users (username, password_hash, salt, user_role, email, street_address, city, state_abbreviation, zip_code) VALUES ('PikachuLoverrr3000','Jg45HuwT7PZkfuKTz6IB90CtWY4=','LHxP4Xh7bN0=','user', 'abc123@hello.com', '123 muffin lane', 'Cleveland', 'RI', 12345);
-INSERT INTO collection (user_id, is_public) VALUES (5, 0);
+INSERT INTO collection (user_id, is_public) VALUES (3, 0);
 
 INSERT INTO card (name, id, img, price, low_price, high_price, rarity, tcg_url) VALUES ('Pikachu', 'basep-1', 'https://images.pokemontcg.io/basep/1.png', '8.12', '1.95', 'Price Not Found', 'Promo', 'https://prices.pokemontcg.io/tcgplayer/basep-1');
 INSERT INTO card (name, id, img, price, low_price, high_price, rarity, tcg_url) VALUES ('Pikachu', 'mcd19-6', 'https://images.pokemontcg.io/mcd19/6.png', '17.77', '9.72', '20', '', 'https://prices.pokemontcg.io/tcgplayer/mcd19-6');
@@ -362,7 +362,7 @@ INSERT INTO collection_card (collection_id, id, quantity, amount_to_trade) VALUE
 --Ash's collection
 
 INSERT INTO users (username, password_hash, salt, user_role, email, street_address, city, state_abbreviation, zip_code) VALUES ('aketchum','Jg45HuwT7PZkfuKTz6IB90CtWY4=','LHxP4Xh7bN0=','user', 'abc123@hello.com', '123 muffin lane', 'Cleveland', 'RI', 12345);
-INSERT INTO collection (user_id, is_public) VALUES (6, 1);
+INSERT INTO collection (user_id, is_public) VALUES (4, 1);
 
 INSERT INTO card (name, id, img, price, low_price, high_price, rarity, tcg_url) VALUES ('Pidgeot', 'si1-2', 'https://images.pokemontcg.io/si1/2.png', '12.29', '6.5', '39.99', '', 'https://prices.pokemontcg.io/tcgplayer/si1-2');
 INSERT INTO card (name, id, img, price, low_price, high_price, rarity, tcg_url) VALUES ('Bulbasaur', 'det1-1', 'https://images.pokemontcg.io/det1/1.png', '0.35', '0.1', '19.99', 'Common', 'https://prices.pokemontcg.io/tcgplayer/det1-1');
@@ -380,7 +380,7 @@ INSERT INTO collection_card (collection_id, id, quantity, amount_to_trade) VALUE
 
 --Team Rocket's Collection
 INSERT INTO users (username, password_hash, salt, user_role, email, street_address, city, state_abbreviation, zip_code) VALUES ('teamrocket','Jg45HuwT7PZkfuKTz6IB90CtWY4=','LHxP4Xh7bN0=','user', 'abc123@hello.com', '123 muffin lane', 'Cleveland', 'RI', 12345);
-INSERT INTO collection (user_id, is_public) VALUES (7, 1);
+INSERT INTO collection (user_id, is_public) VALUES (5, 1);
 
 INSERT INTO card (name, id, img, price, low_price, high_price, rarity, tcg_url) VALUES ('Meowth δ', 'pop5-11', 'https://images.pokemontcg.io/pop5/11.png', '3.49', '1.8', '4.97', 'Common', 'https://prices.pokemontcg.io/tcgplayer/pop5-11');
 INSERT INTO card (name, id, img, price, low_price, high_price, rarity, tcg_url) VALUES ('Wobbuffet', 'hgss1-13', 'https://images.pokemontcg.io/hgss1/13.png', '6.97', '3.77', '9.99', 'Rare Holo', 'https://prices.pokemontcg.io/tcgplayer/hgss1-13');
