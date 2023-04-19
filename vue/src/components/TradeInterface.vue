@@ -10,28 +10,45 @@
 </template>
 
 <script>
-import UserService from '../services/UserService'
-import UserTradeWindow from './UserTradeWindow.vue'
+import UserService from "../services/UserService";
+import UserTradeWindow from "./UserTradeWindow.vue";
 export default {
   components: { UserTradeWindow },
-    name: 'trade-interface',
-    data() {
-        return {
-        }
+  name: "trade-interface",
+  data() {
+    return {
+      tradeObject: {
+        usernameFrom: this.$store.state.user.username,
+        usernameTo: this.$store.state.otherUserUsername,
+        collectionItemsFrom: this.$store.state.loginUserProposedCards,
+        collectionItemsTo: this.$store.state.otherUserProposedCards,
+      },
+    };
+  },
+  methods: {
+    PostTrade(tradeObject) {
+      UserService.postTrade(tradeObject)
+        .then((response) => {
+          if (response.status === 200) {
+            alert(
+              `Trade Requested with ${this.$store.state.otherUserUsername}`
+            );
+            this.$store.commit("SET_OTHER_USER_INFO", "");
+            this.$store.commit('SET_TRADES_IN_PROGRESS');
+          }
+        })
+        .catch((error) => {
+          if (error.response.status === 400) {
+            alert(
+              `A proposed trade with ${this.$store.state.otherUserUsername} already exists. Please Accept it or Reject it.`
+            );
+          } else {
+            alert("something broked");
+          }
+        });
     },
-    methods: {
-        PostTrade(tradeObject) {
-            UserService.postTrade(tradeObject).then((response) => {
-                if(response.status == 200) {
-                    alert(`Trade Requested with ${this.$store.state.otherUserUsername}`);
-                    this.$store.commit('SET_OTHER_USER_INFO', '');
-                } else {
-                    alert("something broked");
-                }
-            });
-        }
-    },
-    computed: {
+  },
+  computed: {
         MakeTradeObject() {
             let tradeObject = {};
             tradeObject.usernameFrom = this.$store.state.user.username;
@@ -40,8 +57,8 @@ export default {
             tradeObject.collectionItemsTo = this.$store.state.otherUserProposedCards;
             return tradeObject;
         }
-    }
-}
+  }
+};
 </script>
 
 <style scoped>
@@ -69,13 +86,12 @@ export default {
     
 }
 h2 {
-    text-align: center;
-    color: black;
-
+  text-align: center;
+  color: black;
 }
 input {
-    max-width: 100px;
-    text-align: center;
-    align-self: center;
+  max-width: 100px;
+  text-align: center;
+  align-self: center;
 }
 </style>
