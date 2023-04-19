@@ -127,6 +127,7 @@ export default {
   flex-direction: row;
   justify-content: flex-start;
   background-color: rgb(250, 218, 92);
+  
 }
 h4 {
   margin: 0;
