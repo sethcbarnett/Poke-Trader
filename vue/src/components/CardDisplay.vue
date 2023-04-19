@@ -158,6 +158,8 @@ export default {
   margin: 5px;
   text-align: center;
   width: 100%;
+
+  
 }
 a {
   text-decoration: none;
@@ -179,11 +181,14 @@ h4 {
 .quantity-wrapper {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-between;
+  width: 100%;
 }
 .quantity-wrapper h4 {
+  
   font-size: 0.65em;
 }
+
 .small-input-field {
   width: 25px;
 }

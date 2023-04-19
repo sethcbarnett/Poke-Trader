@@ -30,15 +30,26 @@ export default {
     flex-direction: column;
     margin-right: 5px;
     margin-top: 5px;
+    color: #3466af;
+    border-width: 5px;
+    border-radius: 10px;
+    background-color: #ffcb05
+    
 }
 #trade-windows-container {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 75vh;
+    color: black;
+    
+    padding: 0px;
+    
 }
 h2 {
     text-align: center;
+    color: black;
+
 }
 input {
     max-width: 100px;

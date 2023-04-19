@@ -74,29 +74,34 @@ export default {
 #user-window {
     border-style: solid;
     margin: 5px;
+    padding-bottom: 2px;
     flex-basis: 50%;
     height: 95%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
+    color:black;
+    background-color: white;
 }
 #cards-for-trade {
     flex-basis: 50%;
     border-style: solid;
     width: 90%;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
+    color:black;
+    border-width: 2px;
+    border-radius: 10px;
+    padding-bottom: 2px;
+    margin-bottom: 2px;
 }
 #collection {
     flex-basis: 30%;
     border-style: solid;
     width: 90%;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
+    color: black;
+    border-width: 2px;
+    border-radius: 10px;
+    gap:2px;
 }
 h4 {
     margin: 0;
@@ -107,5 +112,15 @@ h4 {
 h3 {
     margin: 0;
     flex-basis: 5%;
+}
+#collection {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+#user-window{
+    
+    border-width: 3px;
+    border-radius: 10px;
 }
 </style>

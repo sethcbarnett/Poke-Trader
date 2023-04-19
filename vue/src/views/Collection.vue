@@ -3,8 +3,8 @@
     <div class="options">
       <collection-stats />
       <div id="privacy-container">
-        <p id="privacy-title">Collection Visibility</p>
-        <div class="switch-container">
+        <p id="privacy-title" v-if="$store.state.isLoginUser">Collection Visibility</p>
+        <div class="switch-container" v-if="$store.state.isLoginUser">
           <p>Private</p>
           <label class="switch">
             <input
