@@ -1,15 +1,11 @@
 <template>
   <div id="trade-interface">
-    <h2>Trade with {{ $store.state.otherUserUsername }}!</h2>
-    <div id="trade-windows-container">
-      <user-trade-window :username="this.$store.state.user.username" />
-      <user-trade-window :username="this.$store.state.otherUserUsername" />
-    </div>
-    <input
-      type="submit"
-      value="Propose Trade!"
-      @click="PostTrade(tradeObject)"
-    />
+      <h2>Trade with {{ $store.state.otherUserUsername }}!</h2>
+      <div id="trade-windows-container">
+          <user-trade-window :username="this.$store.state.user.username" />
+          <user-trade-window :username="this.$store.state.otherUserUsername" />
+      </div>
+      <input type="submit" value="Propose Trade!" @click="PostTrade(MakeTradeObject)"/>
   </div>
 </template>
 
@@ -52,29 +48,42 @@ export default {
         });
     },
   },
+  computed: {
+        MakeTradeObject() {
+            let tradeObject = {};
+            tradeObject.usernameFrom = this.$store.state.user.username;
+            tradeObject.usernameTo = this.$store.state.otherUserUsername;
+            tradeObject.collectionItemsFrom = this.$store.state.loginUserProposedCards;
+            tradeObject.collectionItemsTo = this.$store.state.otherUserProposedCards;
+            return tradeObject;
+        }
+  }
 };
 </script>
 
 <style scoped>
 #trade-interface {
-  border-style: solid;
-  flex-basis: 80%;
-  display: flex;
-  flex-direction: column;
-  margin: 5px;
-  color: #3466af;
-  border-width: 5px;
-  border-radius: 10px;
-  background-color: #ffcb05;
+    border-style: solid;
+    flex-basis: 80%;
+    display: flex;
+    flex-direction: column;
+    margin-right: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    color: #3466af;
+    border-width: 5px;
+    border-radius: 10px;
+    background-color: #ffcb05
+    
 }
 #trade-windows-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 75vh;
-  color: black;
-
-  padding: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 75vh;
+    color: black;
+    background-color:  #ffcb05
+    
 }
 h2 {
   text-align: center;

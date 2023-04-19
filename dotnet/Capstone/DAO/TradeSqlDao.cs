@@ -31,88 +31,102 @@ namespace Capstone.DAO
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
+                SqlTransaction transaction = conn.BeginTransaction();
+                try
+                {
+                    try
+                    {
+                        SqlCommand isTradeAlreadyActive = new SqlCommand("SELECT * FROM trade WHERE (user_id_from = (SELECT user_id FROM users WHERE username = @userOne) " +
+                                                                         "AND user_id_to = (SELECT user_id FROM users WHERE username = @userTwo)) OR " +
+                                                                         "(user_id_from = (SELECT user_id FROM users WHERE username = @userTwo) " +
+                                                                         "AND user_id_to = (SELECT user_id FROM users WHERE username = @userOne)) " +
+                                                                         "AND trade.status = 'pending'", conn);
+                        isTradeAlreadyActive.Parameters.AddWithValue("@userOne", trade.UsernameFrom);
+                        isTradeAlreadyActive.Parameters.AddWithValue("@userTwo", trade.UsernameTo);
+                        isTradeAlreadyActive.Transaction = transaction;
+                        SqlDataReader hasOpenTrade = isTradeAlreadyActive.ExecuteReader();
+                        if (hasOpenTrade.Read())
+                        {
+                            throw new Exception("Trade between these users is already active");
+                        }
+                        hasOpenTrade.Close();
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new Exception($"Error checking if trade is already active. Sql Exception: '{ex.Message}'");
+                    }
+
+
+                    //Add trade to trade table
+                    try
+                    {
+                        SqlCommand addToTradeTable = new SqlCommand("INSERT INTO trade (user_id_from, user_id_to) " +
+                                                                "OUTPUT INSERTED.trade_id " +
+                                                                "VALUES " +
+                                                                "((SELECT user_id FROM users WHERE username = @userOne), " +
+                                                                "(SELECT user_id FROM users WHERE username = @userTwo));", conn);
+                        addToTradeTable.Parameters.AddWithValue("@userOne", trade.UsernameFrom);
+                        addToTradeTable.Parameters.AddWithValue("@userTwo", trade.UsernameTo);
+                        addToTradeTable.Transaction = transaction;
+
+                        tradeId = Convert.ToInt32(addToTradeTable.ExecuteScalar());
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new Exception($"Error adding trade to trade table. Sql Exception: '{ex.Message}'");
+                    }
+
+                    //Add collection Items From to the trade_card_collection join table
+                    foreach (CollectionItem item in trade.CollectionItemsFrom)
+                    {
+                        try
+                        {
+                            SqlCommand addCollectionItemsFrom = new SqlCommand("INSERT INTO trade_card_collection (trade_id, id, collection_id) VALUES (@tradeId," +
+                                                                           "@id," +
+                                                                           "(SELECT collection_id FROM collection WHERE user_id = " +
+                                                                           "(SELECT user_id from users WHERE username = @username)));", conn);
+                            addCollectionItemsFrom.Parameters.AddWithValue("@tradeId", tradeId);
+                            addCollectionItemsFrom.Parameters.AddWithValue("@id", item.Card.Id);
+                            addCollectionItemsFrom.Parameters.AddWithValue("@username", trade.UsernameFrom);
+                            addCollectionItemsFrom.Transaction = transaction;
+
+                            addCollectionItemsFrom.ExecuteNonQuery();
+                        }
+                        catch (Exception ex)
+                        {
+                            throw new Exception($"Error adding collection to each side of the trade with card '{item.Card.Name}' owned by '{trade.UsernameFrom}'. Sql Exception: '{ex.Message}'");
+                        }
+                    }
+
+                    //Add collection Items To to the trade_card_collection join table
+                    foreach (CollectionItem item in trade.CollectionItemsTo)
+                    {
+                        try
+                        {
+                            SqlCommand addCollectionItemsFrom = new SqlCommand("INSERT INTO trade_card_collection (trade_id, id, collection_id) VALUES (@tradeId," +
+                                                                           "(SELECT id FROM card where name = @cardName)," +
+                                                                           "(SELECT collection_id FROM collection WHERE user_id = " +
+                                                                           "(SELECT user_id from users WHERE username = @username)));", conn);
+                            addCollectionItemsFrom.Parameters.AddWithValue("@tradeId", tradeId);
+                            addCollectionItemsFrom.Parameters.AddWithValue("@cardName", item.Card.Name);
+                            addCollectionItemsFrom.Parameters.AddWithValue("@username", trade.UsernameTo);
+                            addCollectionItemsFrom.Transaction = transaction;
+
+                            addCollectionItemsFrom.ExecuteNonQuery();
+                        }
+                        catch (Exception ex)
+                        {
+                            throw new Exception($"Error adding collection to each side of the trade with card '{item.Card.Name}' owned by '{trade.UsernameTo}'. Sql Exception: '{ex.Message}'");
+                        }
+                    }
+                    transaction.Commit();
+                }
+                catch
+                {
+                    transaction.Rollback();
+                }
                 //See if there is already a trade between the active users
-                try
-                {
-                    SqlCommand isTradeAlreadyActive = new SqlCommand("SELECT * FROM trade WHERE (user_id_from = (SELECT user_id FROM users WHERE username = @userOne) " +
-                                                                     "AND user_id_to = (SELECT user_id FROM users WHERE username = @userTwo)) OR " +
-                                                                     "(user_id_from = (SELECT user_id FROM users WHERE username = @userTwo) " +
-                                                                     "AND user_id_to = (SELECT user_id FROM users WHERE username = @userOne)) " +
-                                                                     "AND trade.status = 'pending'", conn);
-                    isTradeAlreadyActive.Parameters.AddWithValue("@userOne", trade.UsernameFrom);
-                    isTradeAlreadyActive.Parameters.AddWithValue("@userTwo", trade.UsernameTo);
-                    SqlDataReader hasOpenTrade = isTradeAlreadyActive.ExecuteReader();
-                    if (hasOpenTrade.Read())
-                    {
-                        throw new Exception("Trade between these users is already active");
-                    }
-                    hasOpenTrade.Close();
-                }
-                catch (Exception ex)
-                {
-                   throw new Exception ($"Error checking if trade is already active. Sql Exception: '{ex.Message}'");
-                }
-                    
-
-                //Add trade to trade table
-                try
-                {
-                    SqlCommand addToTradeTable = new SqlCommand("INSERT INTO trade (user_id_from, user_id_to) " +
-                                                            "OUTPUT INSERTED.trade_id " +
-                                                            "VALUES " +
-                                                            "((SELECT user_id FROM users WHERE username = @userOne), " +
-                                                            "(SELECT user_id FROM users WHERE username = @userTwo));", conn);
-                    addToTradeTable.Parameters.AddWithValue("@userOne", trade.UsernameFrom);
-                    addToTradeTable.Parameters.AddWithValue("@userTwo", trade.UsernameTo);
-
-                    tradeId = Convert.ToInt32(addToTradeTable.ExecuteScalar());
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception($"Error adding trade to trade table. Sql Exception: '{ex.Message}'");
-                }
-
-                //Add collection Items From to the trade_card_collection join table
-                foreach (CollectionItem item in trade.CollectionItemsFrom)
-                {
-                    try
-                    {
-                        SqlCommand addCollectionItemsFrom = new SqlCommand("INSERT INTO trade_card_collection (trade_id, id, collection_id) VALUES (@tradeId," +
-                                                                       "(SELECT id FROM card where name = @cardName)," +
-                                                                       "(SELECT collection_id FROM collection WHERE user_id = " +
-                                                                       "(SELECT user_id from users WHERE username = @username)));", conn);
-                        addCollectionItemsFrom.Parameters.AddWithValue("@tradeId", tradeId);
-                        addCollectionItemsFrom.Parameters.AddWithValue("@cardName", item.Card.Name);
-                        addCollectionItemsFrom.Parameters.AddWithValue("@username", trade.UsernameFrom);
-
-                        addCollectionItemsFrom.ExecuteNonQuery();
-                    }
-                    catch (Exception ex)
-                    {
-                        throw new Exception($"Error adding collection to each side of the trade with card '{item.Card.Name}' owned by '{trade.UsernameFrom}'. Sql Exception: '{ex.Message}'");
-                    }
-                }
-
-                //Add collection Items To to the trade_card_collection join table
-                foreach (CollectionItem item in trade.CollectionItemsTo)
-                {
-                    try
-                    {
-                        SqlCommand addCollectionItemsFrom = new SqlCommand("INSERT INTO trade_card_collection (trade_id, id, collection_id) VALUES (@tradeId," +
-                                                                       "(SELECT id FROM card where name = @cardName)," +
-                                                                       "(SELECT collection_id FROM collection WHERE user_id = " +
-                                                                       "(SELECT user_id from users WHERE username = @username)));", conn);
-                        addCollectionItemsFrom.Parameters.AddWithValue("@tradeId", tradeId);
-                        addCollectionItemsFrom.Parameters.AddWithValue("@cardName", item.Card.Name);
-                        addCollectionItemsFrom.Parameters.AddWithValue("@username", trade.UsernameTo);
-
-                        addCollectionItemsFrom.ExecuteNonQuery();
-                    }
-                    catch (Exception ex)
-                    {
-                        throw new Exception($"Error adding collection to each side of the trade with card '{item.Card.Name}' owned by '{trade.UsernameTo}'. Sql Exception: '{ex.Message}'");
-                    }
-                }
+                
             }
         }
 
