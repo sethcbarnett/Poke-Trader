@@ -3,11 +3,13 @@
     <h3>{{ this.username }} will give:</h3>
     <h4>Est. Value: ${{ AddAllCardValues }}</h4>
 
-    <div id="cards-for-trade">
-      <div id="trades-scroll">
-        <simplified-card-display
-          v-bind:availableCard="availableCard"
-          v-bind:username="username"
+      
+      <div id="cards-for-trade">
+          <div id="trades-scroll">
+          <simplified-card-display
+          v-bind:availableCard="availableCard" 
+          v-bind:username="username" 
+          :clickAction="MakeCardUnproposed"
           v-for="availableCard in CheckProposedCards"
           v-bind:key="availableCard.card.id"
         />
@@ -16,9 +18,10 @@
 
     <div id="collection">
       <div id="collection-scroll">
-        <simplified-card-display
-          v-bind:availableCard="availableCard"
-          v-bind:username="username"
+          <simplified-card-display 
+          v-bind:availableCard="availableCard" 
+          v-bind:username="username" 
+          :clickAction="MakeCardProposed"
           v-for="availableCard in CheckAvailableCards"
           v-bind:key="availableCard.card.id"
         />
@@ -31,18 +34,17 @@
 import SimplifiedCardDisplay from "./SimplifiedCardDisplay.vue";
 
 export default {
-  name: "user-trade-window",
-  props: ["username"],
-  components: { SimplifiedCardDisplay },
-  data() {
-    return {
-      availableCard: {},
-      newUsername: "",
-    };
-  },
-  methods: {
-    GetAvailableCards() {
-      this.$store.commit("SET_USER_INFO", this.$store.state.user.username);
+    name: 'user-trade-window',
+    props: ['username'],
+    components: { SimplifiedCardDisplay },
+    data() {
+        return {
+            availableCard: {},
+            newUsername: '',
+            MakeCardProposed: "MakeCardProposed",
+            MakeCardUnproposed: "MakeCardUnproposed",
+            DoNothing: "DoNothing"
+        }
     },
     SetNewUsername() {
       this.newUsername = this.username;
@@ -155,7 +157,8 @@ h3 {
   flex-direction: row;
   overflow-y: hidden;
   overflow-x: auto;
-  width: 100%;
+  
+  max-width: 36vw;
   flex-wrap: nowrap;
   
   padding-top:2.5px;

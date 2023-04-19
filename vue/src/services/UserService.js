@@ -11,5 +11,9 @@ export default {
 
   getTrade(usernameFrom, usernameTo) {
     return axios.get(`/trade/${usernameFrom}/${usernameTo}`);
+  },
+
+  postTrade(tradeObject) {
+    return axios.post('trade', tradeObject);
   }
 }
