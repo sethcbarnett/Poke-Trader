@@ -165,6 +165,7 @@ h3 {
 #collection-scroll::-webkit-scrollbar-track {
   background: #ffcb05;
   border-radius: 20px;
+  
 }
 
 #collection-scroll::-webkit-scrollbar-thumb {
@@ -176,7 +177,7 @@ h3 {
   display: flex;
   justify-content: flex-start;
   min-width: 35.2vw;
-  align-self: flex-start;
+  align-self: flex-end;
   flex-direction: row;
   overflow-y: hidden;
   overflow-x: scroll;
