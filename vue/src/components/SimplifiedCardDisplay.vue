@@ -1,13 +1,15 @@
 <template>
   <!-- <div id="simplified-card-display"> -->
-      <!-- <div id="top-text">
+  <!-- <div id="top-text">
           <h4>{{ availableCard.card.name }}</h4>
       </div> -->
-      <div id="card-image">
-          <img v-bind:src="availableCard.card.img" 
-          @click="triggerClickAction(availableCard)" />
-      </div>
-      <!-- <div id="bottom-text">
+  <div id="card-image">
+    <img
+      v-bind:src="availableCard.card.img"
+      @click="triggerClickAction(availableCard)"
+    />
+  </div>
+  <!-- <div id="bottom-text">
           <h4>
             <span v-if="availableCard.card.price.length < 13">$</span
             >{{ Number(availableCard.card.price).toFixed(2) }}
@@ -18,50 +20,45 @@
 
 <script>
 export default {
-    name: 'simplified-card-display',
-    props: {
-        availableCard: {
-            card: {
-                id: "",
-                name: "",
-                img: "",
-                price: "",
-                tcgUrl: "",
-            },
-            quantity: 0,
-            quantityForTrade: 0,
-            grade: ""
-        }, 
-        clickAction: String,
-        username: String
+  name: "simplified-card-display",
+  props: {
+    availableCard: {
+      card: {
+        id: "",
+        name: "",
+        img: "",
+        price: "",
+        tcgUrl: "",
+      },
+      quantity: 0,
+      quantityForTrade: 0,
+      grade: "",
     },
-    methods: {
-      triggerClickAction(availableCard){
-        if (this.clickAction == 'MakeCardProposed')
-        {
-          console.log("proposing");
-          this.MakeCardProposed(availableCard);
-        }
-        else if (this.clickAction == 'MakeCardUnproposed')
-        {
-          console.log("UNproposing");
-          this.MakeCardUnproposed(availableCard);
-        }
-        else 
-        {
-          return;
-        }
-      },
-      MakeCardProposed(availableCard) {
-        let payload = { 'card':availableCard, 'user':this.username}
-          this.$store.commit('MAKE_CARD_PROPOSED', payload);
-      },
-      MakeCardUnproposed(availableCard){
-        let payload = { 'card':availableCard, 'user':this.username}
-          this.$store.commit('MAKE_CARD_UNPROPOSED', payload);
+    clickAction: String,
+    username: String,
+  },
+  methods: {
+    triggerClickAction(availableCard) {
+      if (this.clickAction == "MakeCardProposed") {
+        console.log("proposing");
+        this.MakeCardProposed(availableCard);
+      } else if (this.clickAction == "MakeCardUnproposed") {
+        console.log("UNproposing");
+        this.MakeCardUnproposed(availableCard);
+      } else {
+        return;
       }
-    }
-}
+    },
+    MakeCardProposed(availableCard) {
+      let payload = { card: availableCard, user: this.username };
+      this.$store.commit("MAKE_CARD_PROPOSED", payload);
+    },
+    MakeCardUnproposed(availableCard) {
+      let payload = { card: availableCard, user: this.username };
+      this.$store.commit("MAKE_CARD_UNPROPOSED", payload);
+    },
+  },
+};
 </script>
 
 <style scoped>
@@ -80,7 +77,6 @@ export default {
 } */
 #simplified-card-display {
   display: flex;
-
 }
 #top-text h4 {
   margin: 5px;
@@ -89,6 +85,8 @@ export default {
 #card-image {
   display: block;
   align-self: center;
+  margin: 2.5px;
+  margin-top: 10px;
 }
 #bottom-text h4 {
   margin: 5px;
@@ -99,10 +97,14 @@ img {
   margin: 2.5px;
   border-style: solid;
   border-radius: 8px;
+
+}
+#card-image :hover { 
+transform: scale(1.3); 
+
 }
 h4 {
   font-size: 0.7em;
   font-weight: 700;
 }
-
 </style>
