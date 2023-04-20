@@ -52,7 +52,8 @@ export default new Vuex.Store({
     publicUsers: [],
     isAddingCard: false,
     isPendingTrade: false,
-    proposedUserTrades: []
+    proposedUserTrades: [],
+    tradesWithIds: []
   },
   mutations: {
     TOGGLE_ADDING_CARD_ON(state) {
@@ -290,9 +291,24 @@ export default new Vuex.Store({
     SET_IS_PENDING_TRADE(state, isPending){
       state.isPendingTrade = isPending
     },
-    SET_PROPOSED_TRADE_USER(state, tradeObject)
-    {
+    SET_PROPOSED_TRADE_USER(state, tradeObject){
       state.proposedUserTrades.push({usernameFrom: state.user.username, trade: tradeObject})
+    },
+    REMOVE_PROPOSED_TRADE_USER(state, tradeObject){
+      for (let proposedUserTrade of state.proposedUserTrades){
+        let tradeObj = proposedUserTrade.trade;
+        if ((tradeObj.usernameFrom == tradeObject.usernameFrom && tradeObj.usernameTo == tradeObject.usernameTo) || (tradeObj.usernameTo == tradeObject.usernameFrom && tradeObj.usernameFrom == tradeObject.usernameTo))
+        {
+          proposedUserTrade.usernameFrom = "";
+        }
+      }
+    },
+    RESET_PROPOSED_CARDS(state){
+      state.loginUserProposedCards = [];
+      state.otherUserProposedCards = [];
+    },
+    CLEAR_TRADE(state){
+      state.otherUserUsername = '';
     }
   }
 })

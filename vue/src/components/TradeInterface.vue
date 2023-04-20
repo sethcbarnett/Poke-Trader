@@ -7,8 +7,8 @@
       </div>
       <div id="button-container">
         <input v-if="!this.$store.state.isPendingTrade" type="submit" value="Propose Trade!" @click="PostTrade(MakeTradeObject)"/>
-        <input v-if="DisplayAcceptTrade" type="submit" value="Accept Trade!" @click="PostTrade(MakeTradeObject)"/>
-        <input v-if="DisplayAcceptTrade" type="submit" value="Reject Trade!" @click="PostTrade(MakeTradeObject)"/>
+        <input v-if="DisplayAcceptTrade" type="submit" value="Accept Trade!" @click="AcceptTrade()"/>
+        <input v-if="DisplayAcceptTrade" type="submit" value="Reject Trade!" @click="RejectTrade()"/>
       </div>
   </div>
 </template>
@@ -56,7 +56,7 @@ export default {
       let ProposedUserTrades = this.$store.state.proposedUserTrades;
       for (let item of ProposedUserTrades)
       {
-        if (item.trade.usernameFrom == this.tradeObject.usernameFrom && item.trade.usernameTo == this.tradeObject.usernameTo)
+        if (item.trade.usernameFrom == this.MakeTradeObject.usernameFrom && item.trade.usernameTo == this.MakeTradeObject.usernameTo)
         {
           if (item.usernameFrom == this.$store.state.user.username)
           {
@@ -69,6 +69,31 @@ export default {
         }
       }
       return true;
+    },
+    AcceptTrade() {
+      let user = this.$store.state.user.username;
+      let otherUser = this.$store.state.otherUserUsername;
+      UserService.acceptTrade(user, otherUser).then(() => {
+        this.$store.commit('REMOVE_PROPOSED_TRADE_USER', this.tradeObject);
+        this.$store.commit('SET_TRADES_IN_PROGRESS');
+        this.$store.commit('SET_CURRENT_COLLECTION_OBJECT');
+        alert("Trade Accepted!");
+      }).catch(() => {
+        alert("error: trade could not be accepted");
+      });
+    },
+    RejectTrade() {
+      let user = this.$store.state.user.username;
+      let otherUser = this.$store.state.otherUserUsername;
+      UserService.rejectTrade(user, otherUser).then(() => {
+        this.$store.commit('REMOVE_PROPOSED_TRADE_USER', this.tradeObject);
+        this.$store.commit('SET_OTHER_USER_INFO', "");
+        this.$store.commit('SET_TRADES_IN_PROGRESS');
+        this.$store.commit('SET_CURRENT_COLLECTION_OBJECT');
+        alert("Trade Rejected!");
+      }).catch(() => {
+        alert("error: trade could not be accepted");
+      });
     }
   },
   computed: {

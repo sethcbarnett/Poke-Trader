@@ -91,11 +91,13 @@ namespace Capstone.DAO
                                                     "WHERE " +
                                                         "(users.user_id IN " +
                                                         "(SELECT user_id_from FROM trade WHERE user_id_to = " +
-                                                        "(SELECT user_id FROM users WHERE username = @username)) " +
+                                                        "(SELECT user_id FROM users WHERE username = @username) " +
+                                                        "AND trade.status = 'pending') " +
                                                     "OR " +
                                                         "users.user_id IN " +
                                                         "(SELECT user_id_to FROM trade WHERE user_id_from = " +
-                                                        "(SELECT user_id FROM users WHERE username = @username)))", conn);
+                                                        "(SELECT user_id FROM users WHERE username = @username) " +
+                                                        "AND trade.status = 'pending'))", conn);
                     cmd.Parameters.AddWithValue("@username", username);
                     SqlDataReader reader = cmd.ExecuteReader();
 
