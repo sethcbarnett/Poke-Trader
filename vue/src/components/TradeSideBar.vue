@@ -10,7 +10,7 @@
         </div>
       </form>
       <div class="searchedUser" v-for="user in $store.state.searchedUsers" v-bind:key="user.id">
-          <button @click="SetOtherUserInfo(user)">{{ user }}</button>
+          <button id="tradeable-users" @click="SetOtherUserInfo(user)">{{ user }}</button>
       </div>
   </div>
 </template>
@@ -95,6 +95,11 @@ export default {
 }
 .searchedUser {
     margin-top: 5px;
+    width: 90%;
+}
+#tradeable-users {
+    width: 90%;
+    font-size: 1.1em;
 }
 .trade {
     color: black;
