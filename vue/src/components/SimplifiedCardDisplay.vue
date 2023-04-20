@@ -86,7 +86,7 @@ export default {
   display: block;
   align-self: center;
   margin: 2.5px;
-  margin-top: 10px;
+  margin-top: 2px;
 }
 #bottom-text h4 {
   margin: 5px;
@@ -97,11 +97,12 @@ img {
   margin: 2.5px;
   border-style: solid;
   border-radius: 8px;
-
 }
 #card-image :hover { 
-transform: scale(1.3); 
-
+transform: scale(1.4);
+margin-top: 34px;
+margin-left: 24px;
+margin-bottom: -29px;
 }
 h4 {
   font-size: 0.7em;

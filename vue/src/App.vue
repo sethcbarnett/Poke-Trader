@@ -36,7 +36,7 @@ export default {
     display: flex;
     flex-direction: column;
     font-family: 'Pokemon Solid', sans-serif;
-    letter-spacing: 1px;
+    letter-spacing: 3px;
   }
   #nav {
     display: flex;

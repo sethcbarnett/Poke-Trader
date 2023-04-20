@@ -1,7 +1,7 @@
 <template>
   <div id="user-window">
     <h3>{{ this.username }} will give:</h3>
-    <h4>Est. Value: ${{ AddAllCardValues }}</h4>
+    
 
     <div class="cards-for-trade" v-if="!this.$store.state.isPendingTrade">
       <div class="trades-scroll">
@@ -10,18 +10,6 @@
           v-bind:username="username"
           :clickAction="MakeCardUnproposed"
           v-for="availableCard in CheckProposedCards"
-          v-bind:key="availableCard.card.id"
-        />
-      </div>
-    </div>
-
-    <div id="collection" v-if="!this.$store.state.isPendingTrade">
-      <div id="collection-scroll">
-        <simplified-card-display
-          v-bind:availableCard="availableCard"
-          v-bind:username="username"
-          :clickAction="MakeCardProposed"
-          v-for="availableCard in CheckAvailableCards"
           v-bind:key="availableCard.card.id"
         />
       </div>
@@ -38,6 +26,22 @@
         />
       </div>
     </div>
+
+    <h3>Est. Value: ${{ AddAllCardValues }}</h3>
+
+    <div id="collection" v-if="!this.$store.state.isPendingTrade">
+      <div id="collection-scroll">
+        <simplified-card-display
+          v-bind:availableCard="availableCard"
+          v-bind:username="username"
+          :clickAction="MakeCardProposed"
+          v-for="availableCard in CheckAvailableCards"
+          v-bind:key="availableCard.card.id"
+        />
+      </div>
+    </div>
+
+    
   </div>
 </template>
 
@@ -124,6 +128,7 @@ export default {
   border-width: 2px;
   border-radius: 10px;
   background-color: rgb(250, 218, 92);
+  overflow: visible;
 }
 #collection {
   flex-basis: 30%;
@@ -143,9 +148,10 @@ export default {
 }
 h4 {
   margin: 0;
-  align-self: flex-start;
+  align-self: center;
   margin-left: 5px;
   flex-basis: 2%;
+  font-size: .7em;
 }
 h3 {
   margin: 0;
@@ -169,11 +175,11 @@ h3 {
 #collection-scroll {
   display: flex;
   justify-content: flex-start;
-  min-width: 30vw;
+  min-width: 35.2vw;
   align-self: flex-start;
   flex-direction: row;
   overflow-y: hidden;
-  overflow-x: auto;
+  overflow-x: scroll;
   max-width: 36vw;
   flex-wrap: nowrap;
   
@@ -195,10 +201,10 @@ h3 {
 }
 .trades-scroll {
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   align-content: flex-start;
   flex-direction: row;
-  overflow-y: auto;
+  overflow-y: scroll;
   overflow-x: hidden;
   width: 100%;
   height: 100%;

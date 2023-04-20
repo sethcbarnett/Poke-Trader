@@ -104,7 +104,6 @@ export default {
     border-width: 5px;
     border-radius: 10px;
     background-color: #ffcb05
-    
 }
 #trade-windows-container {
     display: flex;
