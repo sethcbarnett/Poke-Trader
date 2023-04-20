@@ -18,6 +18,7 @@ if(currentToken != null) {
 
 import CollectionService from '../services/CollectionService';
 import UserService from '../services/UserService'
+//import { filter } from 'core-js/core/array'
 
 export default new Vuex.Store({
   state: {
@@ -49,7 +50,9 @@ export default new Vuex.Store({
     loginUserAvailableCards: [],
     otherUserAvailableCards: [],
     publicUsers: [],
-    isAddingCard: false
+    isAddingCard: false,
+    isPendingTrade: false,
+    proposedUserTrades: []
   },
   mutations: {
     TOGGLE_ADDING_CARD_ON(state) {
@@ -199,14 +202,48 @@ export default new Vuex.Store({
     },
     SET_USER_INFO(state, username) {
       CollectionService.getAvailableCardsByUser(username).then((response) => {
-        state.loginUserAvailableCards = response.data;
+        let filteredCards = [];
+        let unfilteredCards = response.data;
+        for (let card of unfilteredCards)
+        {
+          let isIdMatch = false;
+          for (let proposedCard of state.loginUserProposedCards)
+          {
+            if (card.card.id == proposedCard.card.id)
+            {
+              isIdMatch = true;
+            }
+          }
+          if (!isIdMatch)
+          {
+            filteredCards.push(card);
+          }
+        }
+        state.loginUserAvailableCards = filteredCards;
     });
     },
     SET_OTHER_USER_INFO(state, username) {
       state.otherUserUsername = username;
       state.searchedUsers = [];
       CollectionService.getAvailableCardsByUser(username).then((response) => {
-        state.otherUserAvailableCards = response.data;
+        let filteredCards = [];
+        let unfilteredCards = response.data;
+        for (let card of unfilteredCards)
+        {
+          let isIdMatch = false;
+          for (let proposedCard of state.otherUserProposedCards)
+          {
+            if (card.card.id == proposedCard.card.id)
+            {
+              isIdMatch = true;
+            }
+          }
+          if (!isIdMatch)
+          {
+            filteredCards.push(card);
+          }
+        }
+        state.otherUserAvailableCards = filteredCards;
     });
     },
     SET_PUBLIC_USERS(state) {
@@ -222,7 +259,7 @@ export default new Vuex.Store({
     },
     SET_TRADES_IN_PROGRESS(state) {
       UserService.getTradesInProgress(state.user.username).then((response) => {
-        state.tradesInProgress = response.data;
+        state.tradesInProgress = response.data
       });
     },
     MAKE_CARD_PROPOSED(state, payload) {
@@ -249,6 +286,13 @@ export default new Vuex.Store({
         state.otherUserProposedCards = placeholder;
         state.otherUserAvailableCards.push(payload.card);
       }
+    },
+    SET_IS_PENDING_TRADE(state, isPending){
+      state.isPendingTrade = isPending
+    },
+    SET_PROPOSED_TRADE_USER(state, tradeObject)
+    {
+      state.proposedUserTrades.push({usernameFrom: state.user.username, trade: tradeObject})
     }
   }
 })

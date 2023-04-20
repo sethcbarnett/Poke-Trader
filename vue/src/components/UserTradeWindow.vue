@@ -3,8 +3,8 @@
     <h3>{{ this.username }} will give:</h3>
     <h4>Est. Value: ${{ AddAllCardValues }}</h4>
 
-    <div id="cards-for-trade">
-      <div id="trades-scroll">
+    <div class="cards-for-trade" v-if="!this.$store.state.isPendingTrade">
+      <div class="trades-scroll">
         <simplified-card-display
           v-bind:availableCard="availableCard"
           v-bind:username="username"
@@ -15,13 +15,25 @@
       </div>
     </div>
 
-    <div id="collection">
+    <div id="collection" v-if="!this.$store.state.isPendingTrade">
       <div id="collection-scroll">
         <simplified-card-display
           v-bind:availableCard="availableCard"
           v-bind:username="username"
           :clickAction="MakeCardProposed"
           v-for="availableCard in CheckAvailableCards"
+          v-bind:key="availableCard.card.id"
+        />
+      </div>
+    </div>
+
+    <div class="cards-for-trade" v-if="this.$store.state.isPendingTrade">
+      <div class = "trades-scroll">
+        <simplified-card-display
+          v-bind:availableCard="availableCard"
+          v-bind:username="username"
+          :clickAction="DoNothing"
+          v-for="availableCard in CheckProposedCards"
           v-bind:key="availableCard.card.id"
         />
       </div>
@@ -103,7 +115,7 @@ export default {
   background: rgba(52, 102, 175, 0.85);
   max-width: 50%;
 }
-#cards-for-trade {
+.cards-for-trade {
   flex-basis: 50%;
   border-style: solid;
   width: 90%;
@@ -167,21 +179,21 @@ h3 {
   
 
 }
-#trades-scroll::-webkit-scrollbar {
+.trades-scroll::-webkit-scrollbar {
   width: 20px;
 }
 
-#trades-scroll::-webkit-scrollbar-track {
+.trades-scroll::-webkit-scrollbar-track {
   background: #ffcb05;
   border-radius: 20px;
 }
 
-#trades-scroll::-webkit-scrollbar-thumb {
+.trades-scroll::-webkit-scrollbar-thumb {
   background-color: #3466af;
   border-radius: 20px;
   border: 3px solid orange;
 }
-#trades-scroll {
+.trades-scroll {
   display: flex;
   justify-content: flex-start;
   align-content: flex-start;
