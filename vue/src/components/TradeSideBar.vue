@@ -3,7 +3,8 @@
       <h2>Trades In Progress</h2>
       <button class="trade" v-for="trade in $store.state.tradesInProgress" v-bind:key="trade.id" @click="GetTrade(trade)">Open trade with {{ trade }}</button>
       <form v-on:submit.prevent="SubmitUserSearch">
-        <input type="button" value="+ New Trade" v-on:click="NewTradeToggle" v-show="!$store.state.creatingNewTrade" />
+        <h2>Start a New Trade</h2>
+        <input type="button" value="Search Users" v-on:click="NewTradeToggle" v-show="!$store.state.creatingNewTrade" />
         <div id="user-search-container" v-show="$store.state.creatingNewTrade">
             <input type="text" placeholder="Search for user..." v-model="searchString" />
             <input type="submit" value="Search" />
