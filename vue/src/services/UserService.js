@@ -15,5 +15,13 @@ export default {
 
   postTrade(tradeObject) {
     return axios.post('trade', tradeObject);
+  },
+
+  acceptTrade(user, otherUser) {
+    return axios.put(`trade/${user}/${otherUser}/accepted`);
+  },
+
+  rejectTrade(user, otherUser) {
+    return axios.put(`trade/${user}/${otherUser}/rejected`);
   }
 }

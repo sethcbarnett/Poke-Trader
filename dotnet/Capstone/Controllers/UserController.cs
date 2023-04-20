@@ -52,10 +52,6 @@ namespace Capstone.Controllers
         public IActionResult GetUsernamesOfMyActiveTrades(string username)
         {
             List<string> usernames = userDao.GetUsernamesOfMyActiveTrades(username);
-            if (usernames.Count == 0)
-            {
-                return NotFound();
-            }
             return Ok(usernames);
         }
     }

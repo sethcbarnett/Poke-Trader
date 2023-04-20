@@ -10,7 +10,7 @@
         </div>
       </form>
       <div class="searchedUser" v-for="user in $store.state.searchedUsers" v-bind:key="user.id">
-          <button @click="SetOtherUserInfo(user)">{{ user }}</button>
+          <button @click="SetPendingTradeInfo(user)">{{ user }}</button>
       </div>
   </div>
 </template>
@@ -42,12 +42,17 @@ export default {
             this.$store.commit('SET_USER_INFO', this.$store.state.user.username);
             this.$store.commit('SET_IS_PENDING_TRADE', false);
         },
+        SetPendingTradeInfo(username){
+            this.$store.commit('RESET_PROPOSED_CARDS');
+            this.SetOtherUserInfo(username);
+        },
         SetTradesInProgress() {
             this.$store.commit('SET_TRADES_IN_PROGRESS');
         },
         //TODO: fix this so it uses mutations
         GetTrade(user) {
             UserService.getTrade(this.$store.state.user.username, user).then((response) => {
+                console.log("hello");
                 if(response.data.usernameFrom == this.$store.state.user.username) {
                     this.$store.state.otherUserUsername = response.data.usernameTo;
                     this.$store.state.loginUserProposedCards = response.data.collectionItemsFrom;
