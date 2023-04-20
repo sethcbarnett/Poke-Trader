@@ -39,6 +39,8 @@ export default {
         },
         SetOtherUserInfo(username) {
             this.$store.commit('SET_OTHER_USER_INFO', username);
+            this.$store.commit('SET_USER_INFO', this.$store.state.user.username);
+            this.$store.commit('SET_IS_PENDING_TRADE', false);
         },
         SetTradesInProgress() {
             this.$store.commit('SET_TRADES_IN_PROGRESS');
@@ -50,11 +52,14 @@ export default {
                     this.$store.state.otherUserUsername = response.data.usernameTo;
                     this.$store.state.loginUserProposedCards = response.data.collectionItemsFrom;
                     this.$store.state.otherUserProposedCards = response.data.collectionItemsTo;
+                    this.SetOtherUserInfo(response.data.usernameTo);
                 } else {
                     this.$store.state.otherUserUsername = response.data.usernameFrom;
                     this.$store.state.loginUserProposedCards = response.data.collectionItemsTo;
                     this.$store.state.otherUserProposedCards = response.data.collectionItemsFrom;
+                    this.SetOtherUserInfo(response.data.usernameFrom);
                 }
+                this.$store.commit('SET_IS_PENDING_TRADE', true);
             });
         }
     },

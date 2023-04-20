@@ -89,12 +89,6 @@ export default {
 #card-image {
   display: block;
   align-self: center;
-  
-   margin: 2.5px;
-  margin-bottom: 0px;
-  
- 
-  
 }
 #bottom-text h4 {
   margin: 5px;
@@ -102,7 +96,6 @@ export default {
 }
 img {
   width: 120px;
-  height: 167.5px;
   margin: 2.5px;
   border-style: solid;
   border-radius: 8px;
