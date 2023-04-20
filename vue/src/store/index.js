@@ -252,7 +252,7 @@ export default new Vuex.Store({
         state.publicUsers = response.data;
         state.searchedUsers = [];
         state.publicUsers.forEach((user) => {
-          if(user.username !== state.user.username) {
+          if(user.username !== state.user.username && !state.tradesInProgress.includes(user.username)) {
             state.searchedUsers.push(user.username);
           }
         });
