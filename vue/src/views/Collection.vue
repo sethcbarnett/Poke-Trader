@@ -28,7 +28,7 @@
     />
     <div id="card-display-area" v-show="this.isSearching">
       <a id="plus-card" href="#collection-and-search-options" rel="bookmark" v-if="$store.state.isLoginUser" v-on:click="setAddingCardToYes">
-        <img src="../assets/plus.png"/>
+        <img id="plus-sign" src="../assets/plus.png"/>
       </a>      
       <card-display
         v-bind:collectionItem="collectionItem"
@@ -325,7 +325,8 @@ collection-stats {
   margin: 5px;
   padding-bottom: 5px;
   padding-top: 5px;
-  width: 160px;
+  width: 198.75px;
   justify-content: center;
+  align-items: center;
 }
 </style>
