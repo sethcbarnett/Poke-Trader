@@ -5,9 +5,11 @@
           <user-trade-window :username="this.$store.state.user.username" />
           <user-trade-window :username="this.$store.state.otherUserUsername" />
       </div>
-      <input v-if="!this.$store.state.isPendingTrade" type="submit" value="Propose Trade!" @click="PostTrade(MakeTradeObject)"/>
-      <input v-if="DisplayAcceptTrade" type="submit" value="Accept Trade!" @click="PostTrade(MakeTradeObject)"/>
-      <input v-if="DisplayAcceptTrade" type="submit" value="Reject Trade!" @click="PostTrade(MakeTradeObject)"/>
+      <div id="button-container">
+        <input v-if="!this.$store.state.isPendingTrade" type="submit" value="Propose Trade!" @click="PostTrade(MakeTradeObject)"/>
+        <input v-if="DisplayAcceptTrade" type="submit" value="Accept Trade!" @click="PostTrade(MakeTradeObject)"/>
+        <input v-if="DisplayAcceptTrade" type="submit" value="Reject Trade!" @click="PostTrade(MakeTradeObject)"/>
+      </div>
   </div>
 </template>
 
@@ -103,7 +105,8 @@ export default {
     color: #3466af;
     border-width: 5px;
     border-radius: 10px;
-    background-color: #ffcb05
+    background-color: #ffcb05;
+    max-height: 89vh;
 }
 #trade-windows-container {
     display: flex;
@@ -122,5 +125,21 @@ input {
   max-width: 100px;
   text-align: center;
   align-self: center;
+  background-color: white;
+  color: #3466af;
+  border-color: #3466af;
+  border-radius: 5px;
+  height: 25px;
+  width: 100px;
+  cursor: pointer;
+  font-size: 11px;
+  margin: 5px;
+  margin-top: 2px;
+  font-weight: bold;
+}
+#button-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
 </style>
