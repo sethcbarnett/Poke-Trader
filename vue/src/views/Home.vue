@@ -192,7 +192,7 @@ p {
   border-radius: 5px;
   font-family: "Pokemon Solid", sans-serif;
   line-height: 80px;
-  letter-spacing: 1px;
+  letter-spacing: 3px;
   font-size: 1.2em;
   padding-top: 10px;
   padding-bottom: 10px;

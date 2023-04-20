@@ -32,7 +32,7 @@ button {
   display: inline-block;
   cursor: pointer;
   width: 100px;
-  height: 80px;
+  height: 90px;
   align-self: center;
 }
 </style>

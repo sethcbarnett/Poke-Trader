@@ -80,7 +80,7 @@ export default {
   font-size: 11px;
 }
 #pokeball-spinning{
-  height: 200px;
+  height: 300px;
   width: auto;
   border-radius: 15px;
 }

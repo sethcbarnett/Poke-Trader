@@ -126,12 +126,12 @@ export default {
     flex-direction: column;
     margin-right: 5px;
     margin-top: 5px;
-    margin-bottom: 5px;
     color: #3466af;
     border-width: 5px;
     border-radius: 10px;
     background-color: #ffcb05;
     max-height: 89vh;
+    height: 89vh;
 }
 #trade-windows-container {
     display: flex;

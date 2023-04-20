@@ -1,7 +1,7 @@
 <template>
   <div id="side-bar">
       <h2>Trades In Progress</h2>
-      <button class="trade" v-for="trade in $store.state.tradesInProgress" v-bind:key="trade.id" @click="GetTrade(trade)">Open trade with {{ trade }}</button>
+      <button class="trade" v-for="trade in $store.state.tradesInProgress" v-bind:key="trade.id" @click="GetTrade(trade)">{{ trade }}</button>
       <form v-on:submit.prevent="SubmitUserSearch">
         <input type="button" value="+ New Trade" v-on:click="NewTradeToggle" v-show="!$store.state.creatingNewTrade" />
         <div id="user-search-container" v-show="$store.state.creatingNewTrade">
@@ -90,7 +90,6 @@ export default {
   border-style: solid;
   border-color: #3466af;
   font-size: 1.25em;
-  padding-bottom: 10px;
   line-height: 0.55em;
   text-align: center;
   line-height: 25px;
@@ -98,6 +97,7 @@ export default {
 }
 #side-bar h2 {
     text-decoration: underline;
+    line-height: 2.1rem;
 }
 .searchedUser {
     margin-top: 5px;
@@ -106,11 +106,14 @@ export default {
 #tradeable-users {
     width: 90%;
     font-size: 1.1em;
+    letter-spacing: 3px;
 }
 .trade {
     color: black;
     background-color: #ffcb05;
     width: 100%;
+    font-size: 1.2em;
+    letter-spacing: 2px;
 }
 form {
     margin-bottom: 20px;

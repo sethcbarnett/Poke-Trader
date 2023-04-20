@@ -10,7 +10,7 @@
          Cards for trade:<p class="number-display"> {{ $store.state.numberCardsForTradeInCurrentCollection }}</p>
       </div>
       <div id="collection-stats">
-        Value of collection:<p class="number-display"> ${{ $store.state.currentCollectionValue.toFixed(2) }}</p>
+        Collection value:<p class="number-display"> ${{ $store.state.currentCollectionValue.toFixed(2) }}</p>
       </div>
       <div id="collection-stats">
         Commons:<p class="number-display"> {{$store.state.numberCommonCards}}</p>
@@ -38,14 +38,14 @@ export default {
   
   border-radius: 5px;
   font-family: "Pokemon Solid", sans-serif;
-  font-size: 10px;
+  font-size: 14px;
   text-align: center;
   text-justify: auto;
   letter-spacing: 1px;
-  padding-bottom: 5px;
+  padding-bottom: 10px;
   display: inline-block;
   margin-left: 10px;
-  width: 120px;
+  width: 150px;
   height: 80px;
   align-self: center;
 }
